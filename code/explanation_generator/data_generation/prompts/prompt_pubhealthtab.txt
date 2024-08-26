@@ -1,0 +1,91 @@
+Task: Transform Python code used for a table question answering task into an easily understandable explanation in natural language embedded with function calls. 
+Follow these requirements:
+1. The explanation should be the natural language combined with bracketed segments <<< >>> for code.
+2. The code segments in the brackets <<< >>> should indicate the line number of the code, with the format: ###<line number>.
+3. Multiple lines of codes are separated with ';;;' in the brackets <<< >>>.
+------
+Example:
+'''
+ID: 0a1427d4-71b5-470a-8bcd-1901e50980d1
+Caption: Diagnostic Approach to the Confused Elderly Patient - American Family Physician
+Table:
+|| Depression | Dementia ||
+|| Abrupt onset | Insidious onset ||
+|| Short duration | Long duration ||
+|| Previous psychiatric history (including undiagnosed depressive episodes) | No psychiatric history ||
+|| Complains of memory loss | Often unaware of memory loss ||
+|| I don't know answers | Near-miss answers ||
+|| Fluctuating cognitive loss | Stable cognitive loss (although loss is progressive over time) ||
+|| Equal memory loss for recent and remote events | Memory loss greatest for recent events ||
+|| Depressed mood (if present) occurs first | Memory loss occurs first ||
+
+Question: Is it true that Depression onset is insidious as where Dementia onset is more abrupt? 
+Answer: No
+'''
+Python Code:
+table_data = [["Depression", "Dementia"],["Abrupt onset", "Insidious onset"],["Short duration", "Long duration"],["Previous psychiatric history (including undiagnosed depressive episodes)", "No psychiatric history"],["Complains of memory loss", "Often unaware of memory loss"],["I don't know answers", "Near-miss answers"],["Fluctuating cognitive loss", "Stable cognitive loss (although loss is progressive over time)"],["Equal memory loss for recent and remote events", "Memory loss greatest for recent events"],["Depressed mood (if present) occurs first", "Memory loss occurs first"]]
+
+# Get the row by name
+def get_row_by_name(table, key):
+    for row in table:
+        if row[0].lower() == key.lower():
+            return row[1]
+    return None
+
+def solution(table_data):
+    depression_onset = get_row_by_name(table_data, "Depression")  ###1
+    dementia_onset = get_row_by_name(table_data, "Dementia")  ###2
+    answer = depression_onset.lower() == "insidious onset" and dementia_onset.lower() == "abrupt onset"  ###3
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+
+First, we retrieve the onset characteristics for 'Depression' from the table <<<###1>>>.
+Then, we retrieve the onset characteristics for 'Dementia' from the table <<<###2>>>. 
+Next, we compare these extracted values to check if 'Depression' is associated with an 'insidious onset' and 'Dementia' with an 'abrupt onset' <<<###3>>>, verifying the accuracy of the statement.
+
+------
+'''
+ID:3c14a0ed-6ada-45bb-ac04-e0b2db977a02
+Caption: Traumatic Brain Injury - Google Books
+Table:
+|| Traumatic Brain Injuries in Athletes | 165 ||
+|| Assessment and Pharmacologic Interventions | 173 ||
+|| Assessment Treatment and Outcome | 187 ||
+|| Ballistics and Forensics | 201 ||
+|| Acute Care | 215 ||
+|| Pediatric Brain Injuries | 231 ||
+|| Acute Care | 257 ||
+|| Prognosis and Recovery | 283 ||
+
+Question: Is it true that Assessment and Pharmacologic Interventions account for the most cases?
+
+Answer: No
+'''
+Python Code:
+table_data = [["", ""],["Traumatic Brain Injuries in Athletes", "165"],["Assessment and Pharmacologic Interventions", "173"],["Assessment Treatment and Outcome", "187"],["Ballistics and Forensics", "201"],["Acute Care", "215"],["Pediatric Brain Injuries", "231"],["Acute Care", "257"],["Prognosis and Recovery", "283"]]
+
+# Get the row with the highest value
+def get_row_with_highest_value(table):
+    max_value = 0
+    max_row = None
+    for row in table:
+        if row[1].isdigit() and int(row[1]) > max_value:
+            max_value = int(row[1])
+            max_row = row
+    return max_row
+
+def solution(table_data):
+    highest_value_row = get_row_with_highest_value(table_data)  ###1
+    answer = highest_value_row[0].lower() == "assessment and pharmacologic interventions"  ###2
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we go through the table to find the row with the highest number of cases related to the different aspects of traumatic brain injury research <<<###1>>>. 
+Then, we verify whether 'Assessment and Pharmacologic Interventions' is the category with the highest number of cases <<<###2>>>, verifying the accuracy of the statement.
+------
+[[PYTHON_CODE]]

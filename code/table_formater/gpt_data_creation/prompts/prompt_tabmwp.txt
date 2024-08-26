@@ -1,0 +1,32 @@
+Task Description: Given the following table and question, format the table into a python array.
+------
+'''
+Caption: Train tickets sold
+Table:
+|| Day | Number of tickets ||
+|| Friday | 71 ||
+|| Saturday | 74 ||
+|| Sunday | 75 ||
+|| Monday | 72 ||
+
+Question: The transportation company tracked the number of train tickets sold in the past 4 days. On which day were the fewest train tickets sold?
+'''
+
+table_data = [['Day', 'Number of tickets'], ['Friday', 71], ['Saturday', 74], ['Sunday', 75], ['Monday', 72]]
+------
+'''
+Caption: Donor levels
+Table:
+|| Donation level | Number of donors ||
+|| Gold | 15 ||
+|| Silver | 68 ||
+|| Bronze | 58 ||
+
+Question: The Burlington Symphony categorizes its donors as gold, silver, or bronze depending on the amount donated. What fraction of donors are at the bronze level? Simplify your answer.
+'''
+
+table_data = [['Donation level', 'Number of donors'], ['Gold', 15], ['Silver', 68], ['Bronze', 58]]
+------
+'''
+[[LINEARIZED_TABLE]]
+'''

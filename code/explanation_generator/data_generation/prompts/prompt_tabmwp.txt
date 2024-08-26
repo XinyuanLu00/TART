@@ -1,0 +1,110 @@
+Task: Transform Python code used for a table question answering task into an easily understandable explanation in natural language embedded with function calls. 
+Follow these requirements:
+1. The explanation should be the natural language combined with bracketed segments <<< >>> for code.
+2. The code segments in the brackets <<< >>> should indicate the line number of the code, with the format: ###<line number>.
+3. Multiple lines of codes are separated with ';;;' in the brackets <<< >>>.
+------
+Example:
+'''
+ID: 4
+Caption: Train tickets sold
+Table:
+|| Day | Number of tickets ||
+|| Friday | 71 ||
+|| Saturday | 74 ||
+|| Sunday | 75 ||
+|| Monday | 72 ||
+
+Question: The transportation company tracked the number of train tickets sold in the past 4 days. On which day were the fewest train tickets sold?
+
+Answer: Friday
+'''
+Python Code:
+table_data = [['Day', 'Number of tickets'], ['Friday', 71], ['Saturday', 74], ['Sunday', 75], ['Monday', 72]]
+
+def solution(table_data):
+    column_name = 'Number of tickets' ###1
+    column_1 = get_column_by_name(table_data, column_name) ###2
+    min_index = find_min_index(column_1, with_header=True) ###3
+    column_2 = get_column_by_name(table_data, 'Day') ###4
+    answer = get_column_cell_value(min_index, column_2) ###5
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we should get the column that has the number of tickets <<<###1 ;;; ###2>>>.
+Then, we need to find which row has the minimum number of tickets sold <<<###3>>>.
+Then, we get the column of days <<<###4>>>.
+Finally, we find which day has the fewest tickets sold as <<<###5>>>.
+------
+'''
+ID: 5
+Caption: Donor levels
+Table:
+|| Donation level | Number of donors ||
+|| Gold | 15 ||
+|| Silver | 68 ||
+|| Bronze | 58 ||
+
+Question: The Burlington Symphony categorizes its donors as gold, silver, or bronze depending on the amount donated. What fraction of donors are at the bronze level? Simplify your answer.
+
+Answer: 58/141
+'''
+Python Code:
+table_data = [['Donation level', 'Number of donors'], ['Gold', 15], ['Silver', 68], ['Bronze', 58]]
+
+def solution(table_data):
+    column_name = 'Number of donors' ###1
+    column_1 = get_column_by_name(table_data, column_name) ###2
+    total = sum_column(column_1, with_header=True) ###3
+    index_1 = get_row_index_by_value(table_data, 'Bronze') ###4
+    bronze = get_column_cell_value(index_1, column_1) ###5
+    answer = divide(bronze, total) ###6
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we should get the column that has the number of donors <<<###1 ;;; ###2>>>.
+Then, we sum up all the values in this column to find the total number of donors <<<###3>>>.
+Next, we find the row index for the 'Bronze' donation level <<<###4>>>.
+We then get the number of donors at the 'Bronze' level <<<###5>>>.
+Finally, we calculate the fraction of donors at the 'Bronze' level compared to the total number of donors <<<###6>>>.
+------
+'''
+ID: 68
+Caption: None
+Table:
+|| box of colored pencils | $0.95 ||
+|| dry erase marker | $0.91 ||
+|| notebook | $0.92 ||
+|| pencil sharpener | $0.78 ||
+|| purple pen | $0.31 ||
+
+Question: How much money does Tommy need to buy a purple pen and a box of colored pencils?
+
+Answer: 1.26
+'''
+Python Code:
+table_data = [['box of colored pencils', '$0.95'], ['dry erase marker', '$0.91'], ['notebook', '$0.92'], ['pencil sharpener', '$0.78'], ['purple pen', '$0.31']]
+
+def solution(table_data):
+    column_index = 1 ###1
+    column_1 = get_column_by_index(table_data, column_index) ###2
+    index_1 = get_row_index_by_value(table_data, 'purple pen') ###3
+    index_2 = get_row_index_by_value(table_data, 'box of colored pencils') ###4
+    price_1 = extract_price(get_column_cell_value(index_1, column_1)) ###5
+    price_2 = extract_price(get_column_cell_value(index_2, column_1)) ###6
+    answer = add(price_1, price_2) ###7
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we should focus on identifying the prices of items from the table by collecting all the values from the second column, which contains the price information <<<###1 ;;; ###2>>>.
+Next, we need to find the specific items Tommy wants to buy: a purple pen and a box of colored pencils. We do this by searching for the row that matches each item's name <<<###3 ;;; ###4>>>.
+Then, we extract the price information for each, removing the dollar sign to convert them into a numeric format suitable for calculation <<<###5 ;;; ###6>>>.
+Finally, with the prices of both items now in numeric format, we add them together to find the total amount of money Tommy needs <<<###7>>>.
+------
+[[PYTHON_CODE]]

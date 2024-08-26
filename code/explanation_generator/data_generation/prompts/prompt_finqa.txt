@@ -1,0 +1,95 @@
+Task: Transform Python code used for a table question answering task into an easily understandable explanation in natural language embedded with function calls. 
+Follow these requirements:
+1. The explanation should be the natural language combined with bracketed segments <<< >>> for code.
+2. The code segments in the brackets <<< >>> should indicate the line number of the code, with the format: ###<line number>.
+3. Multiple lines of codes are separated with ';;;' in the brackets <<< >>>.
+------
+Example:
+'''
+ID: AAL-2014-page-59-pdf-2
+Caption: None
+Table:
+||  | 12/9/2013 | 12/31/2013 | 12/31/2014 ||
+|| american airlines group inc . | $ 100 | $ 103 | $ 219 ||
+|| amex airline index | 100 | 102 | 152 ||
+|| s&p 500 | 100 | 102 | 114 ||
+
+Question: what was the growth rate on the amex airline index from 12/31/2013 to 12/31/2014
+
+Answer: 0.4902
+'''
+Python Code:
+table_data = [["", "12/9/2013", "12/31/2013", "12/31/2014"],["american airlines group inc .", "$ 100", "$ 103", "$ 219"],["amex airline index", "100", "102", "152"],["s&p 500", "100", "102", "114"]]
+
+# get the column by name
+def get_column_by_name(table, column_name):
+    column_index = table[0].index(column_name)
+    column = []
+    for row in table:
+        column.append(row[column_index])
+    return column
+
+# extract the price from a string
+def extract_price(price_string):
+    return float(price_string.replace('$', '').replace(',', '')) 
+
+# calculate the change rate
+def calculate_change_rate(start_value, end_value):
+    return ((end_value - start_value) / start_value)
+
+def solution(table_data):
+    amex_airline_index_column_2013 = get_column_by_name(table_data, "12/31/2013")  ###1
+    amex_airline_index_2013 = extract_price(amex_airline_index_column_2013[2])    ###2
+    amex_airline_index_column_2014 = get_column_by_name(table_data, "12/31/2014")  ###3
+    amex_airline_index_2014 = extract_price(amex_airline_index_column_2014[2])    ###4
+    answer = calculate_change_rate(amex_airline_index_2013, amex_airline_index_2014)  ###5
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we should get the column for the 'AMEX Airline Index' from December 31, 2013, and extract the price <<<###1 ;;; ###2>>>. 
+Then, we should get the column for the 'AMEX Airline Index' from December 31, 2014, and extract the price <<<###3 ;;; ###4>>>. 
+Finally, we calculate the growth rate by comparing the values from the end of 2013 and 2014 <<<###5>>>.
+------
+'''
+ID: AAL-2014-page-89-pdf-2
+Caption: None
+Table:
+||  | 2013 ||
+|| labor-related deemed claim ( 1 ) | $ 1733 ||
+|| aircraft and facility financing renegotiations and rejections ( 2 ) ( 3 ) | 320 ||
+|| fair value of conversion discount ( 4 ) | 218 ||
+|| professional fees | 199 ||
+|| other | 170 ||
+|| total reorganization items net | $ 2640 ||
+
+Question: in 2013 what was the percent of the professional fees as part of the total re-organization costs?
+
+Answer: 0.07538
+'''
+Python Code:
+table_data = [["", "2013"],["labor-related deemed claim ( 1 )", "$ 1733"],["aircraft and facility financing renegotiations and rejections ( 2 ) ( 3 )", "320"],["fair value of conversion discount ( 4 )", "218"],["professional fees", "199"],["other", "170"],["total reorganization items net", "$ 2640"]]
+
+# extract the price from a string
+def extract_price(price_string):
+    return float(price_string.replace('$', '').replace(',', '')) 
+
+# divide two numbers
+def divide(dividend, divisor):
+    return dividend / divisor
+
+def solution(table_data):
+    professional_fees = extract_price(table_data[4][1])  ###1
+    total_reorganization_items_net = extract_price(table_data[6][1])  ###2
+    answer = divide(professional_fees, total_reorganization_items_net)  ###3
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we should extract the numerical value of 'professional fees' from the table <<<###1>>>. 
+Next, we find the total reorganization costs by extracting the numerical value under 'total reorganization items net' <<<###2>>>. 
+Finally, we calculate the percentage that 'professional fees' represent of the total reorganization costs by dividing the 'professional fees' and the 'total reorganization items net' <<<###3>>>.
+------
+[[PYTHON_CODE]]

@@ -1,0 +1,114 @@
+Task: Transform Python code used for a table question answering task into an easily understandable explanation in natural language embedded with function calls. 
+Follow these requirements:
+1. The explanation should be the natural language combined with bracketed segments <<< >>> for code.
+2. The code segments in the brackets <<< >>> should indicate the line number of the code, with the format: ###<line number>.
+3. Multiple lines of codes are separated with ';;;' in the brackets <<< >>>.
+------
+Example:
+'''
+ID: 0af516d0-4015-4de2-9f2b-d2306efbce4f
+Caption: 2007 - 08 canadian network television schedule
+Table:
+|| 7:00 | 7:30 | 8:00 | 8:30 | 9:00 | 9:30 | 10:00 | 10:30 ||
+|| heartland | heartland | movies & specials | movies & specials | movies & specials | movies & specials | cbc news : sunday night | cbc news : sunday night ||
+|| law and order : criminal intent | law and order : criminal intent | cold case | cold case | desperate housewives | desperate housewives | dirty sexy money | dirty sexy money ||
+|| the simpsons | da kink in my hair | the simpsons | king of the hill | family guy | american dad! | brothers & sisters | brothers & sisters ||\n|| america 's funniest home videos | america 's funniest home videos | kyle xy | kyle xy | america 's next top model | america 's next top model | stargate sg - 1 | stargate sg - 1 ||
+|| everybody hates chris | speakers' corner | behind the movies | bravo!fact presents | great movies | great movies | great movies | great movies ||\n|| viva laughlin | viva laughlin | extreme makeover : home edition | extreme makeover : home edition | e! countdowns | e! countdowns | e! live encore | e! live encore ||\n|| découverte | et dieu créa laflaque | tout le monde en parle | tout le monde en parle | tout le monde en parle | tout le monde en parle | le téléjournal | le téléjournal ||
+|| le banquier / dieu merci! | le banquier / dieu merci! | occupation double | occupation double | occupation double | occupation double | le tva week - end | le tva week - end ||
+|| loft story | movies | movies | movies | movies | movies | movies | le journal weekend ||
+
+Question: Is it true that great movies is on at 9:00 when the show , behind the movies , is on at 8:00?
+
+Answer: Yes
+'''
+Python Code:
+table_data = [["7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30"],["heartland", "heartland", "movies & specials", "movies & specials", "movies & specials", "movies & specials", "cbc news : sunday night", "cbc news : sunday night"],["law and order : criminal intent", "law and order : criminal intent", "cold case", "cold case", "desperate housewives", "desperate housewives", "dirty sexy money", "dirty sexy money"],["the simpsons", "da kink in my hair", "the simpsons", "king of the hill", "family guy", "american dad!", "brothers & sisters", "brothers & sisters"],["america 's funniest home videos", "america 's funniest home videos", "kyle xy", "kyle xy", "america 's next top model", "america 's next top model", "stargate sg - 1", "stargate sg - 1"],["everybody hates chris", "speakers' corner", "behind the movies", "bravo!fact presents", "great movies", "great movies", "great movies", "great movies"],["viva laughlin", "viva laughlin", "extreme makeover : home edition", "extreme makeover : home edition", "e! countdowns", "e! countdowns", "e! live encore", "e! live encore"],["découverte", "et dieu créa laflaque", "tout le monde en parle", "tout le monde en parle", "tout le monde en parle", "tout le monde en parle", "le téléjournal", "le téléjournal"],["le banquier / dieu merci!", "le banquier / dieu merci!", "occupation double", "occupation double", "occupation double", "occupation double", "le tva week - end", "le tva week - end"],["loft story", "movies", "movies", "movies", "movies", "movies", "movies", "le journal weekend"]]
+
+# get the column by index
+def get_column_by_index(table, column_index):
+    column = []
+    for row in table:
+        if len(row) > column_index:
+            column.append(row[column_index])
+        else:
+            column.append(None)
+    return column
+
+# Check if one number equals to another number
+def equal_to(num1, num2):
+    return num1 == num2
+
+def solution(table_data):
+    column_8 = get_column_by_index(table_data, 2)  ###1
+    column_9 = get_column_by_index(table_data, 4)  ###2
+    answer = equal_to("behind the movies" in column_8, "great movies" in column_9)  ###3
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we get the column for the 8:00 showtime to check for the presence of the show 'behind the movies' <<<###1>>>. 
+Next, we get the column for the 9:00 showtime to see if 'great movies' is airing <<<###2>>>. 
+Finally, we check if the condition of 'behind the movies' being on at 8:00 and 'great movies' at 9:00 is true, verifying the accuracy of the statement <<<###3>>>.
+------
+'''
+ID: 0a28e8bc-7bb2-4a1e-bef9-4ab8b77e8a97
+Caption: list of superfund sites in alabama
+Table:
+|| cerclis id | name | county | proposed | listed | construction completed | partially deleted | deleted ||
+|| al6210020008 | alabama army ammunition plant | talladega | 10 / 15 / 1984 | 07 / 22 / 1987 | - | - | - ||
+|| ald004022448 | alabama plating company | shelby | 08 / 24 / 2000 | 09 / 18 / 2012 | - | - | - ||
+|| ald981868466 | american brass | henry | 01 / 19 / 1999 | 05 / 10 / 1999 | 09 / 01 / 2009 | - | - ||
+|| al3210020027 | anniston army depot (se industrial area) | calhoun | 10 / 15 / 1984 | 03 / 13 / 1989 | - | - | - ||
+|| al0001058056 | capitol city plume | montgomery | 05 / 11 / 2000 | - | - | - | - ||
+|| ald001221902 | ciba - geigy corp ( mcintosh plant) | washington | 09 / 08 / 1983 | 09 / 21 / 1984 | 07 / 19 / 2000 | - | - ||
+|| ald041906173 | interstate lead company (ilco) | jefferson | 09 / 18 / 1985 | 06 / 10 / 1986 | - | - | - ||
+|| ald031618069 | mowbray engineering | butler | 12 / 30 / 1982 | 09 / 08 / 1983 | 09 / 16 / 1991 | - | 12 / 30 / 1993 ||
+|| ald008188708 | olin corp ( mcintosh plant) | washington | 09 / 08 / 1983 | 09 / 21 / 1984 | - | - | - ||
+|| ald980728703 | perdido ground water contamination | baldwin | 12 / 30 / 1982 | 09 / 08 / 1983 | 07 / 30 / 1993 | - | - ||
+|| al7210020742 | redstone arsenal ( us army / nasa ) | madison | 06 / 23 / 1993 | 05 / 31 / 1994 | - | - | - ||
+|| ald980844385 | redwing carriers incorporated (saraland) | mobile | 06 / 24 / 1988 | 02 / 21 / 1990 | 09 / 03 / 2009 | - | - ||
+|| ald095688875 | stauffer chemical company (cold creek plant) | mobile | 09 / 08 / 1983 | 09 / 21 / 1984 | - | - | - ||
+|| ald008161176 | stauffer chemical company (lemoyne plant) | mobile | 09 / 08 / 1983 | 09 / 21 / 1984 | - | - | - ||
+|| ald007454085 | th agriculture & nutrition (montgomery) | montgomery | 06 / 24 / 1988 | 08 / 30 / 1990 | 09 / 27 / 2002 | - | - ||
+|| ald983166299 | triana / tennessee river | morgan , limestone , and madison | 12 / 30 / 1982 | 09 / 08 / 1983 | 12 / 18 / 1991 | - | - ||
+
+Question: Is it true that for stauffer chemical company (lemoyne plant) listing on 09 / 21 / 1984 no deleted date is mentioned?
+
+Answer: Yes
+'''
+Python Code:
+table_data = [["cerclis id","name","county","proposed","listed","construction completed","partially deleted","deleted"],["al6210020008","alabama army ammunition plant","talladega","10 / 15 / 1984","07 / 22 / 1987","-","-","-"],["ald004022448","alabama plating company","shelby","08 / 24 / 2000","09 / 18 / 2012","-","-","-"],["ald981868466","american brass","henry","01 / 19 / 1999","05 / 10 / 1999","09 / 01 / 2009","-","-"],["al3210020027","anniston army depot (se industrial area)","calhoun","10 / 15 / 1984","03 / 13 / 1989","-","-","-"],["al0001058056","capitol city plume","montgomery","05 / 11 / 2000","-","-","-","-"],["ald001221902","ciba - geigy corp ( mcintosh plant)","washington","09 / 08 / 1983","09 / 21 / 1984","07 / 19 / 2000","-","-"],["ald041906173","interstate lead company (ilco)","jefferson","09 / 18 / 1985","06 / 10 / 1986","-","-","-"],["ald031618069","mowbray engineering","butler","12 / 30 / 1982","09 / 08 / 1983","09 / 16 / 1991","-","12 / 30 / 1993"],["ald008188708","olin corp ( mcintosh plant)","washington","09 / 08 / 1983","09 / 21 / 1984","-","-","-"],["ald980728703","perdido ground water contamination","baldwin","12 / 30 / 1982","09 / 08 / 1983","07 / 30 / 1993","-","-"],["al7210020742","redstone arsenal ( us army / nasa )","madison","06 / 23 / 1993","05 / 31 / 1994","-","-","-"],["ald980844385","redwing carriers incorporated (saraland)","mobile","06 / 24 / 1988","02 / 21 / 1990","09 / 03 / 2009","-","-"],["ald095688875","stauffer chemical company (cold creek plant)","mobile","09 / 08 / 1983","09 / 21 / 1984","-","-","-"],["ald008161176","stauffer chemical company (lemoyne plant)","mobile","09 / 08 / 1983","09 / 21 / 1984","-","-","-"],["ald007454085","th agriculture & nutrition (montgomery)","montgomery","06 / 24 / 1988","08 / 30 / 1990","09 / 27 / 2002","-","-"],["ald983166299","triana / tennessee river","morgan , limestone , and madison","12 / 30 / 1982","09 / 08 / 1983","12 / 18 / 1991","-","-"]]
+
+# get the column by name
+def get_column_by_name(table, column_name):
+    column_index = table[0].index(column_name)
+    column = []
+    for row in table[1:]:
+        column.append(row[column_index])
+    return column
+
+# Check if one string equals to another string
+def equal_to(str1, str2):
+    return str1 == str2
+
+def solution(table_data):
+    names = get_column_by_name(table_data, "name")  ###1
+    listed_dates = get_column_by_name(table_data, "listed")  ###2
+    deleted_dates = get_column_by_name(table_data, "deleted")  ###3
+    for name, listed_date, deleted_date in zip(names, listed_dates, deleted_dates):  ###4
+        if name.lower() == "stauffer chemical company (lemoyne plant)" and listed_date == "09 / 21 / 1984":  ###5
+            answer = equal_to(deleted_date, "-")  ###6
+            break   ###7
+    return answer
+
+print(solution(table_data))
+
+Output Explanation:
+First, we get the column containing the names of the sites to identify 'stauffer chemical company (lemoyne plant)' <<<###1>>>. 
+Then, we get the column containing the listed dates from the table<<<###2>>>. 
+Next, we get the column of deleted dates to check each corresponding status <<<###3>>>.
+Following this setup, we loop through each row's name, listed date, and deleted date <<<###4>>>; specifically, we look for 'stauffer chemical company (lemoyne plant)' with the listed date of '09 / 21 / 1984' <<<###5>>>. If this condition is met, we check if the deleted date is marked as not mentioned (i.e., '-') <<<###6>>>, 
+Finally, we conclude the checking process, verifying the accuracy of the statement <<<###7>>>.
+------
+[[PYTHON_CODE]]
