@@ -12,10 +12,11 @@ TART (Tool-Augmented Reasoning for Tables) enhances the capabilities of Large La
 
 The project includes several key components each responsible for a stage in the data processing and reasoning pipeline:
 
+- `tool_discovery/`: Generate tool data for the following steps.
 - `table_formatter/`: Prepares and formats table data for processing.
 - `tool_maker/`: Develops specific computational tools for table manipulation.
 - `explanation_generator/`: Provides clear and understandable explanations of the reasoning outputs.
-- Other directories include scripts for training LLMs, executing reasoning, and utility functions.
+- Other directories include scripts for training LLMs (`llama_training`), executing reasoning (`reasoning_executor`), and utility functions (`table_utils.py`).
 
 ### table_formatter
 
