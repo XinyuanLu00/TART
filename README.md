@@ -18,7 +18,7 @@ The project includes several key components each responsible for a stage in the 
 - `explanation_generator/`: Provides clear and understandable explanations of the reasoning outputs.
 - Other directories include scripts for training LLMs (`llama_training`), executing reasoning (`reasoning_executor`), and utility functions (`table_utils.py`).
 
-### table_formatter
+### 1. table_formatter
 
 This module processes raw table data to generate training data, train models, and perform inference:
 
@@ -28,7 +28,7 @@ This module processes raw table data to generate training data, train models, an
 - `model_save/`: Stores the trained model artifacts.
 - `output/`: Holds the output from the inference processes.
 
-### tool_maker
+### 2. tool_maker
 
 Similar to `table_formatter`, this module focuses on generating and training tools for table manipulation:
 
@@ -39,7 +39,7 @@ Similar to `table_formatter`, this module focuses on generating and training too
 - `model_save/`: Directory for saving model checkpoints.
 - `output/`: Directory for saving inference outputs.
 
-### explanation_generator
+### 3. explanation_generator
 
 Responsible for generating explanations based on the outputs from the tool maker and table formatter:
 
