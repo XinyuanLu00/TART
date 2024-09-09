@@ -4,7 +4,9 @@ Source code and documentation for the TART framework as detailed in our paper "T
 
 ## Introduction
 
-TART (Tool-Augmented Reasoning for Tables) enhances the capabilities of Large Language Models (LLMs) by integrating them with specialized computational tools. This approach improves both the precision of data processing and the clarity of the reasoning process. The framework is particularly suited for tasks that require high levels of accuracy and explainability, such as in fields like finance, science, and healthcare. [The general framework of TART](./framework.png)
+TART (Tool-Augmented Reasoning for Tables) enhances the capabilities of Large Language Models (LLMs) by integrating them with specialized computational tools. This approach improves both the precision of data processing and the clarity of the reasoning process. The framework is particularly suited for tasks that require high levels of accuracy and explainability, such as in fields like finance, science, and healthcare. 
+
+![The general framework of TART](./framework.png)
 
 ## Project Structure
 
