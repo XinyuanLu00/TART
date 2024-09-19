@@ -1,6 +1,6 @@
 # TART: Tool-Augmented Reasoning for Tables
 
-Source code and documentation for the TART framework as detailed in our paper "TART: An Open-Source Tool-Augmented Framework for Explainable Table-based Reasoning".
+Source code for the paper ["TART: An Open-Source Tool-Augmented Framework for Explainable Table-based Reasoning"](http://arxiv.org/abs/2409.11724).
 
 ## Introduction
 
