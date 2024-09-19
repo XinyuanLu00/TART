@@ -93,7 +93,18 @@ Example of each sample with tool discovery:
 
 
 ## Reference
-Please cite the paper in the following format if you use this dataset during your research.
+Please cite the paper in the following format if you use this code during your research.
+
+```
+@article{lu2024tartopensourcetoolaugmentedframework,
+  author       = {Xinyuan Lu and Liangming Pan and Yubo Ma and Preslav Nakov and Min-Yen Kan},
+  title        = {TART: An Open-Source Tool-Augmented Framework for Explainable Table-based Reasoning},
+  journal      = {CoRR},
+  volume       = {abs/2409.11724},
+  year         = {2024},
+  url          = {https://doi.org/10.48550/arXiv.2409.11724}
+}
+```
 
 ## Q&A
 If you encounter any problem, please either directly contact the [Xinyuan Lu](luxinyuan@u.nus.edu) or leave an issue in the github repo.
