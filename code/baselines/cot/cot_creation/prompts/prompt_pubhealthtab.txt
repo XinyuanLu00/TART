@@ -1,0 +1,40 @@
+Task Description: Given a table and a question, the task is to generate a step-by-step reasoning explanation and the final answer.
+------
+'''
+Caption: Sacred Work: Planned Parenthood and Its Clergy Alliances - Tom Davis - Google Books
+Table:
+|| Title | Sacred Work: Planned Parenthood and Its Clergy Alliances ||
+|| Author | Tom Davis ||
+|| Edition | illustrated ||
+|| Publisher | Rutgers University Press, 2005 ||
+|| ISBN | 0813534933, 9780813534930 ||
+|| Length | 245 pages ||
+|| Subjects | Social Science Sociology of ReligionSocial Science / Sociology of Religion ||
+|| Export Citation | BiBTeX EndNote RefMan ||
+
+Question: Is it true that Planned Parenthood has a history of clergy alliances?
+'''
+
+To answer this question, first, we need to examine the title of the book provided in the table. The title is "Sacred Work: Planned Parenthood and Its Clergy Alliances" by Tom Davis, which explicitly mentions "Clergy Alliances" in conjunction with Planned Parenthood. Therefore, the answer is yes.
+------
+'''
+Caption: Reperfusion Strategies in Acute Coronary Syndromes | Circulation Research
+Table:
+|| ACCF | American College of Cardiology Foundation ||
+|| AHA | American Heart Association ||
+|| D2B | door-to-balloon ||
+|| ED | emergency department ||
+|| FMC | first medical contact ||
+|| MI | myocardial infarction ||
+|| NSTEACS | non-ST-segment elevation acute coronary syndrome ||
+|| STEMI | ST-segment elevation MI ||
+|| TIMI | thrombolysis in myocardial infarction ||
+
+Question: Is it true that D2B stands for door-to-belly as a medical acronym?
+'''
+
+To answer this question, first, we need to refer to the table provided, which lists acronyms and their meanings relevant to medical terminology in the context of cardiac care. The acronym "D2B" is listed with the definition "door-to-balloon." Second, by reviewing this definition, it is clear that "D2B" does not stand for "door-to-belly." Therefore, the answer is no.
+------
+'''
+[[LINEARIZED_TABLE]]
+'''
