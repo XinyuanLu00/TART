@@ -1,0 +1,33 @@
+Task Description: Given the following table and question, format the table into a python array.
+------
+'''
+Caption: Sacred Work: Planned Parenthood and Its Clergy Alliances - Tom Davis - Google Books
+Table:
+|| Title | Sacred Work: Planned Parenthood and Its Clergy Alliances ||
+|| Author | Tom Davis ||
+|| Edition | illustrated ||
+|| Publisher | Rutgers University Press, 2005 ||
+|| ISBN | 0813534933, 9780813534930 ||
+|| Length | 245 pages ||
+|| Subjects | Social Science Sociology of ReligionSocial Science / Sociology of Religion ||
+|| Export Citation | BiBTeX EndNote RefMan ||
+Question: Is it true that Planned Parenthood has a history of clergy alliances?
+'''
+
+table_data = [["Title", "Sacred Work: Planned Parenthood and Its Clergy Alliances"],["Author", "Tom Davis"],["Edition", "illustrated"],["Publisher", "Rutgers University Press, 2005"],["ISBN", "0813534933, 9780813534930"],["Length", "245 pages"],["Subjects", "Social Science Sociology of ReligionSocial Science / Sociology of Religion"],["Export Citation", "BiBTeX EndNote RefMan"]]
+------
+'''
+Caption: BUCS Return to Play
+Table:
+|| Monday 7 September | Entries open ||
+|| Friday 18 September | Entries close ||
+|| Friday 2 October | Leagues live on BUCS Play ||
+|| Monday 5 October - Wednesday 16 December | Fixture window ||
+Question: Is it true that on Friday 2 October leagues live on BUCS Play?
+'''
+
+table_data = [["Monday 7 September", "Entries open"],["Friday 18 September", "Entries close"],["Friday 2 October", "Leagues live on BUCS Play"],["Monday 5 October - Wednesday 16 December", "Fixture window"]]
+------
+'''
+[[LINEARIZED_TABLE]]
+'''

@@ -1,0 +1,1045 @@
+[
+  {
+    "id": "cb9fff72-8826-433e-bc04-039830c02d51",
+    "question": "Is it true that Intensive Glycemic Control in Type 2 Diabetes has a lower relative risk reduction in retinopathy than in neuropathy?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Outcome\", \"Relative Risk Reduction\", \"Source\"],[\"Retinopathy*\", \"29% per 0.9% a A1c\", \"UKPDS27\"],[\"Neuropathya\", \"19% per 0.9% a A1c\", \"UKPDS27\"],[\"Microalbuminuriaa\", \"33% per 0.9% a A1c\", \"UKPDS27\"],[\"Nonfatal myocardial infarction\", \"15% per 1.0% a A1c\", \"Boussageon et al31\"]]",
+    "tool_maker_output": "def get_relative_risk_reduction(table, outcome):\n    for row in table:\n        if row[0].lower() == outcome.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    retinopathy_rr = get_relative_risk_reduction(table_data, \"Retinopathy*\")\n    neuropathy_rr = get_relative_risk_reduction(table_data, \"Neuropathya\")\n    \n    retinopathy_rr_value = float(retinopathy_rr.split(\"%\")[0])\n    neuropathy_rr_value = float(neuropathy_rr.split(\"%\")[0])\n    \n    answer = \"no\"\n    if retinopathy_rr_value < neuropathy_rr_value:\n        answer = \"yes\"\n    \n    return answer\n```"
+  },
+  {
+    "id": "f7b5f70f-645e-41b5-b0c1-d2b9ad56a32f",
+    "question": "Is it true that Kikokikona is located in Hawaii?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Kikokikona Hawaii Help Extras...\", \"Kikokikona Hawaii Help Extras...\", \"Kikokikona Hawaii\", \"Help\", \"Extras...\"],\n              [\"Kikokikona Hawaii Help Extras...\", \"Kikokikona Hawaii\", \"Help\", \"Extras...\"],\n              [\"Kikokikona Hawaii\"],\n              [\"Help\"],\n              [\"Extras...\"]]",
+    "tool_maker_output": "def check_location_in_table(table):\n    for row in table:\n        if \"Kikokikona\" in row and \"Hawaii\" in row:\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    answer = check_location_in_table(table_data)\n    return answer\n```"
+  },
+  {
+    "id": "a3e1a019-8273-4b55-b29d-11a5d14a70b6",
+    "question": "Is it true that The actuarial balance of the OASI  is less negative than the OASDI?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Item\", \"OASI\", \"DI\", \"OASDI\"],\n              [\"Actuarial balance shown in the 2019 Report\", -2.67, -.12, -2.78],\n              [\"Changes in actuarial balance due to changes in:\", \"\", \"\", \"\"],\n              [\"Valuation period\", -.05, -.01, -.05],\n              [\"Demographic data and assumptions\", -.12, .00, -.13],\n              [\"Economic data and assumptions\", -.16, -.02, -.18],\n              [\"Disability data and assumptions\", -.01, .06, .05],\n              [\"Methods and programmatic data\", -.02, .02, .00],\n              [\"Total change in actuarial balance\", -.47, .05, -.43],\n              [\"Actuarial balance shown in the 2020 Report\", -3.14, -.07, -3.21]]",
+    "tool_maker_output": "def compare_actuarial_balance(table_data):\n    oasi_index = None\n    oasdi_index = None\n\n    for i, row in enumerate(table_data):\n        if row[0] == \"Item\":\n            oasi_index = row.index(\"OASI\")\n            oasdi_index = row.index(\"OASDI\")\n        elif row[0] == \"Actuarial balance shown in the 2019 Report\":\n            oasi_balance_2019 = row[oasi_index]\n            oasdi_balance_2019 = row[oasdi_index]\n        elif row[0] == \"Actuarial balance shown in the 2020 Report\":\n            oasi_balance_2020 = row[oasi_index]\n            oasdi_balance_2020 = row[oasdi_index]\n\n    if oasi_balance_2019 < oasdi_balance_2019 and oasi_balance_2020 < oasdi_balance_2020:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(compare_actuarial_balance(table_data))"
+  },
+  {
+    "id": "d6d7a398-fe54-485b-9091-ac8f61fd766a",
+    "question": "Is it true that hospital B has the lowest admission rate in 2014 and 2015?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Hospital\", \"Percentage of Medicare admissions in 2014 + 2015\", \"Expected # cases\", \"Observed # cases\", \"Chi-square\", \"p-Value\"],\n              [\"A\", 43.8, 19, 40, 41.2, \"<0.001\"],\n              [\"B\", 18.7, 8, 4, 2.8, 0.093],\n              [\"C\", 37.5, 17, 0, 23.8, \"<0.001\"]]",
+    "tool_maker_output": "def get_min_admission_rate(table):\n    min_rate = float('inf')\n    min_hospital = None\n    for row in table[1:]:\n        hospital, rate, _, _, _, _ = row\n        if rate < min_rate:\n            min_rate = rate\n            min_hospital = hospital\n    return min_hospital\n\ndef solution(table_data):\n    answer = get_min_admission_rate(table_data) == \"B\"\n    return answer"
+  },
+  {
+    "id": "a3c038dc-cc28-46fb-9a87-e0b747a7f8cd",
+    "question": "Is it true that The top movie is Fast & Furious: 8-Movie Collection?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"1.\", \"Fast & Furious: 8-Movie Collection\"],[\"2.\", \"The Transformers: The Movie 4K\"],[\"3.\", \"Harry Potter: Complete 8-Film Colle...\"],[\"4.\", \"Zack Snyder's Justice League 4K\"],[\"5.\", \"Batman: The Long Halloween - Part One\"],[\"6.\", \"Godzilla vs. Kong\"],[\"7.\", \"Godzilla vs. Kong 4K\"],[\"8.\", \"The Lord of the Rings: The Motion P...\"],[\"9.\", \"Nobody\"],[\"10.\", \"Indiana Jones: 4-Movie Collection 4K\"]]",
+    "tool_maker_output": "def check_top_movie(table):\n    top_movie = table[0][1]\n    return \"Fast & Furious: 8-Movie Collection\" in top_movie\n\ndef solution(table_data):\n    answer = check_top_movie(table_data)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "09f71fea-907b-4221-abb4-f0aae78945bb",
+    "question": "Is it true that Quebec had more Measles outbreaks than any other province in Canada?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Province\", \"Year\", \"Number of cases\", \"Duration (weeks)\", \"Strain\"],\n              [\"2007\", \"94\", \"24\", \"D4\"],\n              [\"2008\", \"53\", \"11\", \"D8\"],\n              [\"2010\", \"82\", \"7\", \"D8table 1 Footnote 2 and H1\"],\n              [\"2011\", \"20\", \"11\", \"D4\"],\n              [\"2011\", \"678\", \"33\", \"D4\"]]",
+    "tool_maker_output": "def get_max_cases_province(table):\n    max_cases = 0\n    max_cases_province = \"\"\n    for row in table[1:]:\n        cases = int(row[2])\n        if cases > max_cases:\n            max_cases = cases\n            max_cases_province = row[0]\n    return max_cases_province\n\ndef solution(table_data):\n    answer = get_max_cases_province(table_data) == \"Quebec\"\n    return answer"
+  },
+  {
+    "id": "9f39ddeb-7294-4187-8b62-d0d1fc7ad51f",
+    "question": "Is it true that The book titled The University of Louisville was authored by Jonathan McIntosh. ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"The University of Louisville\"],[\"Author\", \"Dwayne D. Cox, William J. Morison\"],[\"Publisher\", \"University Press of Kentucky\"],[\"ISBN\", \"0813127270, 9780813127279\"],[\"Subjects\", \"Education HigherEducation / Higher\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_author(table, author_query):\n    for row in table:\n        if row[0].lower() == \"Author\":\n            authors = row[1].split(\", \")\n            for author in authors:\n                if author.lower() == author_query.lower():\n                    return True\n    return False\n\ndef solution(table_data):\n    author_query = \"Jonathan McIntosh\"\n    answer = check_author(table_data, author_query)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "cee8ac98-54b4-424a-9791-3bb418ddce9a",
+    "question": "Is it true that The temperature for Thursday is +27?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Thursday\", \"+27\", \"+16\"],[\"Friday\", \"+28\", \"+15\"],[\"Saturday\", \"+29\", \"+15\"],[\"Sunday\", \"+30\", \"+17\"],[\"Monday\", \"+30\", \"+18\"],[\"Tuesday\", \"+30\", \"+16\"]]",
+    "tool_maker_output": "def get_temperature_by_day(table, day):\n    for row in table:\n        if row[0].lower() == day.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    query_day = \"Thursday\"\n    query_temperature = \"+27\"\n    temperature = get_temperature_by_day(table_data, query_day)\n    if temperature == query_temperature:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "bf33c9c2-0149-4e64-a8d2-fd1f7773ee05",
+    "question": "Is it true that There were 11 number of cases attributed to nicotine ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"ExposureTable 2 Footnote 1\", \"Number of cases\"],[\"Nicotine only\", 11],[\"Tetrahydrocannabinol (THC) only\", 5],[\"Flavoured vaping liquid only\", 1],[\"Nicotine, THC and other substances\", 3]]",
+    "tool_maker_output": "def get_cases_by_exposure(table, exposure):\n    for row in table:\n        if row[0].lower() == exposure.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    exposure = \"Nicotine only\"\n    cases = get_cases_by_exposure(table_data, exposure)\n    if cases == 11:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "d19c0f75-907f-48c6-80e3-887859b28a50",
+    "question": "Is it true that U.S has a high number than Broward County ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Broward County\", 0.52],[\"Florida\", 9.13],[\"U.S.\", 212.91]]",
+    "tool_maker_output": "def compare_numbers(table):\n    broward_county = None\n    us = None\n    for row in table:\n        if row[0] == \"Broward County\":\n            broward_county = row[1]\n        elif row[0] == \"U.S.\":\n            us = row[1]\n    \n    if us > broward_county:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = compare_numbers(table_data)\n    return answer"
+  },
+  {
+    "id": "f775d10f-1e8c-4f32-81fe-780246ecd063",
+    "question": "Is it true that AUC is a way to shorten area under the curve?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"ADC\", \"apparent diffusion coefficient\"],[\"AUC\", \"area under the curve\"],[\"DCE\", \"dynamic contrast-enhanced imaging\"],[\"DWI\", \"diffusion-weighted imaging\"],[\"MRS\", \"magnetic resonance spectroscopy\"],[\"MR/TRUS\", \"magnetic resonance/transrectal ultrasound\"],[\"mpMRI\", \"multiparametric magnetic resonance imaging\"],[\"PCa\", \"prostate cancer\"],[\"PI-RADS\", \"prostate imaging reporting and data system\"],[\"PZ\", \"peripheral zone\"],[\"ROI\", \"region of interest\"],[\"T1WI\", \"T1-weighted imaging\"],[\"T2WI\", \"T2-weighted imaging\"],[\"TZ\", \"transition zone\"]]",
+    "tool_maker_output": "def check_definition(table, term_query, definition_query):\n    for row in table:\n        term, definition = row\n        if term.lower() == term_query.lower() and definition_query.lower() in definition.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    term = \"AUC\"\n    definition = \"shorten area under the curve\"\n    answer = check_definition(table_data, term, definition)\n    return answer"
+  },
+  {
+    "id": "6abd54d5-d8e6-4f99-890a-3fa37de66586",
+    "question": "Is it true that State and Federal Financial Help for Businesses is in Spanish?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Yakima County Small Business Coronavirus Assistance\", \"EnglishEspanol\"],[\"State and Federal Financial Help for Businesses\", \"English\"],[\"Open Yakima Business re-opening health and safety plan services community task force\", \"English\"],[\"Yakima County local Personal Protective Equipment suppliers and vendors\", \"English\"],[\"Handouts and Print Resources for Businesses\", \"English\"],[\"Yakima Valley Open and Safe\", \"EnglishEspanol\"],[\"State Fair Park COVID-19 Vaccination Sign Up Web Site\", \"Click Here\"],[\"State COVID-19 Assistance Hotline\", \"1-800-525-0127\"]]",
+    "tool_maker_output": "def check_language(table, event_query, language):\n    for row in table:\n        event, lang = row\n        if event.lower() == event_query.lower() and language.lower() in lang.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    query_event = \"State and Federal Financial Help for Businesses\"\n    query_language = \"Spanish\"\n    answer = check_language(table_data, query_event, query_language)\n    return answer"
+  },
+  {
+    "id": "d6e440e1-c2c2-4762-b46c-196d563f66ec",
+    "question": "Is it true that Firearm has the high fatality ratio?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Method\", \"Fatal\", \"Nonfatal\", \"Total\", \"Case fatality ratio\"],\n              [\"Firearm\", 16869, 2980, 19849, 85],\n              [\"Suffocation/hanging\", 6198, 2761, 8959, 69],\n              [\"Poisoning/overdose\", 5191, 215814, 221005, 2],\n              [\"Fall\", 651, 1434, 2085, 31],\n              [\"Cut/pierce\", 458, 62817, 63275, 1],\n              [\"Other\", 1109, 35089, 36198, 3],\n              [\"Unspecified\", 146, 2097, 2243, 7],\n              [\"Total\", 30622, 322992, 353614, 9]]",
+    "tool_maker_output": "def get_max_fatality_ratio(table):\n    max_ratio = 0\n    max_method = \"\"\n    for row in table[1:]:\n        method, fatal, nonfatal, total, ratio = row\n        if ratio > max_ratio:\n            max_ratio = ratio\n            max_method = method\n    return max_method\n\ndef solution(table_data):\n    answer = get_max_fatality_ratio(table_data)\n    return answer\nprint(solution(table_data)) # Output: \"Firearm\""
+  },
+  {
+    "id": "8a42efc9-7d61-400a-88d4-0788b622e2cf",
+    "question": "Is it true that SARs-CoV is a Betacoronavirus and CCoV is a Alphacoronavirus?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Virus\", \"Receptor\", \"References\"],\n               [\"Alphacoronaviruses\"],\n               [\"HCoV-229E\", \"APN\", \"[115]\"],\n               [\"HCoV-NL63\", \"ACE2\", \"[116]\"],\n               [\"TGEV\", \"APN\", \"[117]\"],\n               [\"PEDV\", \"APN\", \"[118]\"],\n               [\"FIPV\", \"APN\", \"[119]\"],\n               [\"CCoV\", \"APN\", \"[120]\"],\n               [\"Betacoronaviruses\"],\n               [\"MHV\", \"mCEACAM\", \"[121, 122]\"],\n               [\"BCoV\", \"N-acetyl-9-O-acetylneuraminic acid\", \"[123]\"],\n               [\"SARS-CoV\", \"ACE2\", \"[124]\"],\n               [\"MERS-CoV\", \"DPP4\", \"[100]\"]]",
+    "tool_maker_output": "def check_coronavirus_classification(table_data):\n    for i in range(len(table_data)):\n        if table_data[i][0] == \"Betacoronaviruses\" and \"SARS-CoV\" in table_data[i+1][0]:\n            is_sars_betacoronavirus = True\n        if table_data[i][0] == \"Alphacoronaviruses\" and \"CCoV\" in table_data[i+1][0]:\n            is_ccov_alphacoronavirus = True\n    \n    if is_sars_betacoronavirus and is_ccov_alphacoronavirus:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(check_coronavirus_classification(table_data))"
+  },
+  {
+    "id": "ece21027-e598-452f-8176-924bee71795d",
+    "question": "Is it true that Still more test results are pending to know positive and negative covid-19 cases?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Number of U.S. States with PUI\", 36, \"Positive\", 12],[\"Negative\", 225],[\"Pending (specimens awaiting testing)\", 100],[\"TOTAL\", 337]]",
+    "tool_maker_output": "def check_pending_tests(table):\n    for row in table:\n        if len(row) == 2:\n            if \"pending\" in row[0].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    answer = check_pending_tests(table_data)\n    if answer:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "d6091374-3823-43a9-8bd0-21e536048ed0",
+    "question": "Is it true that Genital warts include HPV types 6 and 11.\n?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Disease\", \"HPV 9-valent\"],[\"Anal cancer\", \"HPV types 16, 18, 31, 33, 45, 52, and 58\"],[\"Genital warts (condyloma acuminata)\", \"HPV types 6 and 11\"],[\"Anal intraepithelial neoplasia (AIN) grades 1, 2, and 3\", \"HPV types 16, 18, 31, 33, 45, 52, and 58\"]]",
+    "tool_maker_output": "def check_hpv_types(table, disease, hpv_types):\n    for row in table:\n        if row[0].lower() == disease.lower() and hpv_types.lower() in row[1].lower():\n            return True\n    return False\n\ndef solution(table_data):\n    disease = \"Genital warts (condyloma acuminata)\"\n    hpv_types = \"HPV types 6 and 11\"\n    answer = check_hpv_types(table_data, disease, hpv_types)\n    return answer"
+  },
+  {
+    "id": "1971af3f-d796-496e-9851-b13bfc6fd4eb",
+    "question": "Is it true that California makes up to 624 million?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"A California\", \"up to $624 million\"],[\"A Florida\", \"up to $342.3 million\"],[\"A Washington\", \"up to $161.5 million\"],[\"A Illinois\", \"up to $42.3 million\"],[\"A New York\", \"up to $7.3 million\"],[\"A Maine\", \"up to $3.3 million\"],[\"A Massachusetts\", \"up to $2.8 million\"],[\"A Vermont\", \"up to $2.7 million\"],[\"A Missouri\", \"up to $2.2 million\"],[\"A Wisconsin\", \"up to $2 million for the Hiawatha line\"],[\"A And smaller sums for A Oregon, North Carolina, A Iowa and Indiana\"]]",
+    "tool_maker_output": "def get_amount_by_state(table, state):\n    for row in table:\n        if state.lower() in row[0].lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    state = \"California\"\n    amount = \"up to $624 million\"\n    answer = \"no\"\n    state_amount = get_amount_by_state(table_data, state)\n    if amount.lower() in state_amount.lower():\n        answer = \"yes\"\n    return answer\nprint(solution(table_data))"
+  },
+  {
+    "id": "12196ee3-c842-4428-909f-ebb6552e0747",
+    "question": "Is it true that N. and S. Carolina has military population ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Chicago, IL [25]\", \"Medical students\", \"229E\", \"1961a1967\"],\n              [\"Washington, DC [26, 27]\", \"Hospitalized children\", \"229E, OC43\", \"1962a1967\"],\n              [\"Bethesda, MD [26, 27]\", \"Adult employees\", \"229E, OC43\", \"1962a1967\"],\n              [\"Atlanta, GA [28, 29]\", \"Institutionalized children\", \"229E, OC43\", \"1960a1967\"],\n              [\"Charlottesville, VA [30]\", \"Working adults\", \"229E, OC43\", \"1962a1970\"],\n              [\"Tecumseh, MI [31, 32]\", \"General community\", \"229E, OC43\", \"1965a1970\"],\n              [\"Denver, CO [33]\", \"Hospitalized asthmatic children\", \"229E, OC43\", \"1967a1969\"],\n              [\"N. and S. Carolina [34]\", \"Military\", \"229E, OC43\", \"1970a1972\"],\n              [\"Nashville, TN, and Rochester, NY\", \"Hospitalized children <5 years of age\", \"4 viruses\", \"2001a2003\"],\n              [\"Melbourne, Australia [23]\", \"Preschool children\", \"NL63\", \"2003a2004\"],\n              [\"Edinburgh, Scotland [22]\", \"Medically attended illnessesageneral population\", \"4 viruses\", \"2006a2009\"]]",
+    "tool_maker_output": "def check_population_by_location(table, location_query, population_query):\n    for row in table:\n        location, population, _, _ = row\n        if location_query.lower() in location.lower() and population_query.lower() in population.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    query_location = \"N. and S. Carolina\"\n    query_population = \"Military\"\n    answer = check_population_by_location(table_data, query_location, query_population)\n    return answer"
+  },
+  {
+    "id": "3cb0052d-e720-4aa8-8840-8787f8a77b85",
+    "question": "Is it true that in Sept. 2015 64 deaths was because of Sepsis?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Causes of death\", \"Sept. 2015\", \"Sept. 2016\", \"Sept. 2017\", \"Pct. change\"],\n              [\"Sepsis\", 64, 61, 92, \"+47\"],\n              [\"Pneumonia\", 50, 55, 76, \"+45\"],\n              [\"Emphysema and other breathing disorders\", 104, 114, 156, \"+43\"],\n              [\"Diabetes\", 221, 249, 309, \"+31\"],\n              [\"Alzheimeras and Parkinsonas\", 189, 183, 229, \"+23\"]]",
+    "tool_maker_output": "def check_deaths_by_cause(table, cause, month, deaths):\n    for row in table:\n        if row[0] == cause and row[1] == deaths:\n            return True\n    return False\n\ndef solution(table_data):\n    cause = \"Sepsis\"\n    month = \"Sept. 2015\"\n    deaths = 64\n    answer = check_deaths_by_cause(table_data, cause, month, deaths)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "86ca6123-d7f9-432c-b238-57d4def24457",
+    "question": "Is it true that the median age in years for discharged patients was 53?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [\n    [\"Characteristic\", \"Location to which patient was discharged from index hospitalization\", \"Home or self-care\", \"SNF\", \"Home health organization\", \"Hospice\", \"Ongoing care\", \"Other\"],\n    [\"Discharged (N = 106,543 [85%])\"],\n    [\"No. of patients discharged, (%)\", \"64,475 (60)\", \"16,339 (15)\", \"12,223 (10)\", \"3,807 (4)\", \"4,404 (4)\", \"5,295 (5)\"],\n    [\"Length of index hospitalization, days, median (IQR)\", \"4 (2-7)\", \"8 (5-15)\", \"8 (4-14)\", \"7 (4-12)\", \"16 (7-29)\", \"3 (1-7)\"],\n    [\"Male, %\", \"51\", \"47\", \"49\", \"47\", \"57\", \"61\"],\n    [\"Median age, yrs\", \"53\", \"76\", \"68\", \"83\", \"66\", \"61\"],\n    [\"1 chronic condition, %\", \"53\", \"72\", \"70\", \"67\", \"70\", \"57\"],\n    [\"ICU admission, %\", \"35\", \"42\", \"45\", \"53\", \"63\", \"42\"],\n    [\"Readmitted (N = 9,504, 9%)\"],\n    [\"No. (%) of patients readmitted\", \"4,406 (7)\", \"2,517 (15)\", \"1,469 (12)\", \"136 (4)\", \"494 (11)\", \"482 (9)\"],\n    [\"No. days to readmission, median (IQR)\", \"7 (3-17)\", \"11 (5-25)\", \"8 (3-19)\", \"0 (0-3)\", \"10 (3-25)\", \"6 (1-21)\"],\n    [\"Length of hospitalization, days, median (IQR)\", \"4 (2-7)\", \"6 (3-9)\", \"5 (3-8)\", \"3 (1-6)\", \"6 (3-10)\", \"4 (2-8)\"],\n    [\"Male, %\", \"51\", \"50\", \"49\", \"51\", \"62\", \"64\"],\n    [\"Median age, yrs\", \"58\", \"75\", \"72\", \"80\", \"67\", \"59\"],\n    [\"1 chronic condition, %\", \"67\", \"80\", \"80\", \"75\", \"77\", \"67\"]\n]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    median_age_discharged = get_row_by_name(table_data, \"Median age, yrs\")\n    answer = \"yes\" if median_age_discharged == \"53\" else \"no\"\n    return answer\nprint(solution(table_data)) # Output: yes"
+  },
+  {
+    "id": "db17dfd8-8463-47bf-a830-588a2ad4ff4a",
+    "question": "Is it true that The Uninsured is discussed after Summary of the Changes Contained in the Affordable Care Act?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"11 The Uninsured\", \"253\"],[\"12 Factors Other Than Health Insurance That Impede Access to Health Care\", \"273\"],[\"13 Key Policy Issues for Deciding the Direction of Health Care Reform\", \"294\"],[\"14 EpiloguePrologue to Health Care Reform in America\", \"313\"],[\"Summary of the Changes Contained in the Affordable Care Act\", \"323\"],[\"OnLine Data Sources\", \"331\"],[\"References\", \"335\"],[\"Index\", \"351\"]]",
+    "tool_maker_output": "def check_order(table, item1, item2):\n    found_item1 = False\n    found_item2 = False\n    for row in table:\n        if row[0].lower() == item1.lower():\n            found_item1 = True\n        if row[0].lower() == item2.lower():\n            found_item2 = True\n        if found_item2:\n            return False\n        if found_item1:\n            return True\n    return False\n\ndef solution(table_data):\n    item1 = \"The Uninsured\"\n    item2 = \"Summary of the Changes Contained in the Affordable Care Act\"\n    answer = check_order(table_data, item1, item2)\n    return answer\n```"
+  },
+  {
+    "id": "f13258c1-4f11-4f27-955e-3ffd3a2215dc",
+    "question": "Is it true that The goal is to increase child mortality ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Goal:\", \"Goal 4. Reduce child mortality\"],[\"Target:\", \"Target 4.A: Reduce by two-thirds, between 1990 and 2015, the under-five mortality rate\"],[\"Indicator:\", \"4.2 Infant mortality rate\"],[\"Series:\", \"Infant mortality rate (0-1 year) per 1,000 live births\"]]",
+    "tool_maker_output": "def check_goal(table, goal_query, target_query):\n    for row in table:\n        if row[0].lower() == goal_query.lower() and \"increase\" in row[1].lower():\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    goal_query = \"Goal:\"\n    target_query = \"Reduce child mortality\"\n    answer = check_goal(table_data, goal_query, target_query)\n    return answer"
+  },
+  {
+    "id": "312288d4-642a-49ec-9b31-f4725618f363",
+    "question": "Is it true that the goal is to increase child mortality rate ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Goal:\", \"Goal 4. Reduce child mortality\"],[\"Target:\", \"Target 4.A: Reduce by two-thirds, between 1990 and 2015, the under-five mortality rate\"],[\"Indicator:\", \"4.2 Infant mortality rate\"],[\"Series:\", \"Infant mortality rate (0-1 year) per 1,000 live births\"]]",
+    "tool_maker_output": "def check_goal(table, goal_query):\n    for row in table:\n        if row[0].lower() == \"Goal:\".lower() and goal_query.lower() in row[1].lower():\n            return False\n    return True\n\ndef solution(table_data):\n    goal_query = \"increase child mortality rate\"\n    answer = check_goal(table_data, goal_query)\n    return answer"
+  },
+  {
+    "id": "a508602c-85ff-4b74-a109-553ab09a0158",
+    "question": "Is it true that scenario 5 has a 50% percentage of transmission occurring prior to symptom onset ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Parameter\", \"Scenario 1\", \"Scenario 2\", \"Scenario 3\", \"Scenario 4\", \"Scenario 5: Current Best Estimate\"],\n              [\"2.0\", \"4.0\", \"2.5\"],\n              [\"0-17 years old: 6 18-49 years old: 150 50-64 years old: 1,800 65+ years old: 26,000\", \"0-17 years old: 80 18-49 years old: 1,700 50-64 years old: 20,000 65+ years old: 270,000\", \"0-17 years old: 20 18-49 years old: 500 50-64 years old: 6,000 65+ years old: 90,000\"],\n              [\"15%\", \"70%\", \"15%\", \"70%\", \"30%\"],\n              [\"25%\", \"100%\", \"25%\", \"100%\", \"75%\"],\n              [\"30%\", \"70%\", \"30%\", \"70%\", \"50%\"]]",
+    "tool_maker_output": "def get_scenario_index(table, scenario_name):\n    for i, row in enumerate(table):\n        if scenario_name.lower() in row[0].lower():\n            return i\n    return None\n\ndef solution(table_data):\n    scenario_index = get_scenario_index(table_data, \"Scenario 5\")\n    if scenario_index is not None:\n        transmission_percentage = table_data[4][scenario_index]\n        if transmission_percentage == \"50%\":\n            return \"yes\"\n    return \"no\""
+  },
+  {
+    "id": "2f44e3e3-baac-4fd7-af80-e4db9c32dea9",
+    "question": "Is it true that President Obama's job approval rating is currently 50 %?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"President Obama's job approval rating\", \"\", \"\", \"\", \"\", \"\", \"\"],\n              [\"Now\", \"4/2016\", \"5/2015\", \"5/2014\", \"5/2013\", \"2/2013\"],\n              [\"Approve\", \"50%\", \"46%\", \"42%\", \"43%\", \"47%\", \"52%\"],\n              [\"Disapprove\", \"43\", \"45\", \"48\", \"48\", \"43\", \"38\"]]",
+    "tool_maker_output": "def get_approval_rating(table, current_date):\n    for i in range(len(table[0])):\n        if table[0][i] == \"President Obama's job approval rating\" and table[1][i] == current_date:\n            return table[2][i]\n    return None\n\ndef solution(table_data):\n    current_date = \"Now\"\n    approval_rating = get_approval_rating(table_data, current_date)\n    if approval_rating == \"50%\":\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "a508f79d-f2b2-4f31-9edc-b56b9c130717",
+    "question": "Is it true that Shigematsu et al138 lcins  larger than Never smokers?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Study\", \"LCINS\", \"\", \"Tobacco-Associated Lung Cancer Patients\", \"\", \"\", \"No.\", \"%\", \"No.\", \"%\"],\n                [\"Shigematsu et al138\", 85, 51, 35, 10],\n                [\"Pao and Miller 135\", 7, 47, 4, 5],\n                [\"Sonobe et al139\"],\n                [\"aaaaNever smokers\", 44, 83, \"a\", \"a\"],\n                [\"aaaaFormer smokers\", \"a\", \"a\", 11, 50],\n                [\"aaaaCurrent smokers\", \"a\", \"a\", 5, 15.2],\n                [\"Kosaka et al140\", 76, 66, 34, 22],\n                [\"Huang et al141\", 33, 58, 5, 42],\n                [\"Tomizawa et al142\", 20, 47, 9, 13],\n                [\"Pan et al143\", 7, 42, 3, 8.6],\n                [\"Shih et al144\", 23, 56, 6, 29],\n                [\"Hsieh et al145\", 14, 66, 3, 21],\n                [\"Tokumo et al146\", 25, 69, 13, 15]]",
+    "tool_maker_output": "def compare_values(table, study1, value1, study2, value2):\n    for row in table:\n        if row[0] == study1:\n            lcins1 = row[1]\n        if row[0] == study2:\n            lcins2 = row[1]\n    \n    if lcins1 > lcins2:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = compare_values(table_data, \"Shigematsu et al138\", 85, \"aaaaNever smokers\", 44)\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "4eef083b-9fd8-4ae6-aa35-c0befec63d91",
+    "question": "Is it true that Janara Kingston was the Publisher for book titled \"Music Therapy in Dementia Care: More New Voices\nArts Therapies Series\"?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"Music Therapy in Dementia Care: More New VoicesArts Therapies Series\"],[\"Editor\", \"David Aldridge\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"Jessica Kingsley, 2000\"],[\"ISBN\", \"1853027766, 9781853027765\"],[\"Length\", \"256 pages\"],[\"Subjects\", \"Psychology Psychotherapy GeneralPsychology / Psychotherapy / General\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_publisher(table, title_query, publisher_query):\n    for row in table:\n        if row[0].lower() == \"Title\".lower() and title_query.lower() in row[1].lower():\n            if \"Publisher\" in row[0] and publisher_query.lower() in row[1].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    title = \"Music Therapy in Dementia Care: More New VoicesArts Therapies Series\"\n    publisher = \"Janara Kingston\"\n    answer = check_publisher(table_data, title, publisher)\n    return not answer"
+  },
+  {
+    "id": "671b4345-b0db-4ce4-81a4-5713ac5cc811",
+    "question": "Is it true that Both Potassium and Leuprorelin are described as hormonal treatments in the table of information given. ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Product\", \"Originator drug\", \"Description\"],[\"Amoxicillin/clavulanic acid\", \"Augmentin\", \"Antibiotic\"],[\"Cyclophosphamide\", \"Endoxan\", \"Breast, ovarian and non-small cell cancer treatment\"],[\"Leuprorelin\", \"Various\", \"Hormonal treatment\"],[\"Levothyroxine sodium\", \"Synthroid; Levoxyl\", \"Hypothyroidism treatment\"],[\"Potassium\", \"Klor-Con\", \"Hypokalemia treatment\"],[\"Zoledronic acid\", \"Aclasta\", \"Osteoporosis treatment\"]]",
+    "tool_maker_output": "def check_description(table, product1, product2):\n    description1 = None\n    description2 = None\n    for row in table:\n        if row[0].lower() == product1.lower():\n            description1 = row[2]\n        if row[0].lower() == product2.lower():\n            description2 = row[2]\n    if description1 and description2 and \"hormonal\" in description1.lower() and \"hormonal\" in description2.lower():\n        return True\n    return False\n\ndef solution(table_data):\n    product1 = \"Potassium\"\n    product2 = \"Leuprorelin\"\n    answer = check_description(table_data, product1, product2)\n    return answer"
+  },
+  {
+    "id": "269a5d5b-4b17-4677-9899-a90e18b91aee",
+    "question": "Is it true that 19 percent risk reduction for Neuropathy?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Outcome\", \"Relative Risk Reduction\", \"Source\"],[\"Retinopathy*\", \"29% per 0.9% a A1c\", \"UKPDS27\"],[\"Neuropathya\", \"19% per 0.9% a A1c\", \"UKPDS27\"],[\"Microalbuminuriaa\", \"33% per 0.9% a A1c\", \"UKPDS27\"],[\"Nonfatal myocardial infarction\", \"15% per 1.0% a A1c\", \"Boussageon et al31\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    query_risk_reduction = \"19%\"\n    risk_reduction = get_row_by_name(table_data, \"Neuropathya\")\n    if query_risk_reduction in risk_reduction:\n        return \"yes\"\n    return \"no\""
+  },
+  {
+    "id": "579ed10c-897d-40fd-b579-f8d347fd1e20",
+    "question": "Is it true that Welfare and poverty is a social issue that is relatable to international immigration issues. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"International Issues\", \"Domestic Issues\", \"Economic Issues\", \"Social Issues\"],\n              [\"Foreign Policy\", \"Gun Control\", \"Budget & Economy\", \"Education\"],\n              [\"Homeland Security\", \"Crime\", \"Government Reform\", \"Civil Rights\"],\n              [\"War & Peace\", \"Drugs\", \"Tax Reform\", \"Abortion\"],\n              [\"Free Trade\", \"Health Care\", \"Social Security\", \"Families & Children\"],\n              [\"Immigration\", \"Technology\", \"Corporations\", \"Welfare & Poverty\"],\n              [\"Energy & Oil\", \"Environment\", \"Jobs\", \"Principles & Values\"]]",
+    "tool_maker_output": "def check_relation(table, issue1, issue2):\n    for row in table:\n        if issue1 in row and issue2 in row:\n            return True\n    return False\n\ndef solution(table_data):\n    issue1 = \"Welfare & Poverty\"\n    issue2 = \"Immigration\"\n    answer = check_relation(table_data, issue1, issue2)\n    return answer"
+  },
+  {
+    "id": "28b7f418-2848-4fb6-9df4-0208b5f1a2f9",
+    "question": "Is it true that Only Orange County saw double digit new hospitalizations and has the second largest number of hospitalizations. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"County\", \"Total cases\", \"New cases\", \"Deaths\", \"Hospitalizations\", \"New hospitalizations\"],\n              [\"Brevard\", 3510, 141, 29, 207, 8],\n              [\"Flagler\", 509, 16, 5, 43, 0],\n              [\"Lake\", 2645, 128, 27, 148, 1],\n              [\"Marion\", 1642, 153, 15, 166, 5],\n              [\"Orange\", 18937, 936, 83, 564, 11],\n              [\"Osceola\", 4442, 275, 31, 224, 3],\n              [\"Polk\", 7630, 384, 141, 585, 8],\n              [\"Seminole\", 4466, 237, 24, 207, 2],\n              [\"Sumter\", 679, 24, 18, 82, 0],\n              [\"Volusia\", 3972, 167, 78, 314, 5]]",
+    "tool_maker_output": "def check_hospitalizations(table):\n    for row in table:\n        if row[0] == \"Orange\":\n            if row[5] >= 10 and row[4] == 564:\n                return \"yes\"\n    return \"no\"\n\nsolution(table_data)"
+  },
+  {
+    "id": "bd94d6b7-4358-4ab9-a6cf-3cb79fbf5408",
+    "question": "Is it true that Yes black men has highest murder rate as per the table?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Cause of death\", \"Black men\", \"Black women\", \"White men\", \"White women\"],\n              [\"Heart disease\", 1, 1, 1, 1],\n              [\"Malignant neoplasms\", 2, 2, 2, 2],\n              [\"Unintentional injury\", 3, 7, 3, 6],\n              [\"Cerebrovascular diseases\", 4, 3, 5, 4],\n              [\"Homicide\", 5, \"NA\", \"NA\", \"NA\"],\n              [\"Diabetes mellitus\", 6, 4, 6, 7],\n              [\"Chronic lower respiratory disease\", 7, 5, 4, 3],\n              [\"Nephritis, nephrotic syndrome, and nephrosis\", 8, 6, \"NA\", 9],\n              [\"Septicemia\", 9, 9, \"NA\", 10],\n              [\"Influenza and pneumonia\", 10, \"NA\", 9, 8]]",
+    "tool_maker_output": "def check_highest_murder_rate(table):\n    for row in table[1:]:\n        if row[0] == \"Homicide\":\n            if row[1] == 5:\n                return True\n    return False\n\ndef solution(table_data):\n    answer = check_highest_murder_rate(table_data)\n    return answer"
+  },
+  {
+    "id": "8552b9f0-44f1-45d4-8478-943ef2aaf647",
+    "question": "Is it true that The traditional antimicrobial therapy for both Tuberculosis and Gonorrhea is Methicillin?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [\n    [\"Type of infection\", \"Causative agent(s)\", \"Traditional antimicrobial therapy\", \"Current estimated community prevalence of resistance\"],\n    [\"Respiratory tract, conjunctivitis, otitis\", \"Streptococcus penumoniae, Haemophilus influenzae, Moraxella catarrhalis\", \"Penicillin\", \"20%a60%, a1420%, a1495%\"],\n    [\"aStrepa throat, impetigo\", \"Streptococcus pyogenes\", \"Penicillin, Erythromycin\", \"45%, 10%a30%\"],\n    [\"Tuberculosis\", \"Mycobacterium tuberculosis\", \"Isoniazid, rifampin\", \"0.7% (for both drugs combined)\"],\n    [\"Gonorrhea\", \"Neisseria gonorrhoeae\", \"Penicillin, Tetracycline\", \"20%a90% 0%a46%\"],\n    [\"Skin and soft tissue, sepsis, pneumonia\", \"Staphylococcus aureus\", \"Methicillin\", \"0.84%, but multiple outbreaks reported\"],\n    [\"Gastrointestinal, diarrhea\", \"Salmonella enteritidis, choleraesuis\", \"Non-typhi species should not be treated with antibiotics\", \"Depends on subtype: multi-drug resistant strains, 1%a25%\"],\n    [\"A\", \"Shigella spp.\", \"Ampicillin, Trimethoprim- sulfamethoxazole\", \"78%, 46%\"],\n    [\"Enteric fever\", \"Salmonella typhi\", \"Fluoroquinolones, Third-generation cephalosporins\", \"25%a40% resistant to one or more agents, 17%a20% resistant to >5 agents\"],\n    [\"Cholera\", \"Vibrio cholerae\", \"Supportive treatment, usually Tetracycline, Ampicillin, Co-trimoxazole\", \"Resistance to at least one agent now >90%\"]\n]",
+    "tool_maker_output": "def check_antimicrobial_therapy(table, infection):\n    for row in table:\n        if row[0].lower() == infection.lower():\n            therapy = row[2]\n            if \"Methicillin\" in therapy:\n                return True\n    return False\n\ndef solution(table_data):\n    tuberculosis = \"Tuberculosis\"\n    gonorrhea = \"Gonorrhea\"\n    \n    tb_result = check_antimicrobial_therapy(table_data, tuberculosis)\n    gonorrhea_result = check_antimicrobial_therapy(table_data, gonorrhea)\n    \n    if tb_result or gonorrhea_result:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "86f29270-4472-412b-b27f-9f7586599484",
+    "question": "Is it true that The \"Introduction to Law Enforcement and Criminal Justice\" book's 10th edition contains Social Science/Criminology subjects?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"Introduction to Law Enforcement and Criminal Justice\"],[\"Authors\", \"Karen M. Hess, Christine Hess Orthmann\"],[\"Edition\", \"10\"],[\"Publisher\", \"Cengage Learning, 2012\"],[\"ISBN\", \"1111138907, 9781111138905\"],[\"Length\", \"640 pages\"],[\"Subjects\", \"Social Science CriminologySocial Science / Criminology\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    title = get_row_by_name(table_data, \"Title\")\n    edition = get_row_by_name(table_data, \"Edition\")\n    subjects = get_row_by_name(table_data, \"Subjects\")\n    answer = \"yes\"\n    if title.lower() == \"Introduction to Law Enforcement and Criminal Justice\".lower() and edition == \"10\" and \"Social Science/Criminology\" in subjects:\n        return answer\n    return \"no\""
+  },
+  {
+    "id": "565c6cc2-0f2e-47c8-ad71-ed920952b29e",
+    "question": "Is it true that Those running the Minor Attracted Adults Daily Lives Project is 30 more than the number of Pedophiles online?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"1 Understanding paedophiles\", \"1\"],[\"2 Paedophiles online\", \"21\"],[\"3 Setting up the MinorAttracted Adults Daily Lives Project\", \"38\"],[\"4 Running the MinorAttracted Adults Daily Lives Project\", \"57\"],[\"5 Findings from the MinorAttracted Adults Daily Lives Research Project\", \"68\"],[\"6 Constructing and negotiating identities\", \"84\"],[\"7 Attraction and fantasies\", \"97\"],[\"8 Experiences of support\", \"115\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    pedophiles_online = int(get_row_by_name(table_data, \"Paedophiles online\"))\n    running_project = int(get_row_by_name(table_data, \"Running the MinorAttracted Adults Daily Lives Project\"))\n    answer = False\n    if running_project == pedophiles_online + 30:\n        answer = True\n    return answer\nprint(solution(table_data))"
+  },
+  {
+    "id": "57d54bde-bfb1-4d41-a87d-54c629a35178",
+    "question": "Is it true that A resource for mosquito control in American is http://www.mosquito.org, which also contains links to other sites?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"American Mosquito Control Association\", \"http://www.mosquito.org\", \"Contains many links to other sites.\"],[\"Mosquito Control Association of Australia\", \"http://www.mcaa.org.au\", \"\"],[\"MOTAX - Working Group of European Mosquito Taxonomists\", \"http://www.sove.org/motax\", \"\"]]",
+    "tool_maker_output": "def check_website_for_links(table, website_query, url_query):\n    for row in table:\n        website, url, comment = row\n        if website.lower() == website_query.lower() and url == url_query and \"links to other sites\" in comment.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    website_query = \"American Mosquito Control Association\"\n    url_query = \"http://www.mosquito.org\"\n    answer = check_website_for_links(table_data, website_query, url_query)\n    return answer"
+  },
+  {
+    "id": "bdc4b8bb-7020-4b9c-916b-1d7a5cb0da5b",
+    "question": "Is it true that Immigration is an international issue. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"International Issues\", \"Domestic Issues\", \"Economic Issues\", \"Social Issues\"],\n              [\"Foreign Policy\", \"Gun Control\", \"Budget & Economy\", \"Education\"],\n              [\"Homeland Security\", \"Crime\", \"Government Reform\", \"Civil Rights\"],\n              [\"War & Peace\", \"Drugs\", \"Tax Reform\", \"Abortion\"],\n              [\"Free Trade\", \"Health Care\", \"Social Security\", \"Families & Children\"],\n              [\"Immigration\", \"Technology\", \"Corporations\", \"Welfare & Poverty\"],\n              [\"Energy & Oil\", \"Environment\", \"Jobs\", \"Principles & Values\"]]",
+    "tool_maker_output": "def check_issue_location(table, issue):\n    for row in table:\n        if issue in row[0]:\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    issue = \"Immigration\"\n    answer = check_issue_location(table_data, issue)\n    return answer"
+  },
+  {
+    "id": "6c4673c0-f018-4c6e-8ac9-1dd1eebc794d",
+    "question": "Is it true that Over 50 countries have reported VOC-202012/01\tSouth Africa 501Y.V2?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Variant\", \"United Kingdom(VOC-202012/01)\", \"South Africa(501Y.V2)\", \"Brazil (VOC202101/02)\"],\n              [\"Pangolin lineage\", \"B.1.1.7\", \"B.1.351\", \"B.1.1.28.1(Lineage P.1)\"],\n              [\"Number of countries reported with varianta\", \"93\", \"45\", \"15\"],\n              [\"Genes\", \"A\", \"A\", \"A\"],\n              [\"orf1ab\", \"T1001IA1708DI2230T\", \"K1655N\", \"S1118LK1795Q\"],\n              [\"A\", \"Del:11288:9Del:21765:6Del:21991:3\", \"A\", \"Del:11288-9\"],\n              [\"S\", \"N501YA570DP681HT716IS982AD1118H\", \"D80AD215GK417NE484KN501YA701V\", \"L18FT20NP26SD138YR190SK417TE484KN501YH655YT1027I\"],\n              [\"Orf3a\", \"A\", \"A\", \"G174C\"],\n              [\"Orf8\", \"Q27*R52IY73C\", \"A\", \"E92K\"],\n              [\"E\", \"A\", \"P71L\", \"A\"],\n              [\"N\", \"D3LS235F\", \"T205I\", \"P80R\"]]",
+    "tool_maker_output": "def check_countries_reporting_variant(table, variant, country, num_countries):\n    for row in table:\n        if row[0] == variant and row[1] == country and int(row[2]) > num_countries:\n            return True\n    return False\n\ndef solution(table_data):\n    answer = check_countries_reporting_variant(table_data, \"United Kingdom(VOC-202012/01)\", \"South Africa(501Y.V2)\", 50)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "b4cf32ff-9363-4429-9640-f1162a94480d",
+    "question": "Is it true that Yakima Valley Open and Safe is done in English and Spanish?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Yakima County Small Business Coronavirus Assistance\", \"EnglishEspanol\"],[\"State and Federal Financial Help for Businesses\", \"English\"],[\"aOpen Yakimaa Business re-opening health and safety plan services community task force\", \"English\"],[\"Yakima County local Personal Protective Equipment suppliers and vendors\", \"English\"],[\"Handouts and Print Resources for Businesses\", \"English\"],[\"Yakima Valley Open and Safe\", \"EnglishEspanol\"],[\"State Fair Park COVID-19 Vaccination Sign Up Web Site\", \"Click Here\"],[\"State COVID-19 Assistance Hotline\", \"1-800-525-0127\"]]",
+    "tool_maker_output": "def check_language(table, event_query):\n    for row in table:\n        event, languages = row\n        if event.lower() == event_query.lower() and \"english\" in languages.lower() and \"spanish\" in languages.lower():\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    query_event = \"Yakima Valley Open and Safe\"\n    answer = check_language(table_data, query_event)\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "fde8d71f-1220-4f39-82ae-98febf58ca59",
+    "question": "Is it true that Sepsis has the highest percentage change ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Causes of death\", \"Sept. 2015\", \"Sept. 2016\", \"Sept. 2017\", \"Pct. change\"],\n              [\"Sepsis\", 64, 61, 92, \"+47\"],\n              [\"Pneumonia\", 50, 55, 76, \"+45\"],\n              [\"Emphysema and other breathing disorders\", 104, 114, 156, \"+43\"],\n              [\"Diabetes\", 221, 249, 309, \"+31\"],\n              [\"Alzheimeras and Parkinsonas\", 189, 183, 229, \"+23\"]]",
+    "tool_maker_output": "def get_highest_percentage_change(table):\n    max_change = 0\n    cause = \"\"\n    for row in table[1:]:\n        pct_change = int(row[-1].strip(\"+\"))\n        if pct_change > max_change:\n            max_change = pct_change\n            cause = row[0]\n    return cause\n\ndef solution(table_data):\n    answer = get_highest_percentage_change(table_data)\n    return answer\nprint(solution(table_data)) # Output: Sepsis"
+  },
+  {
+    "id": "232ad24b-aa9a-4bbc-a53b-f854ff671d5b",
+    "question": "Is it true that The 14-day change for deaths saw a 20% increase?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"\", \"Avg. on Jun. 22\", \"14-Day Change\", \"Total Reported\"],\n              [\"cases\", 11370, \"21%\", 33537764],\n              [\"tests\", 708627, \"9%\", \"a\"],\n              [\"hospitalized\", 17218, \"22%\", \"a\"],\n              [\"deaths\", 309, \"20%\", 602164]]",
+    "tool_maker_output": "def check_14_day_change(table, category, percentage):\n    for row in table[1:]:\n        if row[0] == category and row[2] == percentage:\n            return True\n    return False\n\ndef solution(table_data):\n    category = \"deaths\"\n    percentage = \"20%\"\n    answer = check_14_day_change(table_data, category, percentage)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "4ac751aa-8667-4b21-afa0-000557a5c985",
+    "question": "Is it true that 70 Percent of infections that are asymptomatic are presented in scenario 2?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Parameter\", \"Scenario 1\", \"Scenario 2\", \"Scenario 3\", \"Scenario 4\", \"Scenario 5: Current Best Estimate\"],\n               [\"2.0\", \"4.0\", \"2.5\"],\n               [\"0-17 years old: 6 18-49 years old: 150 50-64 years old: 1,800 65+ years old: 26,000\", \"0-17 years old: 80 18-49 years old: 1,700 50-64 years old: 20,000 65+ years old: 270,000\", \"0-17 years old: 20 18-49 years old: 500 50-64 years old: 6,000 65+ years old: 90,000\"],\n               [\"15%\", \"70%\", \"15%\", \"70%\", \"30%\"],\n               [\"25%\", \"100%\", \"25%\", \"100%\", \"75%\"],\n               [\"30%\", \"70%\", \"30%\", \"70%\", \"50%\"]]",
+    "tool_maker_output": "def check_infection_percentage(table, scenario, percentage):\n    for row in table:\n        if scenario in row:\n            index = row.index(scenario)\n            if row[index-1] == percentage:\n                return True\n    return False\n\ndef solution(table_data):\n    scenario = \"Scenario 2\"\n    percentage = \"70%\"\n    answer = check_infection_percentage(table_data, scenario, percentage)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "a846c3ff-43ca-47ce-b53d-ab2b02af5181",
+    "question": "Is it true that The biologic family encouragement is less than the school encouragement?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Main hypotheses\", \"A\"],[\"aInstitutional agents (tangible/advice) (Mean/SD)\", \"0.7 (0.8)\"],[\"aSchool encouragement\", \"63.1%\"],[\"Competing hypotheses\", \"A\"],[\"aNoninstitutional agents (tangible/advice) (Mean/SD)\", \"2.3 (1.3)\"],[\"aInstitutional agents (emotional) (Mean/SD)\", \"0.1 (0.4)\"],[\"aEstimated network size (0a30) (Mean/SD)\", \"7.6 (6.6)\"],[\"aAdequate amount of tangible/advice\", \"54.2%\"],[\"aBiological family encouragement\", \"60.6%\"],[\"aFoster-care encouragement\", \"69.0%\"]]",
+    "tool_maker_output": "def compare_encouragement_levels(table_data):\n    school_encouragement = None\n    biological_family_encouragement = None\n\n    for row in table_data:\n        if \"school encouragement\" in row[0].lower():\n            school_encouragement = float(row[1].strip(\"%\"))\n        if \"biological family encouragement\" in row[0].lower():\n            biological_family_encouragement = float(row[1].strip(\"%\"))\n\n    if school_encouragement is not None and biological_family_encouragement is not None:\n        return biological_family_encouragement < school_encouragement\n    else:\n        return None\nresult = compare_encouragement_levels(table_data)\nprint(result)  # Output: True"
+  },
+  {
+    "id": "d012b066-2099-45a2-bbcc-f09673dba3d3",
+    "question": "Is it true that The shoreline is 8426 miles long?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Florida\"],[\"Population (2001)\", \"16.4 million\"],[\"U.S. population ranking\", \"4th\"],[\"Median household income (2000)\", \"$37,998\"],[\"Unemployment rate (2000)\", \"3.6%\"],[\"Land area\", \"53,927 square miles\"],[\"Shoreline\", \"8,426 miles\"],[\"Inland water\", \"11,761 square miles\"],[\"Capital\", \"Tallahassee\"],[\"Other principal cities\", \"Fort Lauderdale, Jacksonville, Orlando, Miami, St. Petersburg, Tampa\"],[\"Number of counties\", \"67\"],[\"Principal industries\", \"Agriculture, banking, government, retail services, tourism\"]]",
+    "tool_maker_output": "def check_shoreline_length(table):\n    for row in table:\n        if row[0] == \"Shoreline\":\n            length = row[1].replace(\",\", \"\")  # Remove comma from the number\n            if int(length) == 8426:\n                return \"yes\"\n    return \"no\"\n\nsolution(table_data)"
+  },
+  {
+    "id": "77dd14e5-b5b3-4d42-b245-6aa616c3aca0",
+    "question": "Is it true that Gastric bypass more effective than other procedures has minimal invasiveness?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Attribute\", \"LAGB\", \"RYGB\", \"BPD\"],\n              [\"Safe\", \"+++\", \"++\", \"+\"],\n              [\"Effective (substantial weight loss, improved health and quality of life)\", \"++\", \"++\", \"+++\"],\n              [\"Easily and fully reversible\", \"Yes\", \"No\", \"No\"],\n              [\"Side effects\", \"+\", \"++\", \"++\"],\n              [\"Durable (effective over time)\", \"++\", \"++\", \"+++\"],\n              [\"Minimal invasivenessa\", \"+++\", \"++\", \"+\"],\n              [\"Controllable/adjustable\", \"Yes\", \"No\", \"No\"],\n              [\"Low reoperation/revision rate\", \"+\", \"+\", \"+\"]]",
+    "tool_maker_output": "def check_minimal_invasiveness(table, procedure, attribute):\n    for row in table:\n        if row[0].lower() == attribute.lower():\n            if procedure.lower() == \"rygb\" and row[2] == \"+++\":\n                return True\n    return False\n\ndef solution(table_data):\n    procedure = \"RYGB\"\n    attribute = \"Minimal invasivenessa\"\n    answer = check_minimal_invasiveness(table_data, procedure, attribute)\n    return answer"
+  },
+  {
+    "id": "38c44ffd-8af6-49c5-8215-1ca766cdfaae",
+    "question": "Is it true that Charlie Baker has a higher approval rating than Spencer Cox?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"State\", \"Governor\", \"Party\", \"Approval\", \"Disapproval\", \"Net\"],\n              [\"MA\", \"Charlie Baker\", \"R\", 74, 20, \"+54\"],\n              [\"NH\", \"Chris Sununu\", \"R\", 72, 25, \"+47\"],\n              [\"UT\", \"Spencer Cox\", \"R\", 63, 22, \"+41\"],\n              [\"TX\", \"Greg Abbott\", \"R\", 54, 35, \"+19\"],\n              [\"WA\", \"Jay Inslee\", \"D\", 52, 35, \"+17\"],\n              [\"FL\", \"Ron DeSantis\", \"R\", 55, 38, \"+17\"],\n              [\"VA\", \"Ralph Northam\", \"D\", 49, 33, \"+16\"],\n              [\"SD\", \"Kristi Noem\", \"R\", 55, 44, \"+11\"],\n              [\"NC\", \"Roy Cooper\", \"D\", 49, 39, \"+11\"],\n              [\"MI\", \"Gretchen Whitmer\", \"D\", 52, 47, \"+5\"],\n              [\"NV\", \"Steve Sisolak\", \"D\", 48, 43, \"+5\"],\n              [\"NY\", \"Andrew Cuomo\", \"D\", 48, 45, \"+3\"]]",
+    "tool_maker_output": "```python\ndef get_approval_rating(table, governor):\n    for row in table:\n        if row[1] == governor:\n            return row[3]\n    return None\n\ndef solution(table_data):\n    charlie_baker_approval = get_approval_rating(table_data, \"Charlie Baker\")\n    spencer_cox_approval = get_approval_rating(table_data, \"Spencer Cox\")\n    return charlie_baker_approval > spencer_cox_approval\nprint(solution(table_data))\n```"
+  },
+  {
+    "id": "98df17d7-5642-4bd4-bb25-bac44a2b10e8",
+    "question": "Is it true that There are two states whose names begin with the letter \"v\"?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Alabama\", \"Alaska\", \"Arizona\", \"Arkansas\", \"California\"],\n              [\"Colorado\", \"Connecticut\", \"Delaware\", \"District of Columbia\", \"Florida\"],\n              [\"Georgia\", \"Hawaii\", \"Idaho\", \"Illinois\", \"Indiana\"],\n              [\"Iowa\", \"Kansas\", \"Kentucky\", \"Louisiana\", \"Maine\"],\n              [\"Maryland\", \"Massachusetts\", \"Michigan\", \"Minnesota\", \"Mississippi\"],\n              [\"Missouri\", \"Montana\", \"Nebraska\", \"Nevada\", \"New Hampshire\"],\n              [\"New Jersey\", \"New Mexico\", \"New York\", \"North Carolina\", \"North Dakota\"],\n              [\"Ohio\", \"Oklahoma\", \"Oregon\", \"Pennsylvania\", \"Rhode Island\"],\n              [\"South Carolina\", \"South Dakota\", \"Tennessee\", \"Texas\", \"Utah\"],\n              [\"Vermont\", \"Virginia\", \"Washington\", \"West Virginia\", \"Wisconsin\"],\n              [\"Wyoming\", \"New York City\", \"Puerto Rico\", \"Virgin Islands\"]]\n\n# Answer: yes",
+    "tool_maker_output": "def check_states_starting_with_letter(table_data, letter):\n    count = 0\n    for row in table_data:\n        for state in row:\n            if state.lower().startswith(letter.lower()):\n                count += 1\n    if count >= 2:\n        return \"yes\"\n    else:\n        return \"no\"\n\nsolution = check_states_starting_with_letter(table_data, \"v\")\nprint(solution) # Output: yes"
+  },
+  {
+    "id": "d5fef37a-cd97-466b-94b4-9e3a44b50d78",
+    "question": "Is it true that Broward County has a higher rate than  all of Florida combined?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Broward County\", 0.52],[\"Florida\", 9.13],[\"U.S.\", 212.91]]",
+    "tool_maker_output": "def compare_rates(table):\n    county_rate = None\n    florida_rate = None\n    for row in table:\n        if row[0] == \"Broward County\":\n            county_rate = row[1]\n        elif row[0] == \"Florida\":\n            florida_rate = row[1]\n    \n    if county_rate is not None and florida_rate is not None:\n        return county_rate > florida_rate\n    return False\n\ndef solution(table_data):\n    answer = compare_rates(table_data)\n    return not answer"
+  },
+  {
+    "id": "8ac80159-42ec-465d-98a8-f23b7a8f841a",
+    "question": "Is it true that Postpartum arousal symptoms include difficulties falling asleep and being tense, nervous, irritable or anxious?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Domain\", \"A\"],[\"Avoidance\", \"aaDo you avoid thinking about birth?\"],[\"A\", \"aaHave you avoided people, buildings etc. which remind you of the birth?\"],[\"Intrusions\", \"aaHave you had negative dreams about your childbirth?\"],[\"A\", \"aaDo you sometimes think about the birth without really wanting to think about it?\"],[\"A\", \"aaHave you had images about the birth coming up or the experience of reliving aspects of the birth?\"],[\"Arousal\", \"aaHave you had difficulties falling asleep in the last weeks?\"],[\"A\", \"aaDo you experience negative bodily sensations when you remember birth?\"],[\"A\", \"aaHave you been more tense, nervous, irritable or anxious?\"]]",
+    "tool_maker_output": "def check_symptoms(table, symptom1, symptom2):\n    for row in table:\n        category, symptom = row\n        if category.lower() == \"arousal\" and (symptom1.lower() in symptom.lower() or symptom2.lower() in symptom.lower()):\n            return True\n    return False\n\ndef solution(table_data):\n    symptom1 = \"difficulties falling asleep\"\n    symptom2 = \"tense, nervous, irritable or anxious\"\n    answer = check_symptoms(table_data, symptom1, symptom2)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "b0385e59-a395-4f9c-8900-afa3dab47452",
+    "question": "Is it true that Among the third trimester, 3 people have no opinion?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Legal\", \"Illegal\", \"DEPENDS (vol.)\", \"No opinion\"],\n              [\"First Trimester\", \"65%\", \"31\", \"2\", \"2\"],\n              [\"Second Trimester\", \"24%\", \"69\", \"4\", \"3\"],\n              [\"Third Trimester\", \"8%\", \"86\", \"3\", \"3\"]]",
+    "tool_maker_output": "def check_opinion_in_trimester(table, trimester, opinion_count):\n    for row in table:\n        if row[0].lower() == trimester.lower():\n            if int(row[-1]) == opinion_count:\n                return True\n    return False\n\ndef solution(table_data):\n    trimester = \"Third Trimester\"\n    opinion_count = 3\n    answer = check_opinion_in_trimester(table_data, trimester, opinion_count)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "2c121e75-30e6-47ca-990a-6fafe284f124",
+    "question": "Is it true that You can trust the result of the mammograms exam?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Ages 40a49 y\", \"Ages 50a59 y\", \"Ages 60a69 y\", \"Ages 70a74 y\"],\n              [\"False-positive mammograms (false alarms), n\", 1212, 932, 808, 696],\n              [\"Breast biopsies, n\", 164, 159, 165, 175],\n              [\"False-negative mammograms (missed cancers), n\", 10, 11, 12, 15]]",
+    "tool_maker_output": "def check_mammogram_results(table):\n    false_positive_40_49 = table[1][1]\n    false_positive_50_59 = table[1][2]\n    false_positive_60_69 = table[1][3]\n    false_positive_70_74 = table[1][4]\n\n    false_negative_40_49 = table[3][1]\n    false_negative_50_59 = table[3][2]\n    false_negative_60_69 = table[3][3]\n    false_negative_70_74 = table[3][4]\n\n    if false_positive_40_49 > 1000 or false_positive_50_59 > 1000 or false_positive_60_69 > 1000 or false_positive_70_74 > 1000:\n        return False\n    if false_negative_40_49 < 20 or false_negative_50_59 < 20 or false_negative_60_69 < 20 or false_negative_70_74 < 20:\n        return False\n    return True\n\nanswer = check_mammogram_results(table_data)\nprint(answer)"
+  },
+  {
+    "id": "9ef37036-3015-43f3-b55e-dd1964a046a2",
+    "question": "Is it true that Accidents is the leading cause of death of young people, more than the next four causes put together?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"CAUSE\", \"PERCENT OF TOP 5\", \"NUMBERS\"],[\"(1) Accidents\", \"51.8%\", \"12,752\"],[\"(2) Homicide\", \"21.3%\", \"5,233\"],[\"(3) Suicide\", \"16.3%\", \"4,003\"],[\"(4) Cancer\", \"6.8%\", \"1,670\"],[\"(5) Heart Disease\", \"3.9%\", \"961\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    cause = get_row_by_name(table_data, \"(1) Accidents\")\n    accidents_percent = float(get_row_by_name(table_data, \"(1) Accidents\").replace(\"%\", \"\"))\n    total_percent = accidents_percent\n    for i in range(2, 6):\n        total_percent += float(get_row_by_name(table_data, f\"({i})\").replace(\"%\", \"\"))\n    \n    if accidents_percent > total_percent:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "85030a09-4ddc-46b0-965c-06b2b2e44c77",
+    "question": "Is it true that 5.5% of the time, a spinal injury is the cause of death?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"CAUSE OF DEATH\", \"PERCENT\"],[\"(1) Hemorrhage\", \"41.6%\"],[\"(2) Cerebral injury\", \"30.5%\"],[\"(3) Combined injury\", \"15.2%\"],[\"(4) Spinal injury\", \"5.5%\"],[\"(5) Crush asphyxia\", \"4.9%\"],[\"(6) Chest injury\", \"2.1%\"]]",
+    "tool_maker_output": "def check_cause_of_death(table, cause_query, percent_query):\n    for row in table:\n        cause, percent = row\n        if cause_query.lower() in cause.lower() and percent_query.lower() in percent.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    query_cause = \"Spinal injury\"\n    query_percent = \"5.5%\"\n    answer = check_cause_of_death(table_data, query_cause, query_percent)\n    return answer"
+  },
+  {
+    "id": "d956dca0-2d22-4fb1-b480-e427d85690cd",
+    "question": "Is it true that Barbados has a 143 % debt to GDP Ratio?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Country\", \"Debt to GDP Ratio (Top 10)\"],[\"1. Japan\", \"257%\"],[\"2. Sudan\", \"212%\"],[\"3. Greece\", \"210%\"],[\"4. Eritrea\", \"176%\"],[\"5. Suriname\", \"157%\"],[\"6. Italy\", \"157%\"],[\"7. Barbados\", \"143%\"],[\"8. Maldives\", \"140%\"],[\"9. Cabo Verde\", \"138%\"],[\"10. Belize\", \"135%\"]]",
+    "tool_maker_output": "def check_debt_ratio(table, country_query, ratio_query):\n    for row in table:\n        country, ratio = row\n        if country.lower() == country_query.lower() and ratio_query.lower() in ratio.lower():\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    query_country = \"Barbados\"\n    query_ratio = \"143%\"\n    answer = check_debt_ratio(table_data, query_country, query_ratio)\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "d8a25b63-27a6-4319-94c6-f73efbebbad6",
+    "question": "Is it true that There is a higher legal percentage in the first trimester than in the second trimester?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Legal\", \"Illegal\", \"DEPENDS (vol.)\", \"No opinion\"],\n              [\"First Trimester\", \"65%\", \"31\", \"2\", \"2\"],\n              [\"Second Trimester\", \"24%\", \"69\", \"4\", \"3\"],\n              [\"Third Trimester\", \"8%\", \"86\", \"3\", \"3\"]]",
+    "tool_maker_output": "def compare_legal_percentages(table_data):\n    first_trimester_legal = int(table_data[1][1].replace(\"%\", \"\"))\n    second_trimester_legal = int(table_data[2][1].replace(\"%\", \"\"))\n    \n    if first_trimester_legal > second_trimester_legal:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(compare_legal_percentages(table_data))"
+  },
+  {
+    "id": "404d4165-2420-4e4b-8d42-3dfe1d0206fd",
+    "question": "Is it true that Charts is found on page 149 ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"CHARTS\", \"147\"],[\"MANDATORY WAITING PERIODS FOR ABORTION\", \"149\"],[\"RESTRICTIONS ON MINORS ACCESS TO ABORTION\", \"152\"],[\"BANS ON SOCALLED PARTIALBIRTH ABORTION AND OTHER ABORTION PROCEDURES\", \"154\"]]",
+    "tool_maker_output": "def check_page_number(table, item_query, page_query):\n    for row in table:\n        item, page = row\n        if item.lower() == item_query.lower() and page == page_query:\n            return True\n    return False\n\ndef solution(table_data):\n    item_query = \"CHARTS\"\n    page_query = \"149\"\n    answer = check_page_number(table_data, item_query, page_query)\n    return not answer\n```"
+  },
+  {
+    "id": "bb35a4a7-c868-41b3-9832-a19c10393fb4",
+    "question": "Is it true that War & peace are concerns for domestic issues while technology is an international issue?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"International Issues\", \"Domestic Issues\", \"Economic Issues\", \"Social Issues\"],\n              [\"Foreign Policy\", \"Gun Control\", \"Budget & Economy\", \"Education\"],\n              [\"Homeland Security\", \"Crime\", \"Government Reform\", \"Civil Rights\"],\n              [\"War & Peace\", \"Drugs\", \"Tax Reform\", \"Abortion\"],\n              [\"Free Trade\", \"Health Care\", \"Social Security\", \"Families & Children\"],\n              [\"Immigration\", \"Technology\", \"Corporations\", \"Welfare & Poverty\"],\n              [\"Energy & Oil\", \"Environment\", \"Jobs\", \"Principles & Values\"]]",
+    "tool_maker_output": "def check_issues(table, issue1, issue2, category1, category2):\n    for row in table:\n        if issue1 in row and category1 in row:\n            for i in range(len(row)):\n                if row[i] == issue2 and category2 in table[0][i]:\n                    return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    issue1 = \"War & Peace\"\n    issue2 = \"Technology\"\n    category1 = \"Domestic Issues\"\n    category2 = \"International Issues\"\n    answer = check_issues(table_data, issue1, issue2, category1, category2)\n    return answer\n```"
+  },
+  {
+    "id": "a0ddd67d-2b62-4681-979e-2d25e9b5f140",
+    "question": "Is it true that The book \"Sacred Work: Planned Parenthood and Its Clergy Alliances\" was authored by Ron McDonald. ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"Sacred Work: Planned Parenthood and Its Clergy Alliances\"],[\"Author\", \"Tom Davis\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"Rutgers University Press, 2005\"],[\"ISBN\", \"0813534933, 9780813534930\"],[\"Length\", \"245 pages\"],[\"Subjects\", \"Social Science Sociology of ReligionSocial Science / Sociology of Religion\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_author(table, author_query):\n    for row in table:\n        if row[0].lower() == \"Author\".lower():\n            if row[1].lower() == author_query.lower():\n                return True\n    return False\n\ndef solution(table_data):\n    author_query = \"Ron McDonald\"\n    answer = check_author(table_data, author_query)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "9b6abaa9-8c9e-4734-8e3e-f858c7484a4c",
+    "question": "Is it true that Suicide by planes in October has a higher rate than December.\n\n?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Oct.\", \"Nov.\", \"Dec.\", \"Jan.\", \"Totals\"],\n              [\"Total planes\", 510, 282, 320, 332, 1444],\n              [\"Suicide planes\", 54, 79, 109, 110, 352],\n              [\"Non-suicide planes\", 456, 203, 211, 222, 1092],\n              [\"Suicide kills\", 36, 51, 76, 68, 231],\n              [\"Non-suicide kills\", 95, 16, 23, 22, 156],\n              [\"Suicide hits\", 18, 28, 33, 42, 121],\n              [\"Non-suicide hits\", 10, 1, 3, 9, 23]]",
+    "tool_maker_output": "def compare_suicide_rates(table_data, month1, month2):\n    for row in table_data:\n        if row[0] == \"Suicide planes\":\n            index_month1 = row[0].index(month1)\n            index_month2 = row[0].index(month2)\n            rate_month1 = row[index_month1]\n            rate_month2 = row[index_month2]\n            return rate_month1 > rate_month2\n    return False\n\ndef solution(table_data):\n    month1 = \"Oct.\"\n    month2 = \"Dec.\"\n    answer = compare_suicide_rates(table_data, month1, month2)\n    return answer"
+  },
+  {
+    "id": "12162a51-a7e1-469c-9575-fb7839c26c75",
+    "question": "Is it true that 173 people with intellectual disabilities?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"The psychopathology of children with\", \"93\"],[\"Depression anxiety and adjustment\", \"113\"],[\"Schizophrenia spectrum disorders in people\", \"131\"],[\"Personality disorder\", \"143\"],[\"Dementia and mental illhealth in older\", \"154\"],[\"People with intellectual disabilities who are\", \"173\"]]",
+    "tool_maker_output": "def check_people_with_disabilities(table):\n    for row in table:\n        if \"people with intellectual disabilities\" in row[0].lower() and \"173\" in row[1]:\n            return True\n    return False\n\ndef solution(table_data):\n    answer = check_people_with_disabilities(table_data)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "2562f152-389e-4469-bd79-a801df9535c4",
+    "question": "Is it true that Biological family encouragement has a larger percentage than Foster-care encouragement?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Main hypotheses\", \"A\"],[\"aInstitutional agents (tangible/advice) (Mean/SD)\", \"0.7 (0.8)\"],[\"aSchool encouragement\", \"63.1%\"],[\"Competing hypotheses\", \"A\"],[\"aNoninstitutional agents (tangible/advice) (Mean/SD)\", \"2.3 (1.3)\"],[\"aInstitutional agents (emotional) (Mean/SD)\", \"0.1 (0.4)\"],[\"aEstimated network size (0a30) (Mean/SD)\", \"7.6 (6.6)\"],[\"aAdequate amount of tangible/advice\", \"54.2%\"],[\"aBiological family encouragement\", \"60.6%\"],[\"aFoster-care encouragement\", \"69.0%\"]]",
+    "tool_maker_output": "def compare_encouragement_percentages(table_data):\n    biological_family_encouragement = None\n    foster_care_encouragement = None\n\n    for row in table_data:\n        if \"Biological family encouragement\" in row[0]:\n            biological_family_encouragement = float(row[1].strip(\"%\"))\n        elif \"Foster-care encouragement\" in row[0]:\n            foster_care_encouragement = float(row[1].strip(\"%\"))\n\n    if biological_family_encouragement is not None and foster_care_encouragement is not None:\n        return biological_family_encouragement < foster_care_encouragement\n    else:\n        return None\nresult = compare_encouragement_percentages(table_data)\nprint(result) # Output: False (Biological family encouragement does not have a larger percentage than Foster-care encouragement)"
+  },
+  {
+    "id": "5ec907d6-11a3-4189-9b29-bcdeb517c3b1",
+    "question": "Is it true that Peter Smith and Nelson Johnson published a study of Mental Health Nursing in 2000\n\n?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"A History of Mental Health Nursing\"],[\"Author\", \"Peter Nolan\"],[\"Edition\", \"reprint, revised\"],[\"Publisher\", \"Nelson Thornes, 2000\"],[\"ISBN\", \"0748737219, 9780748737215\"],[\"Length\", \"178 pages\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_publication(table, author_query, publisher_query, year_query):\n    for row in table:\n        if row[1].lower() == author_query.lower() and row[3].lower() == publisher_query.lower() and year_query in row[3]:\n            return True\n    return False\n\ndef solution(table_data):\n    author = \"Peter Nolan\"\n    publisher = \"Nelson Thornes\"\n    year = \"2000\"\n    answer = check_publication(table_data, author, publisher, year)\n    return answer"
+  },
+  {
+    "id": "308e57ef-d3bc-4739-93bd-23f5a647082d",
+    "question": "Is it true that The subject of Sacred Work: Planned Parenthood and Its Clergy Alliances is about Social Science and Sociology of religion?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"Sacred Work: Planned Parenthood and Its Clergy Alliances\"],[\"Author\", \"Tom Davis\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"Rutgers University Press, 2005],[\"ISBN\", \"0813534933, 9780813534930\"],[\"Length\", \"245 pages\"],[\"Subjects\", \"Social Science Sociology of ReligionSocial Science / Sociology of Religion\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    title = get_row_by_name(table_data, \"Title\")\n    subjects = get_row_by_name(table_data, \"Subjects\")\n    answer = \"yes\"\n    if \"social science\" in subjects.lower() and \"sociology of religion\" in subjects.lower():\n        return answer\n    answer = \"no\"\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "a7bed7c6-8e0d-4702-8805-4d608fa17532",
+    "question": "Is it true that The amount of people with no family history of heart attack is 1.00?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"No family history\", \"1.00\"],[\"One parent with heart attack a50 y of age\", \"1.67 (1.55a1.81)\"],[\"One parent with heart attack <50 y of age\", \"2.36 (1.89a2.95)\"],[\"Both parents with heart attack a50 y of age\", \"2.90 (2.30a3.66)\"],[\"Both parents with heart attack, one <50 y of age\", \"3.26 (1.72a6.18)\"],[\"Both parents with heart attack, both <50 y of age\", \"6.56 (1.39a30.95)\"]]",
+    "tool_maker_output": "def check_value_by_category(table, category, value):\n    for row in table:\n        if row[0].lower() == category.lower():\n            if row[1] == value:\n                return True\n    return False\n\ndef solution(table_data):\n    category = \"No family history\"\n    value = \"1.00\"\n    answer = check_value_by_category(table_data, category, value)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "13e6992f-6e6a-4908-9ae6-af2fb7a1c2d0",
+    "question": "Is it true that The digestive system has organ components of mouth, esophagus, stomach, intestines?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Organ System\", \"Organ Components\", \"Major Function\"],[\"Circulatory\", \"heart, blood/lymph vessels, blood, lymph\", \"Transport nutrients and waste products\"],[\"Digestive\", \"mouth, esophagus, stomach, intestines\", \"Digestion and absorption\"],[\"Endocrine\", \"all glands (thyroid, ovaries, pancreas)\", \"Produce and release hormones\"],[\"Immune\", \"white blood cells, lymphatic tissue, marrow\", \"Defend against foreign invaders\"],[\"Integumentary\", \"skin, nails, hair, sweat glands\", \"Protective, body temperature regulation\"],[\"Muscular\", \"skeletal, smooth, and cardiac muscle\", \"Body movement\"],[\"Nervous\", \"brain, spinal cord, nerves\", \"Interprets and responds to stimuli\"],[\"Reproductive\", \"gonads, genitals\", \"Reproduction and sexual characteristics\"],[\"Respiratory\", \"lungs, nose, mouth, throat, trachea\", \"Gas exchange\"],[\"Skeletal\", \"bones, tendons, ligaments, joints\", \"Structure and support\"],[\"Urinary\", \"kidneys, bladder, ureters\", \"Waste excretion, water balance\"]]",
+    "tool_maker_output": "def check_organ_components(table, organ_system, components):\n    for row in table:\n        if row[0].lower() == organ_system.lower() and components.lower() in row[1].lower():\n            return True\n    return False\n\ndef solution(table_data):\n    organ_system = \"Digestive\"\n    components = \"mouth, esophagus, stomach, intestines\"\n    answer = check_organ_components(table_data, organ_system, components)\n    return answer"
+  },
+  {
+    "id": "ba5ffd56-fc5a-4b7f-852d-3cd2c09dad46",
+    "question": "Is it true that Brazil has the least with numbers of countries reported with variant a?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Variant\", \"United Kingdom(VOC-202012/01)\", \"South Africa(501Y.V2)\", \"Brazil (VOC202101/02)\"],\n              [\"Pangolin lineage\", \"B.1.1.7\", \"B.1.351\", \"B.1.1.28.1(Lineage P.1)\"],\n              [\"Number of countries reported with variant\", \"93\", \"45\", \"15\"],\n              [\"Genes\", \"A\", \"A\", \"A\"],\n              [\"orf1ab\", \"T1001IA1708DI2230T\", \"K1655N\", \"S1118LK1795Q\"],\n              [\"A\", \"Del:11288:9Del:21765:6Del:21991:3\", \"A\", \"Del:11288-9\"],\n              [\"S\", \"N501YA570DP681HT716IS982AD1118H\", \"D80AD215GK417NE484KN501YA701V\", \"L18FT20NP26SD138YR190SK417TE484KN501YH655YT1027I\"],\n              [\"Orf3a\", \"A\", \"A\", \"G174C\"],\n              [\"Orf8\", \"Q27*R52IY73C\", \"A\", \"E92K\"],\n              [\"E\", \"A\", \"P71L\", \"A\"],\n              [\"N\", \"D3LS235F\", \"T205I\", \"P80R\"]]",
+    "tool_maker_output": "def get_country_with_least_variants(table):\n    countries = table[0][1:]\n    variants = [int(row[2]) for row in table[2][1:]]\n    min_variants = min(variants)\n    index = variants.index(min_variants)\n    country_with_least_variants = countries[index]\n    return country_with_least_variants\n\ndef solution(table_data):\n    answer = get_country_with_least_variants(table_data)\n    return answer\nprint(solution(table_data)) # Output: \"Brazil (VOC202101/02)\""
+  },
+  {
+    "id": "4f5163ea-f504-4981-b18d-49d944e8ecac",
+    "question": "Is it true that The population of Liberia is 4.4 million?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"country statistic\", \"Guinea\", \"Liberia\", \"Sierra Leone\"],\n              [\"population\", \"12.3 million\", \"4.4 million\", \"6.3 million\"],\n              [\"rural population (% of total)\", \"63.3\", \"50.7\", \"60.4\"],\n              [\"gross domestic product per capita (US$)\", \"539.6\", \"457.9\", \"792.6\"],\n              [\"capital city\", \"Conakry\", \"Monrovia\", \"Freetown\"],\n              [\"physicians per 1000 people (as of 2010)\", \"0.1\", \"0.014\", \"0.022\"],\n              [\"total number of reported Ebola casesa (WHO 2013a2016)\", \"3811\", \"10 678\", \"14 124\"],\n              [\"total number of Ebola deaths (WHO 2013a2016)\", \"2543\", \"4810\", \"3956\"]]",
+    "tool_maker_output": "def get_population_by_country(table, country):\n    for row in table:\n        if row[0].lower() == \"population\" and country.lower() in row:\n            return True\n    return False\n\ndef solution(table_data):\n    country = \"Liberia\"\n    answer = get_population_by_country(table_data, country)\n    return answer"
+  },
+  {
+    "id": "29ddda6a-0539-475f-90ba-b87213086eb3",
+    "question": "Is it true that Health care and the environment will maintain their status?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"a) Border security\", \"\"],[\"b) Education (K-12)\", \"Slightly Increase\"],[\"c) Education (Higher)\", \"Maintain Status\"],[\"d) Environment\", \"Maintain Status\"],[\"e) Health care\", \"Maintain Status\"],[\"f) Law enforcement\", \"Slightly Increase\"],[\"g) Transportation infrastructure (highways, roads, bridges)\", \"Slightly Increase\"],[\"h) Welfare\", \"Slightly Decrease\"],[\"i) Other\", \"\"]]\n\n# Yes, it is true that Health care and the environment will maintain their status.",
+    "tool_maker_output": "def check_status(table, query1, query2):\n    for row in table:\n        if row[0].lower() == query1.lower() and row[1].lower() == \"Maintain Status\".lower():\n            continue\n        elif row[0].lower() == query2.lower() and row[1].lower() == \"Maintain Status\".lower():\n            continue\n        else:\n            return \"no\"\n    return \"yes\"\n\ndef solution(table_data):\n    query1 = \"Health care\"\n    query2 = \"Environment\"\n    answer = check_status(table_data, query1, query2)\n    return answer"
+  },
+  {
+    "id": "34c2caca-b98b-48d8-80e4-50ba8ffef754",
+    "question": "Is it true that There is a slight increase of cocaine use from 2002 to 2005?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Drug\", \"2002\", \"2005\"],[\"Marijuana\", \"36.2%\", \"33.6%\"],[\"Cocaine\", \"5.0\", \"5.1\"],[\"Ecstasy\", \"7.4\", \"3.0\"],[\"OxyContin\", \"4.0\", \"5.5\"],[\"Vicodin\", \"9.6\", \"9.5\"]]",
+    "tool_maker_output": "def check_drug_use(table, drug, year1, year2):\n    for row in table:\n        if row[0].lower() == drug.lower():\n            percentage1 = float(row[1])\n            percentage2 = float(row[2])\n            if percentage2 > percentage1:\n                return True\n    return False\n\ndef solution(table_data):\n    drug = \"Cocaine\"\n    year1 = \"2002\"\n    year2 = \"2005\"\n    answer = check_drug_use(table_data, drug, year1, year2)\n    return answer"
+  },
+  {
+    "id": "b05e8f60-d3a8-4cab-af7c-96dfda776604",
+    "question": "Is it true that The chapter entitled \"Gold\" is over 50 pages in length?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"The Montana Pattern\", \"3\"],[\"The Land and Its First Penetration\", \"11\"],[\"Trappers Posts and Priests\", \"40\"],[\"Gold\", \"64\"],[\"Politics\", \"95\"],[\"The Indian and the Military\", \"115\"],[\"The Economy Evolves\", \"139\"],[\"Butte to Paris and Return\", \"167\"]]",
+    "tool_maker_output": "def check_chapter_length(table, chapter_name, page_limit):\n    for row in table:\n        if row[0].lower() == chapter_name.lower():\n            if int(row[1]) > page_limit:\n                return True\n    return False\n\ndef solution(table_data):\n    chapter_name = \"Gold\"\n    page_limit = 50\n    answer = check_chapter_length(table_data, chapter_name, page_limit)\n    return answer"
+  },
+  {
+    "id": "8e9f101e-6746-4d19-87d0-6be08b250fb1",
+    "question": "Is it true that Mosquitoes kingdom is Animalia and Taxonomic rank is family?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Kingdom:\", \"Animalia\"],[\"Taxonomic Rank:\", \"Family\"],[\"Synonym(s):\", \"\"],[\"Common Name(s):\", \"mosquitoes\"]]",
+    "tool_maker_output": "def check_taxonomic_info(table):\n    kingdom = None\n    rank = None\n    for row in table:\n        if row[0] == \"Kingdom:\":\n            kingdom = row[1]\n        elif row[0] == \"Taxonomic Rank:\":\n            rank = row[1]\n    \n    if kingdom == \"Animalia\" and rank == \"Family\":\n        return \"yes\"\n    else:\n        return \"no\"\n\ntable_data = [[\"Kingdom:\", \"Animalia\"],[\"Taxonomic Rank:\", \"Family\"],[\"Synonym(s):\", \"\"],[\"Common Name(s):\", \"mosquitoes\"]]\nsolution = check_taxonomic_info(table_data)\nprint(solution)"
+  },
+  {
+    "id": "0d2cf23c-fd44-4056-9e88-582e4b90b2bf",
+    "question": "Is it true that The Brazil variant has spread to fewer countries than the South Africa variant?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Variant\", \"United Kingdom(VOC-202012/01)\", \"South Africa(501Y.V2)\", \"Brazil (VOC202101/02)\"],\n              [\"Pangolin lineage\", \"B.1.1.7\", \"B.1.351\", \"B.1.1.28.1(Lineage P.1)\"],\n              [\"Number of countries reported with varianta\", \"93\", \"45\", \"15\"],\n              [\"Genes\", \"A\", \"A\", \"A\"],\n              [\"orf1ab\", \"T1001IA1708DI2230T\", \"K1655N\", \"S1118LK1795Q\"],\n              [\"A\", \"Del:11288:9Del:21765:6Del:21991:3\", \"A\", \"Del:11288-9\"],\n              [\"S\", \"N501YA570DP681HT716IS982AD1118H\", \"D80AD215GK417NE484KN501YA701V\", \"L18FT20NP26SD138YR190SK417TE484KN501YH655YT1027I\"],\n              [\"Orf3a\", \"A\", \"A\", \"G174C\"],\n              [\"Orf8\", \"Q27*R52IY73C\", \"A\", \"E92K\"],\n              [\"E\", \"A\", \"P71L\", \"A\"],\n              [\"N\", \"D3LS235F\", \"T205I\", \"P80R\"]]",
+    "tool_maker_output": "def get_column_by_name(table, key):\n    for row in table:\n        if key.lower() in [item.lower() for item in row]:\n            return row\n    return None\n\ndef solution(table_data):\n    uk_countries = int(get_column_by_name(table_data, \"United Kingdom(VOC-202012/01)\")[2])\n    sa_countries = int(get_column_by_name(table_data, \"South Africa(501Y.V2)\")[2])\n    brazil_countries = int(get_column_by_name(table_data, \"Brazil (VOC202101/02)\")[2])\n    \n    if brazil_countries < sa_countries:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "f1f3fdb4-5bd8-4a5c-b23d-e6703508b59b",
+    "question": "Is it true that The Chinese FT worry value is half of the Latino FT worry value?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"A\", \"Dependent variable:\", \"Worried About Coronavirus\", \"(1)\", \"(2)\", \"(3)\"],\n              [\"Chinese FT\", \"0.215***(0.075)\", \"A\", \"A\"],\n              [\"Asian Am FT\", \"A\", \"0.378***(0.090)\", \"0.407***(0.092)\"],\n              [\"Latino FT\", \"0.065(0.089)\", \"a0.005(0.092)\", \"0.008(0.092)\"],\n              [\"Black FT\", \"a0.105(0.085)\", \"a0.183**(0.089)\", \"a0.171*(0.090)\"],\n              [\"Passive Contact\", \"A\", \"A\", \"0.079***(0.017)\"],\n              [\"Intimate Contact\", \"A\", \"A\", \"a0.101**(0.042)\"],\n              [\"Xenophobia\", \"0.235***(0.082)\", \"0.236***(0.082)\", \"0.262***(0.083)\"],\n              [\"Controls\", \"a\", \"a\", \"a\"],\n              [\"N\", \"4142\", \"4142\", \"4109\"]]",
+    "tool_maker_output": "def get_value(table, row_name, column_name):\n    for row in table:\n        if row[0] == row_name:\n            for i in range(1, len(row)):\n                if row[i] == column_name:\n                    return row[i-1]\n    return None\n\ndef solution(table_data):\n    chinese_ft_value = get_value(table_data, \"Chinese FT\", \"Worried About Coronavirus\")\n    latino_ft_value = get_value(table_data, \"Latino FT\", \"Worried About Coronavirus\")\n    \n    if chinese_ft_value and latino_ft_value:\n        chinese_ft_value = float(chinese_ft_value.split(\"(\")[0])\n        latino_ft_value = float(latino_ft_value.split(\"(\")[0])\n        \n        if chinese_ft_value == 0.5 * latino_ft_value:\n            return \"yes\"\n    \n    return \"no\""
+  },
+  {
+    "id": "4df9aa88-6365-4033-9e4b-dc851666ba27",
+    "question": "Is it true that The 1997 study had the largest sample size?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"\", \"\"],\n              [\"Citation\", \"Operationally Defined Outcome\", \"Study Setting\", \"Defined Study Population\", \"Study Design\", \"Sample Size\", \"Primary Effect Size Estimatea (95% CI or p value)\", \"Heterogeneous Subgroups at Higher Riskb\", \"Limitations (Negligible or Serious)c\"],\n              [\"Black ct al. (1997)\", \"Meningitis diagnosis identified in the medical record\", \"Four HMOs participating in the VSD from 1984-1993\", \"Ages 12-23 months\", \"Case-control\", \"59 children with meningitis\", \"OR for meningitis diagnosis within 14 days of MMR vaccination: 0.50 (95% CI 0.1-4.5)\", \"None described\", \"Negligible\"],\n              [\"Controls matched by age (within 1 month), sex, HMO, and HMO membership status\", \"118 matched controls\", \"OR for meningitis diagnosis within 30 days of MMR vaccination: 0.84 (95% CI 0.2-3.5)\"],\n              [\"\", \"OR for meningitis diagnosis within 8-14 days of MMR vaccination: 1.00 (95% CI 0.1-9.2)\"],\n              [\"Makela et al. (2002)\", \"Aseptic meningitis identified in the nationwide hospital\", \"Finland from 11/1982 to 6/1986\", \"Ages 1-7 years\", \"Retrospective cohort Risk period: 0-3 months after MMR vaccination\", \"535,544 children 161 children hospitalized for meningitis\", \"No significant increase in aseptic meningitis within 3 months of MMR vaccination\", \"None described\", \"Serious\"]]",
+    "tool_maker_output": "def get_largest_sample_size(table):\n    largest_sample_size = 0\n    largest_sample_size_row = None\n    for row in table:\n        if row[0] != \"\" and row[5] != \"\":\n            sample_size = row[5].replace(\",\", \"\")\n            sample_size = int(sample_size.split()[0])\n            if sample_size > largest_sample_size:\n                largest_sample_size = sample_size\n                largest_sample_size_row = row\n    return largest_sample_size_row\n\ndef solution(table_data):\n    largest_sample_size_row = get_largest_sample_size(table_data)\n    if largest_sample_size_row[0] == \"Black ct al. (1997)\":\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "4c52cd4f-7c6c-4013-a19a-4ca0d9a4a3b1",
+    "question": "Is it true that Indoor pollution is a higher risk factor for TB than Diabetes?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Risk factor (reference)\", \"Relative risk for active TB disease (range)a\", \"Weighted prevalence, total population, 22aTB high burden countriesb\", \"Population attributable fraction (range)c\"],\n              [\"HIV infection\", \"8.3 (6.1a10.8)\", \"1.1%\", \"7.3% (5.2a6.9)\"],\n              [\"Malnutrition\", \"4.0 (2.0a6.0)\", \"17.2%\", \"34.1% (14.7a46.3)\"],\n              [\"Diabetes\", \"3.0 (1.5a7.8)\", \"3.4%\", \"6.3% (1.6a18.6)\"],\n              [\"Alcohol usea>a40ag/day\", \"2.9 (1.9a4.6)\", \"7.9%\", \"13.1% (6.7a22.2)\"],\n              [\"Active smoking\", \"2.6 (1.6a4.3)\", \"18.2%\", \"22.7% (9.9a37.4)\"],\n              [\"Indoor pollution\", \"1.5 (1.2a3.2)\", \"71.1%\", \"26.2% (12.4a61.0)\"]]",
+    "tool_maker_output": "def compare_risk_factors(table_data):\n    risk_factors = {}\n    for row in table_data[1:]:\n        factor = row[0]\n        risk = float(row[1].split()[0])\n        risk_factors[factor] = risk\n\n    indoor_pollution_risk = risk_factors[\"Indoor pollution\"]\n    diabetes_risk = risk_factors[\"Diabetes\"]\n\n    if indoor_pollution_risk > diabetes_risk:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(compare_risk_factors(table_data))"
+  },
+  {
+    "id": "66bbef7e-2248-4ea9-beeb-492dbf0ca447",
+    "question": "Is it true that There are more cases in females than males?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Age range\", \"Number of cases\"],[\"15 to 19 years\", 5],[\"20 to 34 years\", 5],[\"35 to 49 years\", 5],[\"50 years +\", 5],[\"Female\", 8],[\"Male\", 12]]",
+    "tool_maker_output": "def get_cases_by_gender(table, gender):\n    for row in table:\n        if row[0].lower() == gender.lower():\n            return row[1]\n    return 0\n\ndef solution(table_data):\n    cases_female = get_cases_by_gender(table_data, \"Female\")\n    cases_male = get_cases_by_gender(table_data, \"Male\")\n    answer = cases_female > cases_male\n    return answer"
+  },
+  {
+    "id": "b98d82bc-85a3-4c22-ae25-1c5ea6556514",
+    "question": "Is it true that in 2007 national parks grew by 1 ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Option\", \"1997\", \"2000\", \"2003\", \"2007\"],\n              [\"Health care system\", 89, 80, 78, 83],\n              [\"Charter of Rights and Freedoms\", 72, 76, 71, 72],\n              [\"Canadian flag\", 70, 73, 68, 69],\n              [\"National parks\", 71, 73, 62, 63],\n              [\"National anthem\", 67, 65, 60, 62],\n              [\"Historic sites\", 65, 67, 53, 58],\n              [\"RCMP\", 60, 60, 57, 52],\n              [\"Multiculturalism\", 37, 54, 47, 50],\n              [\"Canadian literature and music\", 49, 58, 46, 46],\n              [\"Bilingualism\", 37, 45, 38, 40],\n              [\"CBC\", 39, 37, 37, 39],\n              [\"Hockey\", 30, 35, 40, 37],\n              [\"National capital Ottawa\", \"a\", 43, 36, 33],\n              [\"The Queen\", 14, 16, 16, 16]]",
+    "tool_maker_output": "def check_growth(table, option, year, growth):\n    for row in table:\n        if row[0] == option:\n            current_value = row[year - 1997]\n            next_value = row[year - 1997 + 1]\n            if next_value - current_value == growth:\n                return True\n    return False\n\ndef solution(table_data):\n    option = \"National parks\"\n    year = 2007\n    growth = 1\n    answer = check_growth(table_data, option, year, growth)\n    return answer"
+  },
+  {
+    "id": "8bc1c240-2e43-4aff-9d99-fbff134fc7a2",
+    "question": "Is it true that In cardiac or neurologic manifestations, the sensitivity is higher than the specificity?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Stage of Lyme disease\", \"Sensitivity (%)\", \"Specificity (%)\", \"Positive predictive value (%)\", \"Negative predictive value (%)\"],\n                [\"Early localized\"],\n                [\"Acute phase\", 17, 98, 75, 26],\n                [\"Convalescent phase\", 53, 98, 90, 83],\n                [\"Early disseminated\"],\n                [\"Cardiac or neurologic manifestations\", 100, 98, 87, 100],\n                [\"Multiple erythema migrans lesions\", 43, 98, 89, 79],\n                [\"Late\"],\n                [\"Arthritis or neurologic manifestations\", 100, 98, 94, 100]]",
+    "tool_maker_output": "def compare_sensitivity_specificity(table_data, condition):\n    for i in range(len(table_data)):\n        if table_data[i][0] == condition:\n            sensitivity = table_data[i][1]\n            specificity = table_data[i][2]\n            return sensitivity > specificity\n    return False\n\ndef solution(table_data):\n    condition = \"Cardiac or neurologic manifestations\"\n    answer = compare_sensitivity_specificity(table_data, condition)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "f5cfcb5a-9f41-4d0a-af32-52bec2ee0ba1",
+    "question": "Is it true that Both the Homotherium latidens and the Panthera leo spelaea were found to be located in Eurasia?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Homotherium latidens (European scimitar cat)\", \"Eurasia\", \"ca. 32,000 BP\", \"Reumer et al. (2003, p. 261)\"],\n              [\"Crocuta crocuta (spotted hyaena)\", \"northern Eurasia\", \"ca. 31,000 BP\", \"Stuart and Lister (2014, p. 112)\"],\n              [\"Panthera leo spelaea (cave/steppe lion)\", \"Eurasia\", \"14,000a14,500 BP\", \"Stuart and Lister (2011, p. 2337)\"],\n              [\"Panthera leo atrox (American lion)\", \"North America\", \"13a13,400 BP\", \"Barnett et al. (2009, p. 1674)\"],\n              [\"Smilodon sp. (saber-tooth cats)\", \"North/South America\", \"10,300a12,500 BP\", \"Marcus and Berger (1984, p. 176)\"],\n              [\"Panthera pardus (leopard)\", \"Europe\", \"Latest Pleistocene?\", \"Sommer and Benecke (2006, p. 13)\"],\n              [\"Cuon alpinus (dhole)\", \"Europe\", \"ca. 10,000 BP?\", \"PArez Ripoll et al. (2010, p. 444)\"],\n              [\"Canis lupus ssp. (eastern Beringian wolf)\", \"Beringia\", \"ca. 14,700 BP\", \"Leonard et al. (2007, p. 1146)\"],\n              [\"Canis dirus (dire wolf)\", \"North/South America\", \"ca. 12,000 BP\", \"Dundas (1999, p. 378)\"]]",
+    "tool_maker_output": "def check_location(table, species1, species2, location):\n    for row in table:\n        if row[0] == species1 and row[1] == location:\n            found_species1 = True\n        if row[0] == species2 and row[1] == location:\n            found_species2 = True\n    if found_species1 and found_species2:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    species1 = \"Homotherium latidens (European scimitar cat)\"\n    species2 = \"Panthera leo spelaea (cave/steppe lion)\"\n    location = \"Eurasia\"\n    answer = check_location(table_data, species1, species2, location)\n    return answer"
+  },
+  {
+    "id": "bd449ff1-071f-424a-bf93-c4f65cb9fbc3",
+    "question": "Is it true that The Concept of Sacred Work begins on page 5?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Introduction\", \"1\"],[\"The Concept of Sacred Work\", \"5\"],[\"Margaret Sanger Recruits the Clergy\", \"27\"],[\"Building Public Acceptance 1935-1957\", \"47\"],[\"The 1958 Battle over the New York City Hospitals\", \"72\"],[\"Sacred Work in Baltimore 1961-1965\", \"88\"],[\"Victories in the Sixties\", \"104\"],[\"Planned Parenthood and the Clergy Consultation Service on Abortion 1967-1973\", \"121\"]]",
+    "tool_maker_output": "def check_page_number(table, title_query, page_number):\n    for row in table:\n        title, page = row\n        if title.lower() == title_query.lower() and int(page) == int(page_number):\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    query_title = \"The Concept of Sacred Work\"\n    query_page_number = 5\n    answer = check_page_number(table_data, query_title, query_page_number)\n    return answer\n```"
+  },
+  {
+    "id": "d5252655-6522-4389-b4d1-639c0dfe57bb",
+    "question": "Is it true that A patient with score of over 200 on any common glucose test should be considered diabetic?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Diagnosis\", \"A1C (percent)\", \"Fasting plasma glucose (FPG)a\", \"Oral glucose tolerance test (OGTT)ab\", \"Random plasma glucose test (RPG)a\"],\n              [\"Normal\", \"below 5.7\", \"99 or below\", \"139 or below\"],\n              [\"Prediabetes\", \"5.7 to 6.4\", \"100 to 125\", \"140 to 199\"],\n              [\"Diabetes\", \"6.5 or above\", \"126 or above\", \"200 or above\", \"200 or above\"]]",
+    "tool_maker_output": "def check_diabetes_diagnosis(table, score):\n    for row in table[1:]:\n        if score > 200 and \"Diabetes\" in row[0]:\n            return True\n    return False\n\ndef solution(table_data):\n    score = 200\n    answer = check_diabetes_diagnosis(table_data, score)\n    return answer"
+  },
+  {
+    "id": "3af1cf12-b0fa-497d-b060-f6a6b85993db",
+    "question": "Is it true that The treatment for Lyme disease without focal symptoms is the same as the treatment of Lyme disease affecting the central nervous system?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Symptoms\", \"Treatment\", \"First alternative\", \"Second alternative\"],\n                [\"Lyme disease without focal symptoms\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"Oral azithromycinb: 500A mg daily for 17A days\"],\n                [\"Lyme disease with focal symptoms\", \"\", \"\", \"\"],\n                [\"Lyme disease affecting the cranial nerves or peripheral nervous system\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"a\"],\n                [\"Lyme disease affecting the central nervous system\", \"Intravenous ceftriaxone: 2A g twice per day or 4A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"Oral doxycycline: 200A mg twice per day or 400A mg once per day for 21A days\", \"a\"],\n                [\"Lyme disease arthritis\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 28A days\", \"Oral amoxicillin: 1A g 3A times per day for 28A days\", \"Intravenous ceftriaxone: 2A g once per day for 28A days\"],\n                [\"Acrodermatitis chronica atrophicans\", \"\", \"\", \"\"],\n                [\"Lyme carditisb\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Intravenous ceftriaxone: 2A g once per day for 21A days\", \"a\"],\n                [\"Lyme carditis and haemodynamically unstableb\", \"Intravenous ceftriaxone: 2A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"a\", \"a\"],\n                [\"a For Lyme disease suspected during pregnancy, use appropriate antibiotics for stage of pregnancy. b Do not use azithromycin to treat people with cardiac abnormalities associated with Lyme disease because of its effect on QT interval.\", \"\", \"\", \"\"]]",
+    "tool_maker_output": "def check_treatment_similarity(table_data):\n    treatment_lwfs = \"\"\n    treatment_lacs = \"\"\n    \n    for row in table_data:\n        if row[0] == \"Lyme disease without focal symptoms\":\n            treatment_lwfs = row[1]\n        elif row[0] == \"Lyme disease affecting the central nervous system\":\n            treatment_lacs = row[1]\n    \n    if treatment_lwfs == treatment_lacs:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(check_treatment_similarity(table_data))"
+  },
+  {
+    "id": "c381d76e-a03b-4a9c-bf6c-9d3d1f650f02",
+    "question": "Is it true that Clinton had +16 polling average 30 days after convention  in  1996 ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [\n    [\"1972\", \"Nixon +16.0\", \"\", \"Nixon +29.7\", \"Nixon +23.2\"],\n    [\"1976\", \"Carter +13.0\", \"\", \"Carter +4.0\", \"Carter +2.0\"],\n    [\"1980\", \"Reagan +6.0\", \"\", \"Reagan +2.6\", \"Reagan +9.7\"],\n    [\"1984\", \"Reagan +14.3\", \"\", \"Reagan +16.8\", \"Reagan +18.2\"],\n    [\"1988\", \"Dukakis +6.7\", \"\", \"Bush +3.0\", \"Bush +7.7\"],\n    [\"1992\", \"Bush +1.0\", \"\", \"Clinton +11.7\", \"Clinton +5.6\"],\n    [\"1996\", \"Clinton +16.8\", \"\", \"Clinton +16.0\", \"Clinton +8.5\"],\n    [\"2000\", \"Bush +4.3\", \"\", \"Gore +2.0\", \"Gore +0.5\"],\n    [\"2004\", \"Kerry +2.7\", \"\", \"Bush +1.8\", \"Bush +2.5\"],\n    [\"2008\", \"Obama +3.8\", \"\", \"Obama +3.1\", \"Obama +7.3\"],\n    [\"2012\", \"Obama +2.3\", \"\", \"Obama +1.9\", \"Obama +3.9\"]\n]",
+    "tool_maker_output": "def get_polling_average_after_convention(table, year):\n    for row in table:\n        if row[0] == year:\n            return row[2]\n    return None\n\ndef solution(table_data):\n    year = \"1996\"\n    polling_average = \"+16\"\n    polling_average_after_convention = get_polling_average_after_convention(table_data, year)\n    if polling_average == polling_average_after_convention:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "b72fa0dd-092b-47f1-b4cd-df71d7501974",
+    "question": "Is it true that Etowah High School is located in Cherokee County ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"School Name: Etowah High School\", \"NCES School ID: 130111000425\", \"State School ID: GA-628-0176\"],\n              [\"District Name: Cherokee Countydistrict information\", \"NCES District ID: 1301110\", \"State District ID: GA-628\"],\n              [\"Mailing Address:6565 Putnam Ford DrWoodstock, GA 30189\", \"Physical Address: 6565 Putnam Ford DrWoodstock, GA 30189\", \"Phone:(770)721-3120\"],\n              [\"Type: Regular school\", \"Status: Open\", \"Charter:No\"],\n              [\"Supervisory Union #:N/A\", \"Grade Span: (grades 9 - 12) 9101112\", \"9101112 | 9 | 10 | 11 | 12\"]]",
+    "tool_maker_output": "def check_location(table, school_name, location):\n    for row in table:\n        if school_name in row[0]:\n            if location in row[1]:\n                return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    school_name = \"Etowah High School\"\n    location = \"Cherokee County\"\n    answer = check_location(table_data, school_name, location)\n    return answer"
+  },
+  {
+    "id": "b8714353-7fb1-463f-9806-4d2437e2cd53",
+    "question": "Is it true that Receptor ACE2 has the most references?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Virus\", \"Receptor\", \"References\"],[\"Alphacoronaviruses\", \"\", \"\"],[\"HCoV-229E\", \"APN\", \"[115]\"],[\"HCoV-NL63\", \"ACE2\", \"[116]\"],[\"TGEV\", \"APN\", \"[117]\"],[\"PEDV\", \"APN\", \"[118]\"],[\"FIPV\", \"APN\", \"[119]\"],[\"CCoV\", \"APN\", \"[120]\"],[\"Betacoronaviruses\", \"\", \"\"],[\"MHV\", \"mCEACAM\", \"[121, 122]\"],[\"BCoV\", \"N-acetyl-9-O-acetylneuraminic acid\", \"[123]\"],[\"SARS-CoV\", \"ACE2\", \"[124]\"],[\"MERS-CoV\", \"DPP4\", \"[100]\"]]",
+    "tool_maker_output": "def get_max_references(table):\n    max_references = 0\n    max_receptor = \"\"\n    for row in table:\n        if len(row) == 3:\n            references = row[2]\n            if references.count(',') + 1 > max_references:\n                max_references = references.count(',') + 1\n                max_receptor = row[1]\n    return max_receptor\n\ndef solution(table_data):\n    answer = \"no\"\n    receptor_with_most_references = get_max_references(table_data)\n    if receptor_with_most_references == \"ACE2\":\n        answer = \"yes\"\n    return answer\nprint(solution(table_data))"
+  },
+  {
+    "id": "f7874c28-4b1a-4fd3-8454-431cab9efb1c",
+    "question": "Is it true that SYSTOLIC mm Hg (upper number) with normal blood pressure is less than 120?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"BLOOD PRESSURE CATEGORY\", \"SYSTOLIC mm Hg (upper number)\", \"and/or\", \"DIASTOLIC mm Hg (lower number)\"],\n                [\"LESS THAN 120\", \"and\", \"LESS THAN 80\"],\n                [\"120 129\", \"and\", \"LESS THAN 80\"],\n                [\"130 139\", \"or\", \"80 89\"],\n                [\"140 OR HIGHER\", \"or\", \"90 OR HIGHER\"],\n                [\"HIGHER THAN 180\", \"and/or\", \"HIGHER THAN 120\"]]",
+    "tool_maker_output": "def check_blood_pressure_category(table, category, condition):\n    for row in table:\n        if row[0].lower() == category.lower():\n            if condition.lower() in row[1].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    category = \"LESS THAN 120\"\n    condition = \"LESS THAN 80\"\n    answer = check_blood_pressure_category(table_data, category, condition)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "bcc347b6-4366-459e-bc6d-c35a05fe89c7",
+    "question": "Is it true that One can elicit more information, via PDF, about the unment need for health care. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Population coverage for health care\", \"Read PDF\"],[\"Extent of health care coverage\", \"Read PDF\"],[\"Use of primary care services\", \"Read PDF\"],[\"Unmet need for health care\", \"Read PDF\"],[\"Financial hardship and out-of-pocket expenditure\", \"Read PDF\"],[\"Geographic distribution of doctors\", \"Read PDF\"],[\"Waiting times for elective surgery\", \"Read PDF\"]]",
+    "tool_maker_output": "def check_pdf_info(table, query):\n    for row in table:\n        if query.lower() in row[0].lower() and \"PDF\" in row[1]:\n            return True\n    return False\n\ndef solution(table_data):\n    query = \"Unmet need for health care\"\n    answer = check_pdf_info(table_data, query)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "3157d91e-f10b-42f3-9048-adc47e2ddab6",
+    "question": "Is it true that chlamydia, gonorrhea, syphilis are all considered STIs?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"STI\", \"Nonpregnant women\", \"Pregnant women\", \"Men\", \"Not at increased risk\", \"At increased risk*\", \"Not at increased risk\", \"At increased risk*\", \"Not at increased risk\", \"At increased risk\"],\n              [\"Chlamydia2\", \"C\", \"A\", \"C\", \"B\", \"I\", \"I\"],\n              [\"Gonorrhea3\", \"D\", \"B\", \"I\", \"B\", \"D\", \"I\"],\n              [\"Syphilis4\", \"D\", \"A\", \"A\", \"A\", \"D\", \"A\"],\n              [\"HIV5\", \"C\", \"A\", \"A\", \"A\", \"C\", \"A\"],\n              [\"Hepatitis B6\", \"D\", \"D\", \"A\", \"A\", \"D\", \"D\"],\n              [\"Hepatitis C7\", \"D\", \"I\", \"D\", \"I\"],\n              [\"HSV8\", \"D\", \"D\", \"D\", \"D\", \"D\", \"D\"],\n              [\"HPV9\", \"I\", \"I\"]]",
+    "tool_maker_output": "def check_sti(table):\n    stis = [\"Chlamydia2\", \"Gonorrhea3\", \"Syphilis4\"]\n    for sti in stis:\n        found = False\n        for row in table:\n            if sti in row:\n                found = True\n                break\n        if not found:\n            return False\n    return True\n\ndef solution(table_data):\n    answer = check_sti(table_data)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "0ccd4b5f-29a4-4827-96bd-00b2d13df6ac",
+    "question": "Is it true that The magnitude of the 20 Jun 2021 earthquake was stronger than the 21 Jun 2021 quake?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Time\", \"Mag. / Depth\", \"Distance/Location\"],\n              [\"Mon, 21 Jun 2021 (GMT) (1 earthquake)\", \"21 Jun 2021 20:35:11 GMT\", \"3.114 km\", \"38 km (24 mi)Flores Sea, 65 km northwest of Dompu, West Nusa Tenggara, Indonesia\"],\n              [\"Sun, 20 Jun 2021 (GMT) (1 earthquake)\", \"20 Jun 2021 16:53:26 GMT\", \"2.712 km\", \"37 km (23 mi)23 km northwest of Dompu, West Nusa Tenggara, Indonesia\"]]",
+    "tool_maker_output": "def get_magnitude(table, date):\n    for row in table:\n        if date in row[0]:\n            return float(row[1].split()[0])\n    return None\n\ndef solution(table_data):\n    mag_20_jun = get_magnitude(table_data, \"20 Jun 2021\")\n    mag_21_jun = get_magnitude(table_data, \"21 Jun 2021\")\n    \n    if mag_20_jun > mag_21_jun:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "a8fb0b89-becf-4c1c-ac4a-224f054a91b1",
+    "question": "Is it true that Fabric softening laundry detergent was completed by Proffitt in 1971?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"3957661\", \"Fabric softening laundry detergent containing organic esters of phosphoric acid\", \"1976-05-18\", \"Verite\", \"252/8.9\"],\n              [\"3622378\", \"FIBERS WITH ANIONIC-CATIONIC FINISH\", \"1971-11-23\", \"Proffitt\", \"81/156\"],\n              [\"3591405\", \"N/A\", \"1971-07-06\", \"McCarty\", \"252/8.6\"],\n              [\"3346670\", \"Method for the preparation of phosphate esters\", \"1967-10-10\", \"Papalos\", \"252/DIG.17\"],\n              [\"3033889\", \"Phosphate esters of branched chain alcohols\", \"1962-05-08\", \"Chiddix et al.\", \"252/8.6\"],\n              [\"2286794\", \"Yarn conditioning process and composition therefor\", \"1942-06-16\", \"Dickey et al.\", \"252/8.8R\"]]",
+    "tool_maker_output": "def check_completion(table, patent_query, invention_query, year_query, inventor_query):\n    for row in table:\n        patent, invention, year, inventor, _ = row\n        if patent == patent_query and invention.lower() == invention_query.lower() and year == year_query and inventor.lower() == inventor_query.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    patent_query = \"3957661\"\n    invention_query = \"Fabric softening laundry detergent containing organic esters of phosphoric acid\"\n    year_query = \"1976-05-18\"\n    inventor_query = \"Verite\"\n    answer = check_completion(table_data, patent_query, invention_query, year_query, inventor_query)\n    return not answer\n```"
+  },
+  {
+    "id": "a3af37bf-83b6-4806-87fc-c068bd7533bc",
+    "question": "Is it true that Medicaid saw Florida have more than 100 times the sum compared to Maine?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"A California\", \"up to $624 million\"],[\"A Florida\", \"up to $342.3 million\"],[\"A Washington\", \"up to $161.5 million\"],[\"A Illinois\", \"up to $42.3 million\"],[\"A New York\", \"up to $7.3 million\"],[\"A Maine\", \"up to $3.3 million\"],[\"A Massachusetts\", \"up to $2.8 million\"],[\"A Vermont\", \"up to $2.7 million\"],[\"A Missouri\", \"up to $2.2 million\"],[\"A Wisconsin\", \"up to $2 million for the Hiawatha line\"],[\"A Oregon\", \"smaller sums\"],[\"North Carolina\", \"smaller sums\"],[\"A Iowa\", \"smaller sums\"],[\"Indiana\", \"smaller sums\"]]",
+    "tool_maker_output": "def extract_amount(table, state):\n    for row in table:\n        if state.lower() in row[0].lower():\n            amount = row[1].split(\"$\")[1].split(\" \")[0]\n            return float(amount.replace(\",\", \"\"))\n    return 0.0\n\ndef solution(table_data):\n    florida_amount = extract_amount(table_data, \"Florida\")\n    maine_amount = extract_amount(table_data, \"Maine\")\n    \n    if florida_amount > 100 * maine_amount:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "dcf43f9a-ef65-4063-9f5b-d47cee53628c",
+    "question": "Is it true that Sacred Work: Planned Parenthood and Its Clergy Alliances is about Social science and Sociology of religion?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"Sacred Work: Planned Parenthood and Its Clergy Alliances\"],[\"Author\", \"Tom Davis\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"Rutgers University Press, 2005],[\"ISBN\", \"0813534933, 9780813534930\"],[\"Length\", \"245 pages\"],[\"Subjects\", \"Social Science Sociology of ReligionSocial Science / Sociology of Religion\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_subjects(table):\n    subjects = table[6][1]\n    if \"social science\" in subjects.lower() and \"sociology of religion\" in subjects.lower():\n        return \"yes\"\n    else:\n        return \"no\"\n\nsolution(table_data)"
+  },
+  {
+    "id": "72134681-2312-43f4-b342-7d6eaf53ab12",
+    "question": "Is it true that men and women are at risk of Gonorrhea3?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"STI\", \"Nonpregnant women\", \"Pregnant women\", \"Men\", \"Not at increased risk\", \"At increased risk*\", \"Not at increased risk\", \"At increased risk*\"],\n              [\"Chlamydia2\", \"C\", \"A\", \"C\", \"B\", \"I\", \"I\"],\n              [\"Gonorrhea3\", \"D\", \"B\", \"I\", \"B\", \"D\", \"I\"],\n              [\"Syphilis4\", \"D\", \"A\", \"A\", \"A\", \"D\", \"A\"],\n              [\"HIV5\", \"C\", \"A\", \"A\", \"A\", \"C\", \"A\"],\n              [\"Hepatitis B6\", \"D\", \"D\", \"A\", \"A\", \"D\", \"D\"],\n              [\"Hepatitis C7\", \"D\", \"I\", \"D\", \"I\"],\n              [\"HSV8\", \"D\", \"D\", \"D\", \"D\", \"D\", \"D\"],\n              [\"HPV9\", \"I\", \"I\"]]\n\n# Answer: yes",
+    "tool_maker_output": "def check_sti_risk(table, sti, gender):\n    for row in table[1:]:\n        if row[0] == sti:\n            if gender == \"Men\":\n                if row[3] != \"I\":\n                    return True\n            else:\n                if row[1] != \"I\" or row[2] != \"I\":\n                    return True\n    return False\n\ndef solution(table_data):\n    answer = check_sti_risk(table_data, \"Gonorrhea3\", \"Men\") and check_sti_risk(table_data, \"Gonorrhea3\", \"Nonpregnant women\")\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "d3b78586-51c2-49d0-aed1-6b1eef39e871",
+    "question": "Is it true that The book \"Sacred Work\" by Tom Davis was published in 2005 and is about the Sociology of Religion. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"Sacred Work: Planned Parenthood and Its Clergy Alliances\"],[\"Author\", \"Tom Davis\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"Rutgers University Press, 2005],[\"ISBN\", \"0813534933, 9780813534930\"],[\"Length\", \"245 pages\"],[\"Subjects\", \"Social Science Sociology of ReligionSocial Science / Sociology of Religion\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def get_value_by_key(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    title = get_value_by_key(table_data, \"Title\")\n    author = get_value_by_key(table_data, \"Author\")\n    publisher = get_value_by_key(table_data, \"Publisher\")\n    subjects = get_value_by_key(table_data, \"Subjects\")\n    \n    if title == \"Sacred Work: Planned Parenthood and Its Clergy Alliances\" and author == \"Tom Davis\" and \"2005\" in publisher and \"Sociology of Religion\" in subjects:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "78601529-b794-487c-87b6-7f47be397d2a",
+    "question": "Is it true that Standard treatment for metastatic breast cancer and locoregional recurrent breast cancer are the exact same?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Stage (TNM Definitions)\", \"Standard Treatment Options\"],\n              [\"Early/localized/operable breast cancer\", \"Surgery with or without radiation therapy\"],\n              [\"Adjuvant therapy\", \"chemotherapy, endocrine therapy, HER2-directed therapy\"],\n              [\"Locoregional recurrent breast cancer\", \"Surgery, Radiation therapy and chemotherapy\"],\n              [\"Metastatic breast cancer\", \"Hormone therapy and/or chemotherapy\"]]",
+    "tool_maker_output": "def compare_treatments(table_data):\n    locoregional_treatment = \"\"\n    metastatic_treatment = \"\"\n    \n    for row in table_data:\n        if row[0] == \"Locoregional recurrent breast cancer\":\n            locoregional_treatment = row[1]\n        elif row[0] == \"Metastatic breast cancer\":\n            metastatic_treatment = row[1]\n    \n    locoregional_treatment = locoregional_treatment.replace(\",\",\"\").replace(\"and\",\"\").replace(\" \",\"\").lower()\n    metastatic_treatment = metastatic_treatment.replace(\",\",\"\").replace(\"and\",\"\").replace(\" \",\"\").lower()\n    \n    if locoregional_treatment == metastatic_treatment:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "54ab7dc2-add4-4ec2-ac2d-f435abef31d5",
+    "question": "Is it true that 49% of women chose abortion in 1981?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"1981\", \"1989\"],[\"Chose abortion\", \"33,577 (49%)\", \"29,246 (38%)\"],[\"Chose to raise child\", \"31,657 (46%)\", \"46,234 (60%)\"],[\"Chose adoption\", \"3,521 (5%)\", \"1,730 (2%)\"],[\"Total\", \"68,755 (100%)\", \"77,210 (100%)\"]]",
+    "tool_maker_output": "def get_percentage_by_year(table, year, choice):\n    for row in table:\n        if row[0] == year:\n            if choice.lower() in row[1].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    year = \"1981\"\n    choice = \"49%\"\n    answer = get_percentage_by_year(table_data, year, choice)\n    return answer"
+  },
+  {
+    "id": "92008df5-c7d6-49a3-bc6b-770a9ec326c3",
+    "question": "Is it true that Lyme disease affects  cranial nerves?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Symptoms\", \"Treatment\", \"First alternative\", \"Second alternative\"],\n                [\"Lyme disease without focal symptoms\"],\n                [\"Erythema migrans and/or Non-focal symptoms\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"Oral azithromycinb: 500A mg daily for 17A days\"],\n                [\"Lyme disease with focal symptoms\"],\n                [\"Lyme disease affecting the cranial nerves or peripheral nervous system\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"a\"],\n                [\"Lyme disease affecting the central nervous system\", \"Intravenous ceftriaxone: 2A g twice per day or 4A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"Oral doxycycline: 200A mg twice per day or 400A mg once per day for 21A days\", \"a\"],\n                [\"Lyme disease arthritis\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 28A days\", \"Oral amoxicillin: 1A g 3A times per day for 28A days\", \"Intravenous ceftriaxone: 2A g once per day for 28A days\"],\n                [\"Acrodermatitis chronica atrophicans\"],\n                [\"Lyme carditisb\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Intravenous ceftriaxone: 2A g once per day for 21A days\", \"a\"],\n                [\"Lyme carditis and haemodynamically unstableb\", \"Intravenous ceftriaxone: 2A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"a\", \"a\"],\n                [\"a For Lyme disease suspected during pregnancy, use appropriate antibiotics for stage of pregnancy. b Do not use azithromycin to treat people with cardiac abnormalities associated with Lyme disease because of its effect on QT interval.\"]]",
+    "tool_maker_output": "```python\ntable_data = [[\"Symptoms\", \"Treatment\", \"First alternative\", \"Second alternative\"],\n                [\"Lyme disease without focal symptoms\"],\n                [\"Erythema migrans and/or Non-focal symptoms\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"Oral azithromycinb: 500A mg daily for 17A days\"],\n                [\"Lyme disease with focal symptoms\"],\n                [\"Lyme disease affecting the cranial nerves or peripheral nervous system\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Oral amoxicillin: 1A g 3A times per day for 21A days\", \"a\"],\n                [\"Lyme disease affecting the central nervous system\", \"Intravenous ceftriaxone: 2A g twice per day or 4A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"Oral doxycycline: 200A mg twice per day or 400A mg once per day for 21A days\", \"a\"],\n                [\"Lyme disease arthritis\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 28A days\", \"Oral amoxicillin: 1A g 3A times per day for 28A days\", \"Intravenous ceftriaxone: 2A g once per day for 28A days\"],\n                [\"Acrodermatitis chronica atrophicans\"],\n                [\"Lyme carditisb\", \"Oral doxycycline: 100A mg twice per day or 200A mg once per day for 21A days\", \"Intravenous ceftriaxone: 2A g once per day for 21A days\", \"a\"],\n                [\"Lyme carditis and haemodynamically unstableb\", \"Intravenous ceftriaxone: 2A g once per day for 21A days (when an oral switch is being considered, use doxycycline)\", \"a\", \"a\"],\n                [\"a For Lyme disease suspected during pregnancy, use appropriate antibiotics for stage of pregnancy. b Do not use azithromycin to treat people with cardiac abnormalities associated with Lyme disease because of its effect on QT interval.\"]]\n\ndef check_symptoms(table, symptom_query):\n    for row in table:\n        if len(row) > 1 and symptom_query.lower() in row[0].lower():\n            return True\n    return False\n\ndef solution(table_data):\n    symptom_query = \"cranial nerves\"\n    answer = check_symptoms(table_data, symptom_query)\n    return answer\n```"
+  },
+  {
+    "id": "0486d5db-025b-4f0c-8082-f450a0707750",
+    "question": "Is it true that yes we have health care and trauma care also in the united states?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"S-1\", \"Recommendations Relating to Research\"],[\"S-2\", \"Recommendations Relating to Policy\"],[\"1-1\", \"The U.S. Morbidity Disadvantage\"],[\"1-2\", \"Disparities in Life Expectancy in the United States\"],[\"1-3\", \"How Many Years Behind Is the United States?\"],[\"4-1\", \"Health Care Decommodification\"],[\"4-2\", \"Case Study: Trauma Care in the United States\"],[\"4-3\", \"Quality of Care: Survey Findings from Commonwealth Fund Surveys\"]]",
+    "tool_maker_output": "def check_healthcare_in_us(table):\n    healthcare = False\n    trauma_care = False\n    for row in table:\n        if \"health care\" in row[1].lower():\n            healthcare = True\n        if \"trauma care\" in row[1].lower():\n            trauma_care = True\n    return healthcare and trauma_care\n\ndef solution(table_data):\n    answer = check_healthcare_in_us(table_data)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "4c4db05c-8106-4e2c-9d85-b0911943cc84",
+    "question": "Is it true that 46 percent of women in 1981 chose to raise their child compared to 60 percent in 1989.\n\n?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"1981\", \"1989\"],[\"Chose abortion\", \"33,577 (49%)\", \"29,246 (38%)\"],[\"Chose to raise child\", \"31,657 (46%)\", \"46,234 (60%)\"],[\"Chose adoption\", \"3,521 (5%)\", \"1,730 (2%)\"],[\"Total\", \"68,755 (100%)\", \"77,210 (100%)\"]]",
+    "tool_maker_output": "def get_percentage_by_year(table, year, choice):\n    for row in table:\n        if row[0] == year:\n            if choice.lower() in row[1].lower():\n                return int(row[1].split(\"(\")[1].split(\"%\")[0])\n            if choice.lower() in row[2].lower():\n                return int(row[2].split(\"(\")[1].split(\"%\")[0])\n    return None\n\ndef solution(table_data):\n    year_1981 = \"1981\"\n    year_1989 = \"1989\"\n    choice = \"Chose to raise child\"\n    \n    percentage_1981 = get_percentage_by_year(table_data, year_1981, choice)\n    percentage_1989 = get_percentage_by_year(table_data, year_1989, choice)\n    \n    if percentage_1981 == 46 and percentage_1989 == 60:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "cb00b721-dbfb-46e0-99b9-b78e4becd0ca",
+    "question": "Is it true that Metastatic breast cancer and early breast cancer share the same standard treatment options?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Stage (TNM Definitions)\", \"Standard Treatment Options\"],\n              [\"Early/localized/operable breast cancer\", \"Surgery with or without radiation therapy\"],\n              [\"Adjuvant therapy\", \"chemotherapy, endocrine therapy, HER2-directed therapy\"],\n              [\"Locoregional recurrent breast cancer\", \"Surgery, Radiation therapy and chemotherapy\"],\n              [\"Metastatic breast cancer\", \"Hormone therapy and/or chemotherapy\"]]",
+    "tool_maker_output": "def check_standard_treatment_options(table, stage1, stage2):\n    for row in table:\n        if row[0].lower() == stage1.lower():\n            options1 = row[1].split(\",\")\n        elif row[0].lower() == stage2.lower():\n            options2 = row[1].split(\",\")\n    \n    if set(options1) == set(options2):\n        return True\n    else:\n        return False\n\ndef solution(table_data):\n    stage1 = \"Metastatic breast cancer\"\n    stage2 = \"Early/localized/operable breast cancer\"\n    answer = check_standard_treatment_options(table_data, stage1, stage2)\n    return answer"
+  },
+  {
+    "id": "2aefb6f2-de3c-445d-a300-beac9ae6e336",
+    "question": "Is it true that Fossil fuels require cheaper capital compared to wind power?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Cost Element\", \"Technology\"],[\"Capital\", 30.4, 11.4, 40.7, 42.7],[\"O&M\", 4.7, 1.4, 8.3, 7.8],[\"Fuel\", 14.5, 36.9, 0.0, 6.6],[\"Totala\", 53.1, 52.5, 55.8, 59.3]]",
+    "tool_maker_output": "def compare_technologies(table_data, technology1, technology2, cost_element):\n    for row in table_data:\n        if row[0] == cost_element:\n            index_tech1 = row.index(technology1)\n            index_tech2 = row.index(technology2)\n            if index_tech1 < index_tech2:\n                return \"yes\"\n            else:\n                return \"no\"\n    return \"Cost element not found\"\n\nsolution = compare_technologies(table_data, \"Fossil fuels\", \"Wind power\", \"Capital\")\nprint(solution)"
+  },
+  {
+    "id": "ddb08590-9f04-45ba-bdae-e0c8fcf062df",
+    "question": "Is it true that Biden has a total of +1 against Trump in the states of Arizona and Florida?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Trump vs.\", \"Biden\", \"\", \"Sanders\", \"\", \"Warren\"],\n              [\"Mich.Michigan (n=501)\", \"Biden +1\", \"Sanders +3\", \"Trump +4\"],\n              [\"Penn.Pennsylvania (661)\", \"Biden +1\", \"Trump +1\", \"Trump +2\"],\n              [\"Wisc.Wisconsin (651)\", \"Biden +2\", \"Even\", \"Trump +2\"],\n              [\"Fla.Florida (650)\", \"Biden +2\", \"Trump +2\", \"Trump +4\"],\n              [\"Ariz.Arizona (652)\", \"Biden +2\", \"Trump +4\", \"Even\"],\n              [\"N.C.North Carolina (651)\", \"Trump +2\", \"Trump +4\", \"Trump +4\"]]",
+    "tool_maker_output": "def check_biden_total(table_data, states):\n    biden_total = 0\n    for row in table_data[1:]:\n        state = row[0].split(\".\")[0]\n        if state in states:\n            biden_total += int(row[1].split(\" \")[1])\n    return biden_total\n\ndef solution(table_data):\n    states = [\"Arizona\", \"Florida\"]\n    biden_total = check_biden_total(table_data, states)\n    if biden_total == 2:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "92ec970d-c74c-43a7-bce5-1627fd84d98c",
+    "question": "Is it true that The University of Louisville is title of book ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"The University of Louisville\"],[\"Author\", \"Dwayne D. Cox, William J. Morison\"],[\"Publisher\", \"University Press of Kentucky\"],[\"ISBN\", \"0813127270, 9780813127279\"],[\"Subjects\", \"Education HigherEducation / Higher\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_title(table, title_query):\n    for row in table:\n        if row[0].lower() == \"title\" and row[1].lower() == title_query.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    title = \"The University of Louisville\"\n    answer = check_title(table_data, title)\n    return answer"
+  },
+  {
+    "id": "71cb8639-819d-48eb-9c64-271f624ac38f",
+    "question": "Is it true that Planned Parenthood and the Clergy Consultation Service on Abortion 19671973 is discussed earlier than Building Public Acceptance 19351957?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Introduction\", \"1\"],[\"The Concept of Sacred Work\", \"5\"],[\"Margaret Sanger Recruits the Clergy\", \"27\"],[\"Building Public Acceptance 19351957\", \"47\"],[\"The 1958 Battle over the New York City Hospitals\", \"72\"],[\"Sacred Work in Baltimore 19611965\", \"88\"],[\"Victories in the Sixties\", \"104\"],[\"Planned Parenthood and the Clergy Consultation Service on Abortion 19671973\", \"121\"]]",
+    "tool_maker_output": "def get_row_index_by_name(table, key):\n    for index, row in enumerate(table):\n        if row[0].lower() == key.lower():\n            return index\n    return None\n\ndef solution(table_data):\n    first_event = \"Planned Parenthood and the Clergy Consultation Service on Abortion 19671973\"\n    second_event = \"Building Public Acceptance 19351957\"\n    \n    first_event_index = get_row_index_by_name(table_data, first_event)\n    second_event_index = get_row_index_by_name(table_data, second_event)\n    \n    if first_event_index < second_event_index:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "fe90d500-c2cc-462f-a733-1357896a7a4a",
+    "question": "Is it true that Dec 12, 1985 was debate about gun violence ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Gun Control and the Second Amendment\", \"Gun Control and the Second Amendment\"],[\"Jul. 27, 2018\", \"Gun Violence\"],[\"Jan. 27, 2017\", \"Guns on Campus\"],[\"Mar. 08, 2013\", \"Gun Control\"],[\"Oct. 31, 2008\", \"Gun Rights Debates\"],[\"May 25, 2007\", \"Gun Violence\"],[\"Nov. 12, 2004\", \"Gun Control Debate\"],[\"Dec. 19, 1997\", \"Gun Control Standoff\"],[\"Jun. 10, 1994\", \"Gun Control\"],[\"Mar. 22, 1991\", \"Reassessing the Nation's Gun Laws\"],[\"Nov. 13, 1987\", \"Gun Control\"],[\"Dec. 13, 1985\", \"Guns in America: the Debate Continues\"],[\"Jul. 19, 1972\", \"Gun Control: Recurrent Issue\"],[\"Nov. 11, 1959\", \"Firearms Control\"]]",
+    "tool_maker_output": "def check_event_on_date(table, date_query, event_query):\n    for row in table:\n        date, event = row\n        if date.lower() == date_query.lower() and event_query.lower() in event.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    query_date = \"Dec. 12, 1985\"\n    query_event = \"gun violence\"\n    answer = check_event_on_date(table_data, query_date, query_event)\n    return answer\n\nprint(solution(table_data)) # Output: yes"
+  },
+  {
+    "id": "77366825-5060-4f2c-9455-6d47f5b86db7",
+    "question": "Is it true that United Kingdom has the highest number of PCT ABOVENORMAL as of +67%?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"United Kingdom\", \"+67%\", \"53,300\", \"Mar. 14 - May 1\"],\n              [\"Spain\", \"+60%\", \"31,500\", \"Mar. 16 - May 3\"],\n              [\"Belgium\", \"+50%\", \"5,300\", \"Mar. 16 - Apr. 19\"],\n              [\"Netherlands\", \"+50%\", \"8,700\", \"Mar. 16 - Apr. 26\"],\n              [\"Italy\", \"+49%\", \"24,600\", \"March\"],\n              [\"France\", \"+44%\", \"28,500\", \"Mar. 16 - Apr. 26\"],\n              [\"Sweden\", \"+27%\", \"3,300\", \"Mar. 16 - May 3\"],\n              [\"Switzerland\", \"+24%\", \"2,000\", \"Mar. 16 - May 3\"],\n              [\"Portugal\", \"+15%\", \"1,300\", \"Mar. 16 - Apr. 12\"],\n              [\"Austria\", \"+11%\", \"1,000\", \"Mar. 16 - Apr. 26\"],\n              [\"Germany\", \"+6%\", \"4,100\", \"Mar. 16 - Apr. 12\"],\n              [\"Denmark\", \"+5%\", \"300\", \"Mar. 16 - May 3\"],\n              [\"Norway\", \"+0%\", \"<100\", \"Mar. 16 - Apr. 26\"],\n              [\"Finland\", \"+0%\", \"<100\", \"Mar. 16 - Apr. 26\"]]",
+    "tool_maker_output": "```python\ntable_data = [[\"United Kingdom\", \"+67%\", \"53,300\", \"Mar. 14 - May 1\"],\n              [\"Spain\", \"+60%\", \"31,500\", \"Mar. 16 - May 3\"],\n              [\"Belgium\", \"+50%\", \"5,300\", \"Mar. 16 - Apr. 19\"],\n              [\"Netherlands\", \"+50%\", \"8,700\", \"Mar. 16 - Apr. 26\"],\n              [\"Italy\", \"+49%\", \"24,600\", \"March\"],\n              [\"France\", \"+44%\", \"28,500\", \"Mar. 16 - Apr. 26\"],\n              [\"Sweden\", \"+27%\", \"3,300\", \"Mar. 16 - May 3\"],\n              [\"Switzerland\", \"+24%\", \"2,000\", \"Mar. 16 - May 3\"],\n              [\"Portugal\", \"+15%\", \"1,300\", \"Mar. 16 - Apr. 12\"],\n              [\"Austria\", \"+11%\", \"1,000\", \"Mar. 16 - Apr. 26\"],\n              [\"Germany\", \"+6%\", \"4,100\", \"Mar. 16 - Apr. 12\"],\n              [\"Denmark\", \"+5%\", \"300\", \"Mar. 16 - May 3\"],\n              [\"Norway\", \"+0%\", \"<100\", \"Mar. 16 - Apr. 26\"],\n              [\"Finland\", \"+0%\", \"<100\", \"Mar. 16 - Apr. 26\"]]\n\ndef get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row\n    return None\n\ndef solution(table_data):\n    country_data = get_row_by_name(table_data, \"United Kingdom\")\n    pct_above_normal = country_data[1]\n    answer = pct_above_normal == \"+67%\"\n    return answer\n\nprint(solution(table_data))\n```"
+  },
+  {
+    "id": "d5650c44-330d-41ae-bec9-82de240c8daa",
+    "question": "Is it true that The book \"Amnesty International, the Human Rights Story\" is 128 pages long?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Title\", \"Amnesty International, the Human Rights Story\"],[\"Author\", \"Jonathan Power\"],[\"Edition\", \"illustrated\"],[\"Publisher\", \"McGraw-Hill, 1981\"],[\"Original from\", \"the University of Michigan\"],[\"Digitized\", \"1 Jun 2011\"],[\"ISBN\", \"0070505977, 9780070505971\"],[\"Length\", \"128 pages\"],[\"Subjects\", \"Political Science GeneralPolitical Science / General\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    title = get_row_by_name(table_data, \"Title\")\n    length = get_row_by_name(table_data, \"Length\")\n    answer = \"yes\" if \"128 pages\" in length else \"no\"\n    return answer\nprint(solution(table_data))"
+  },
+  {
+    "id": "f5390f20-d290-4d65-b834-9561abfe888d",
+    "question": "Is it true that Change in the OASDI 75-Year Actuarial Balance Since the 2019 Report, Based on Intermediate Assumptions in the methods and programmatic data is 02 ,  02 ,  00,?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Item\", \"OASI\", \"DI\", \"OASDI\"],\n              [\"Actuarial balance shown in the 2019 Report\", \"-2.67\", \"-.12\", \"-2.78\"],\n              [\"Changes in actuarial balance due to changes in:\"],\n              [\"Valuation period\", \"-.05\", \"-.01\", \"-.05\"],\n              [\"Demographic data and assumptions\", \"-.12\", \".00\", \"-.13\"],\n              [\"Economic data and assumptions\", \"-.16\", \"-.02\", \"-.18\"],\n              [\"Disability data and assumptions\", \"-.01\", \".06\", \".05\"],\n              [\"Methods and programmatic data\", \"-.02\", \".02\", \".00\"],\n              [\"Total change in actuarial balance\", \"-.47\", \".05\", \"-.43\"],\n              [\"Actuarial balance shown in the 2020 Report\", \"-3.14\", \"-.07\", \"-3.21\"]]",
+    "tool_maker_output": "def get_cell_by_row_and_column(table, row_key, column_key):\n    for i in range(len(table)):\n        if table[i][0].lower() == row_key.lower():\n            row_index = i\n            break\n    for j in range(len(table[row_index])):\n        if table[row_index][j].lower() == column_key.lower():\n            return table[row_index][j+1]\n    return None\n\ndef solution(table_data):\n    query_row = \"Methods and programmatic data\"\n    query_columns = [\"OASI\", \"DI\", \"OASDI\"]\n    expected_values = [\".02\", \".02\", \".00\"]\n    \n    values = []\n    for column in query_columns:\n        value = get_cell_by_row_and_column(table_data, query_row, column)\n        values.append(value)\n    \n    if values == expected_values:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "c2e588ac-b0f2-4851-b4a1-2f88454a0c5d",
+    "question": "Is it true that A diagnosis of diabetes occurs when a person's A1C percentage is lower than normal?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Diagnosis\", \"A1C (percent)\", \"Fasting plasma glucose (FPG)a\", \"Oral glucose tolerance test (OGTT)ab\", \"Random plasma glucose test (RPG)a\"],\n              [\"Normal\", \"below 5.7\", \"99 or below\", \"139 or below\"],\n              [\"Prediabetes\", \"5.7 to 6.4\", \"100 to 125\", \"140 to 199\"],\n              [\"Diabetes\", \"6.5 or above\", \"126 or above\", \"200 or above\", \"200 or above\"]]",
+    "tool_maker_output": "def get_cell_by_diagnosis(table, diagnosis, column_name):\n    for row in table:\n        if row[0].lower() == diagnosis.lower():\n            for i in range(1, len(row)):\n                if column_name.lower() in row[i].lower():\n                    return row[i]\n    return None\n\ndef solution(table_data):\n    diagnosis = \"Diabetes\"\n    a1c_value = get_cell_by_diagnosis(table_data, diagnosis, \"A1C\")\n    normal_range = get_cell_by_diagnosis(table_data, \"Normal\", \"A1C\")\n    answer = float(a1c_value.split()[1]) < float(normal_range.split()[1])\n    return answer"
+  },
+  {
+    "id": "14e95b3d-7522-41cd-878c-0bff517a15d7",
+    "question": "Is it true that The fiscal year 2017 proposed Total school funding TPP Replacement is the highest amount in the last 8 years?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Year\", \"Governor\", \"Total school fundingTPP Replacement\"],\n              [\"FY 2010\", \"Strickland\", \"$7.9\"],\n              [\"FY 2011\", \"Strickland\", \"$7.9\"],\n              [\"FY 2012\", \"Kasich\", \"$7.3\"],\n              [\"FY 2013\", \"Kasich\", \"$7.1\"],\n              [\"FY 2014\", \"Kasich\", \"$7.4\"],\n              [\"FY 2015\", \"Kasich\", \"$7.8\"],\n              [\"FY 2016 (proposed)\", \"Kasich\", \"$8.0\"],\n              [\"FY 2017 (proposed)\", \"Kasich\", \"$8.2\"]]",
+    "tool_maker_output": "def get_funding_amount(table, year):\n    for row in table:\n        if year.lower() in row[0].lower():\n            return float(row[2].replace(\"$\", \"\"))\n    return None\n\ndef solution(table_data):\n    year = \"FY 2017 (proposed)\"\n    proposed_funding = get_funding_amount(table_data, year)\n    \n    highest_amount = 0\n    for row in table_data:\n        amount = float(row[2].replace(\"$\", \"\"))\n        if amount > highest_amount:\n            highest_amount = amount\n    \n    if proposed_funding == highest_amount:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "cc162f61-1b58-4cb5-8be9-234b649a6c05",
+    "question": "Is it true that The Canadian flag was found to be more important in 1997 than in 2007?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Option\", \"1997\", \"2000\", \"2003\", \"2007\"],\n              [\"Health care system\", 89, 80, 78, 83],\n              [\"Charter of Rights and Freedoms\", 72, 76, 71, 72],\n              [\"Canadian flag\", 70, 73, 68, 69],\n              [\"National parks\", 71, 73, 62, 63],\n              [\"National anthem\", 67, 65, 60, 62],\n              [\"Historic sites\", 65, 67, 53, 58],\n              [\"RCMP\", 60, 60, 57, 52],\n              [\"Multiculturalism\", 37, 54, 47, 50],\n              [\"Canadian literature and music\", 49, 58, 46, 46],\n              [\"Bilingualism\", 37, 45, 38, 40],\n              [\"CBC\", 39, 37, 37, 39],\n              [\"Hockey\", 30, 35, 40, 37],\n              [\"National capital Ottawa\", \"a\", 43, 36, 33],\n              [\"The Queen\", 14, 16, 16, 16]]",
+    "tool_maker_output": "def compare_importance(table, option, year1, year2):\n    for row in table:\n        if row[0] == option:\n            index1 = table[0].index(year1)\n            index2 = table[0].index(year2)\n            importance1 = row[index1]\n            importance2 = row[index2]\n            return importance1 > importance2\n    return False\n\ndef solution(table_data):\n    option = \"Canadian flag\"\n    year1 = \"1997\"\n    year2 = \"2007\"\n    answer = compare_importance(table_data, option, year1, year2)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "e0bd302e-0942-498f-8a78-ecf6751836c5",
+    "question": "Is it true that Region 1 saw an elevated out-patient ILI during this current week?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [\n    [\"HHS Surveillance Regions*\", \"Data for current week\", \"Data cumulative for the season since August 30, 2009 (Week 35)\"],\n    [\"Nation\", \"Elevated\", \"28.8 %\", \"51 of 54\", \"20\", \"36\", \"46,920\", \"371\", \"16,847\", \"142\", \"138\"],\n    [\"Region 1\", \"Elevated\", \"38.0 %\", \"6 of 6\", \"5\", \"2\", \"2,327\", \"8\", \"338\", \"9\", \"0\"],\n    [\"Region 2\", \"Elevated\", \"29.4 %\", \"3 of 4\", \"1\", \"5\", \"623\", \"0\", \"766\", \"3\", \"4\"],\n    [\"Region 3\", \"Elevated\", \"51.8 %\", \"5 of 6\", \"2\", \"6\", \"9,042\", \"20\", \"1,232\", \"13\", \"9\"],\n    [\"Region 4\", \"Elevated\", \"21.5 %\", \"8 of 8\", \"0\", \"3\", \"4,080\", \"82\", \"3,658\", \"24\", \"28\"],\n    [\"Region 5\", \"Elevated\", \"41.9 %\", \"6 of 6\", \"4\", \"12\", \"7,140\", \"77\", \"1,166\", \"10\", \"14\"],\n    [\"Region 6\", \"Elevated\", \"13.3 %\", \"5 of 5\", \"0\", \"3\", \"2,181\", \"4\", \"4,237\", \"26\", \"48\"],\n    [\"Region 7\", \"Elevated\", \"28.8 %\", \"4 of 4\", \"4\", \"1\", \"3,049\", \"145\", \"885\", \"3\", \"2\"],\n    [\"Region 8\", \"Elevated\", \"29.5 %\", \"6 of 6\", \"2\", \"0\", \"8,640\", \"0\", \"3,528\", \"46\", \"11\"],\n    [\"Region 9\", \"Elevated\", \"21.6 %\", \"4 of 5\", \"0\", \"3\", \"6,011\", \"25\", \"865\", \"4\", \"14\"],\n    [\"Region 10\", \"Elevated\", \"41.7 %\", \"4 of 4\", \"2\", \"1\", \"3,827\", \"10\", \"172\", \"4\", \"8\"]\n]",
+    "tool_maker_output": "```python\ndef check_elevated_ili(table, region):\n    for row in table:\n        if row[0] == region and \"Elevated\" in row[1]:\n            return \"yes\"\n    return \"no\"\n\nsolution(table_data)\n```"
+  },
+  {
+    "id": "671d91e5-0c9a-4ce0-9044-3a840ab37b9b",
+    "question": "Is it true that One parent with heart attack 50 years of age of CI was 1.67(1,551.81)?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"No family history\", \"1.00\"],[\"One parent with heart attack 50 y of age\", \"1.67 (1.55-1.81)\"],[\"One parent with heart attack <50 y of age\", \"2.36 (1.89-2.95)\"],[\"Both parents with heart attack 50 y of age\", \"2.90 (2.30-3.66)\"],[\"Both parents with heart attack, one <50 y of age\", \"3.26 (1.72-6.18)\"],[\"Both parents with heart attack, both <50 y of age\", \"6.56 (1.39-30.95)\"]]",
+    "tool_maker_output": "def check_OR(table, condition, value):\n    for row in table:\n        if condition.lower() in row[0].lower() and value in row[1]:\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    condition = \"One parent with heart attack 50 y of age\"\n    value = \"1.67 (1.55-1.81)\"\n    answer = check_OR(table_data, condition, value)\n    return answer\n\nprint(solution(table_data)) # Output: yes"
+  },
+  {
+    "id": "162de880-946b-4790-be8b-fd17747fb5cd",
+    "question": "Is it true that The people affected by TB causes more Harm to the people with HIV infection rather than the people who are using Alcohol?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Risk factor (reference)\", \"Relative risk for active TB disease (range)a\", \"Weighted prevalence, total population, 22aTB high burden countriesb\", \"Population attributable fraction (range)c\"],\n                [\"HIV infection\", \"8.3 (6.1a10.8)\", \"1.1%\", \"7.3% (5.2a6.9)\"],\n                [\"Malnutrition\", \"4.0 (2.0a6.0)\", \"17.2%\", \"34.1% (14.7a46.3)\"],\n                [\"Diabetes\", \"3.0 (1.5a7.8)\", \"3.4%\", \"6.3% (1.6a18.6)\"],\n                [\"Alcohol usea>a40ag/day\", \"2.9 (1.9a4.6)\", \"7.9%\", \"13.1% (6.7a22.2)\"],\n                [\"Active smoking\", \"2.6 (1.6a4.3)\", \"18.2%\", \"22.7% (9.9a37.4)\"],\n                [\"Indoor pollution\", \"1.5 (1.2a3.2)\", \"71.1%\", \"26.2% (12.4a61.0)\"]]",
+    "tool_maker_output": "def compare_harm(table_data):\n    hiv_infection_row = [row for row in table_data if \"HIV infection\" in row[0]][0]\n    alcohol_row = [row for row in table_data if \"Alcohol use\" in row[0]][0]\n\n    hiv_relative_risk = float(hiv_infection_row[1].split()[0])\n    alcohol_relative_risk = float(alcohol_row[1].split()[0])\n\n    if hiv_relative_risk > alcohol_relative_risk:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(compare_harm(table_data))"
+  },
+  {
+    "id": "2bacdf79-232c-4721-9193-8f40175913a6",
+    "question": "Is it true that The almond tree that it native from central Asia has yellow flowers?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Common Name\", \"Almond tree\"],[\"Scientific Name\", \"Prunus amygdalus\"],[\"Plant Type\", \"Hardy annual\"],[\"Mature Size\", \"13-33 ft tall\"],[\"Sun Exposure\", \"Full sun\"],[\"Soil Type\", \"Average and well-drained\"],[\"Soil pH\", \"5.5 to 6.0\"],[\"Bloom Time\", \"Early Spring\"],[\"Flower Color\", \"white to pale pink\"],[\"Hardiness Zones\", \"5 to 9\"],[\"Native Area\", \"Central Asia\"]]",
+    "tool_maker_output": "def check_flower_color(table, native_area, flower_color):\n    for row in table:\n        if row[0].lower() == \"Native Area\".lower() and row[1].lower() == native_area.lower():\n            if \"Flower Color\".lower() in row[0].lower() and flower_color.lower() in row[1].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    native_area = \"Central Asia\"\n    flower_color = \"yellow\"\n    answer = check_flower_color(table_data, native_area, flower_color)\n    return answer"
+  },
+  {
+    "id": "1c69e489-cca4-4d09-b3ae-16cd11832ea3",
+    "question": "Is it true that Confectionary products has Contamination range 0.3945.9 (mg/kg) with 200 possible products?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Product category\", \"Contamination range (mg/kg)\", \"No. of positive products\"],\n              [\"Powdered infant formula\", \"0.1a2,563\", 22],\n              [\"Liquid milk and yogurt\", \"0.6a648\", 52],\n              [\"Powdered milk products\", \"< 1a6,196\", 56],\n              [\"Frozen dairy products\", \"4.4a60.8\", 6],\n              [\"Confectionary products\", \"0.3a945.9\", 200],\n              [\"Snack foods\", \"0.5a54\", 17],\n              [\"Frozen processed foods\", \"0.5a41\", 20],\n              [\"Ammonium bicarbonate\", \"33.4a508\", 4],\n              [\"Nondairy creamer\", \"1.5a6,694\", 2],\n              [\"Protein powder\", \"3.8a8.3\", 2],\n              [\"Dried egg powders and liquid eggs\", \"0.1a5\", 8],\n              [\"Whole eggs\", \"2.9a4.7\", 4],\n              [\"Animal feed\", \"3.3a21,000\", 7]]",
+    "tool_maker_output": "def check_contamination_range(table, category, range_query, num_products):\n    for row in table:\n        if row[0].lower() == category.lower() and row[1].lower() == range_query.lower() and row[2] == num_products:\n            return True\n    return False\n\ndef solution(table_data):\n    category = \"Confectionary products\"\n    range_query = \"0.3a945.9\"\n    num_products = 200\n    answer = check_contamination_range(table_data, category, range_query, num_products)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "49cf6863-e147-4789-8b8d-2c24e6deb347",
+    "question": "Is it true that Symptomatic attack rate, community on scale 1 is 10 percent?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Measures of transmissibility and clinical severity\", \"Scale\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\"],\n              [\"Transmissibility (scale of 15)\"],\n              [\"Symptomatic attack rate, community\", \"10%\", \"11%-15%\", \"16%-20%\", \"21%-24%\", \"25%\"],\n              [\"Symptomatic attack rate, school\", \"20%\", \"21%-25%\", \"26%-30%\", \"31%-35%\", \"36%\"],\n              [\"Symptomatic attack rate, workplace\", \"10%\", \"11%-15%\", \"16%-20%\", \"21%-24%\", \"25%\"],\n              [\"Household secondary attack rate, symptomatic\", \"5%\", \"6%-10%\", \"11%-15%\", \"16%-20%\", \"21%\"],\n              [\"R0: basic reproductive number\", \"1.1\", \"1.2-1.3\", \"1.4-1.5\", \"1.6-1.7\", \"1.8\"],\n              [\"Peak percentage of outpatient visits for influenza-like illness\", \"1%-3%\", \"4%-6%\", \"7%-9%\", \"10%-12%\", \"13%\"],\n              [\"Clinical severity (scale of 17)\"],\n              [\"Case-fatality ratio\", \"<0.02%\", \"0.02%-0.05%\", \"0.05%-0.1%\", \"0.1%-0.25%\", \"0.25%-0.5%\", \"0.5%-1%\", \">1%\"],\n              [\"Case-hospitalization ratio\", \"<0.5%\", \"0.5%-0.8%\", \"0.8%-1.5%\", \"1.5%-3%\", \"3%-5%\", \"5%-7%\", \">7%\"],\n              [\"Deaths-hospitalizations ratio\", \"3%\", \"4%-6%\", \"7%-9%\", \"10%-12%\", \"13%-15%\", \"16%-18%\", \">18%\"]]",
+    "tool_maker_output": "def get_cell_by_row_and_col(table, row_key, col_key):\n    for i in range(len(table)):\n        if table[i][0] == row_key:\n            row_index = i\n            break\n    for j in range(len(table[row_index])):\n        if table[row_index][j] == col_key:\n            return table[row_index][j+1]\n    return None\n\ndef solution(table_data):\n    query_row = \"Symptomatic attack rate, community\"\n    query_col = \"Scale 1\"\n    answer = get_cell_by_row_and_col(table_data, query_row, query_col)\n    return answer\nprint(solution(table_data))"
+  },
+  {
+    "id": "1ab95e26-d7ad-4b33-ab21-be1cff2d42c8",
+    "question": "Is it true that The current price of natural gas oil is five times greater than the price of WTI crude oil?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"INDEX\", \"PRICE\", \"%\", \"TIME(GMT)\"],[\"WTI Crude\", \"$73.88\", \"+1.41\", \"2:42 PM\"],[\"Brent Crude\", \"$75.76\", \"+1.27\", \"2:40 PM\"],[\"Natural Gas\", \"$3.36\", \"+3.07\", \"2:42 PM\"],[\"23 June 2021 02:52 PM GMT\"]]",
+    "tool_maker_output": "def get_price(table, commodity):\n    for row in table:\n        if row[0].lower() == commodity.lower():\n            price = row[1]\n            return float(price.replace(\"$\", \"\"))\n    return None\n\ndef solution(table_data):\n    natural_gas_price = get_price(table_data, \"Natural Gas\")\n    wti_crude_price = get_price(table_data, \"WTI Crude\")\n    \n    if natural_gas_price / wti_crude_price > 5:\n        return False\n    return True"
+  },
+  {
+    "id": "1e29a3f4-7b6e-4db5-8aba-e4ef0c96602a",
+    "question": "Is it true that Developing alternate explanations of schizophrenia symptoms?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"a\", \"Developing a therapeutic alliance based on the patient's perspective\"],\n              [\"a\", \"Setting out a problem list based on the patient's priorities\"],\n              [\"a\", \"Normalizing and a perspective of psychosis as a continuum\"],\n              [\"a\", \"Developing alternate explanations of schizophrenia symptoms\"],\n              [\"a\", \"Reducing the impact of disruptive or distressing symptoms that may be drivers of some or all of the issues established in the problem list\"],\n              [\"a\", \"Summarizing the course of the CBTp, along with a review of therapy progress and a review of relapse prevention strategies prior to the last therapy session\"]]",
+    "tool_maker_output": "def check_statement_in_table(table, statement):\n    for row in table:\n        if statement.lower() in row[1].lower():\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    query_statement = \"Developing alternate explanations of schizophrenia symptoms\"\n    answer = check_statement_in_table(table_data, query_statement)\n    return answer\nprint(solution(table_data)) # Output: yes"
+  },
+  {
+    "id": "3da3294e-65fa-434b-ad94-eabffbbd8402",
+    "question": "Is it true that SYSTOLIC reading of 120-129 is in the elevated blood category ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"BLOOD PRESSURE CATEGORY\", \"SYSTOLIC mm Hg (upper number)\", \"and/or\", \"DIASTOLIC mm Hg (lower number)\"],\n                [\"LESS THAN 120\", \"and\", \"LESS THAN 80\"],\n                [\"120-129\", \"and\", \"LESS THAN 80\"],\n                [\"130-139\", \"or\", \"80-89\"],\n                [\"140 OR HIGHER\", \"or\", \"90 OR HIGHER\"],\n                [\"HIGHER THAN 180\", \"and/or\", \"HIGHER THAN 120\"]]",
+    "tool_maker_output": "def check_blood_pressure_category(table, systolic_range):\n    for row in table[1:]:\n        if row[1] == systolic_range and (\"elevated\" in row[0].lower() or \"high\" in row[0].lower()):\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    systolic_range = \"120-129\"\n    answer = check_blood_pressure_category(table_data, systolic_range)\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "f5eb7daa-0e89-4b6f-aabe-79b263ed8b73",
+    "question": "Is it true that The report was written by internal auditor of the Los Angeles Police Department?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"Report of the Independent Commission on the Los Angeles Police Department\"],[\"Author\", \"Independent Commission on the Los Angeles Police Department (Los Angeles, Calif.)\"],[\"Edition\", \"reprint\"],[\"Publisher\", \"Diane Publishing Company, 1998\"],[\"Length\", \"228 pages\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def check_author(table, author_query):\n    for row in table:\n        if \"Author\" in row[0]:\n            author = row[1]\n            if author_query.lower() in author.lower():\n                return True\n    return False\n\ndef solution(table_data):\n    author_query = \"internal auditor\"\n    answer = check_author(table_data, author_query)\n    return not answer\n```"
+  },
+  {
+    "id": "2ff634ea-ed83-4a91-9fe4-e06bfcf64ffa",
+    "question": "Is it true that The number for Home Patient Center Angioplasty is 101?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Home PatientCenter Angioplasty 101\"],[\"Home PatientCenter Angioplasty 101\"],[\"Home PatientCenter Angioplasty 101\"],[\"Home PatientCenter Angioplasty 101\"]]",
+    "tool_maker_output": "def check_number_of_home_patient_center(table):\n    count = 0\n    for row in table:\n        for item in row:\n            if \"Home PatientCenter Angioplasty 101\" in item:\n                count += 1\n    if count == 4:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = check_number_of_home_patient_center(table_data)\n    return answer\n```"
+  },
+  {
+    "id": "b65cf258-b540-479a-956e-df9927b30ca5",
+    "question": "Is it true that Candida albicans can cause both Superficial Fungal Infections and Systemic Fungal Infections?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [\n    [\"Superficial Fungal Infections\"],\n    [\"Disease\", \"Causative Organisms\", \"Structures Infected\", \"Microscopic Appearance\"],\n    [\"Epidermophytosis (e.g., dhobie itch)\", \"Epidermophyton, (e.g., floccosum)\", \"Inguinal, axillary, and interdigital folds; hairs not affected\", \"Long, wavy, branched, and segmented hyphae and spindle-shaped cells in stratum corneum\"],\n    [\"Favus (tinea favosa)\", \"Trichophyton schoenleinii\", \"Epidermis around a hair; all parts of body; nails\", \"Vertical hyphae and spores in epidermis; sinuous branching mycelium and chains in hairs\"],\n    [\"Ringworm (tinea, otomycosis)\", \"Microsporum (e.g., audouinii)\", \"Horny layer of epidermis and hairs, chiefly of scalp\", \"Fine septate mycelium inside hairs and scales; spores in rows and mosaic plaques on hair surface\"],\n    [\"Trichophyton (e.g., tonsurans)\", \"Hairs of scalp, beard, and other parts; nails\", \"Mycelium of chained cubical elements and threads in and on hairs; often pigmented\"],\n    [\"Thrush and other forms of candidiasis\", \"Candida albicans\", \"Tongue, mouth, throat, vagina, and skin\", \"Yeastlike budding cells and oval thick-walled bodies in lesion\"],\n    [\"Systemic Fungal Infections\"],\n    [\"Aspergillosis\", \"Aspergillus fumigatus\", \"Lungs\", \"Y-shaped branching of septate hyphae\"],\n    [\"Blastomycosis\", \"Blastomyces brasiliensis, B. dermatitidis\", \"Skin and lungs\", \"Yeastlike cells demonstrated in lesion\"],\n    [\"Candidiasis\", \"Candida albicans\", \"Esophagus, lungs, peritoneum, mucous membranes\", \"Small, thin-walled, ovoid cells\"],\n    [\"Coccidioidomycosis\", \"Coccidioides immitis\", \"Respiratory tract\", \"Nonbudding spores containing many endospores, in sputum\"],\n    [\"Cryptococcosis\", \"Cryptococcus neoformans\", \"Meninges, lungs, bone, skin\", \"Yeastlike fungus having gelatinous capsule; demonstrated in spinal fluid\"],\n    [\"Histoplasmosis\", \"Histoplasma capsulatum\", \"Lungs\", \"Oval, budding, uninucleated cells\"]\n]",
+    "tool_maker_output": "```python\ndef check_candida_infections(table_data):\n    for row in table_data:\n        if \"Candida albicans\" in row:\n            if \"Superficial Fungal Infections\" in row or \"Systemic Fungal Infections\" in row:\n                return \"yes\"\n    return \"no\"\n\nsolution = check_candida_infections(table_data)\nprint(solution)\n```"
+  },
+  {
+    "id": "30b87df8-b778-41f8-bef1-c5b145c0698b",
+    "question": "Is it true that There are 56,000,000 Annual Deaths Per Year?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Per Year\", \"56,000,000\"],[\"Per Month\", \"4,679,452.00\"],[\"Per Day\", \"153,424.70\"],[\"Per Hour\", \"6,392.70\"],[\"Per Minute\", \"106.60\"],[\"Per Second\", \"1.80\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    annual_deaths = get_row_by_name(table_data, \"Per Year\")\n    answer = \"yes\" if annual_deaths == \"56,000,000\" else \"no\"\n    return answer\n```"
+  },
+  {
+    "id": "7a7ab715-72e9-409d-9f0a-fe7747882039",
+    "question": "Is it true that Cases of Haemophilus influenzae decreased between 1981 and 1986. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Bacteria\", \"1978-1981\", \"1986\", \"1995\", \"1998-2007\"],\n              [\"Haemophilus influenzae\", \"48%\", \"45%\", \"7%\", \"6.7%\"],\n              [\"Listeria monocytogenes\", \"2%\", \"3%\", \"8%\", \"3.4%\"],\n              [\"Neisseria meningitidis\", \"20%\", \"14%\", \"25%\", \"13.9%\"],\n              [\"Streptococcus agalactiae (group B streptococcus)\", \"3%\", \"6%\", \"12%\", \"18.1%\"],\n              [\"Streptococcus pneumoniae\", \"13%\", \"18%\", \"47%\", \"58%\"],\n              [\"*Nosocomial meningitis is not included; these data include only the 5 major meningeal pathogens.\", \"\", \"\", \"\", \"\"]]\n\n# Answer: yes",
+    "tool_maker_output": "def check_cases_decreased(table, bacteria, year1, year2):\n    for row in table:\n        if row[0] == bacteria:\n            index_year1 = row[0].index(year1)\n            index_year2 = row[0].index(year2)\n            cases_year1 = float(row[index_year1].replace(\"%\", \"\"))\n            cases_year2 = float(row[index_year2].replace(\"%\", \"\"))\n            if cases_year1 > cases_year2:\n                return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    answer = check_cases_decreased(table_data, \"Haemophilus influenzae\", \"1981\", \"1986\")\n    return answer"
+  },
+  {
+    "id": "158cec30-df95-47ab-923b-f981841f4089",
+    "question": "Is it true that Nixons the one is ranked 57. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"PROLOGUE\", \"3\"],[\"1 TWENTY BROAD STREET\", \"21\"],[\"2 DEAR NELSON\", \"28\"],[\"3 TURNING POINT\", \"34\"],[\"4 WASHIN DIRTY DISHES\", \"42\"],[\"5 THE MAN WHO\", \"52\"],[\"NIXONS THE ONE\", \"57\"],[\"1 THE MAN AT THE WILSON DESK\", \"97\"]]",
+    "tool_maker_output": "def check_rank_by_title(table, title_query, rank_query):\n    for row in table:\n        title, rank = row\n        if title.lower() == title_query.lower() and int(rank) == int(rank_query):\n            return True\n    return False\n\ndef solution(table_data):\n    query_title = \"NIXONS THE ONE\"\n    query_rank = \"57\"\n    answer = check_rank_by_title(table_data, query_title, query_rank)\n    return answer"
+  },
+  {
+    "id": "73777c0f-c284-4838-ac24-3499f89cdf4d",
+    "question": "Is it true that LSD is commonly ingested by either snorting or injecting it?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Mode\", \"DMT\", \"LSD\", \"Peyote\", \"Psilocybin\", \"DXM\", \"Ketamine\", \"PCP\", \"Salvia\"],\n              [\"Swallowing as tablets or pills\", \"A\", \"X\", \"A\", \"A\", \"X\", \"X\", \"X\", \"A\"],\n              [\"Swallowing as liquid\", \"A\", \"X\", \"X\", \"A\", \"X\", \"X\", \"A\", \"A\"],\n              [\"Consuming raw or dried\", \"A\", \"A\", \"X\", \"X\", \"A\", \"A\", \"A\", \"X\"],\n              [\"Brewing into tea\", \"X\", \"A\", \"X\", \"X\", \"A\", \"A\", \"A\", \"X\"],\n              [\"Snorting\", \"A\", \"A\", \"A\", \"A\", \"A\", \"X\", \"X\", \"A\"],\n              [\"Injecting\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\", \"X\", \"A\"],\n              [\"Inhaling, vaporizing, or smoking\", \"X\", \"A\", \"A\", \"A\", \"A\", \"A\", \"X\", \"X\"],\n              [\"Absorbing through the lining of the mouth using drug-soaked paper pieces\", \"A\", \"X\", \"A\", \"A\", \"A\", \"A\", \"A\", \"A\"]]",
+    "tool_maker_output": "def check_ingestion_methods(table, drug, methods):\n    for row in table[1:]:\n        if row[0] == methods[0] and row[table[0].index(drug)] == \"A\":\n            return True\n        if row[0] == methods[1] and row[table[0].index(drug)] == \"A\":\n            return True\n    return False\n\ndef solution(table_data):\n    drug = \"LSD\"\n    methods = [\"Snorting\", \"Injecting\"]\n    answer = check_ingestion_methods(table_data, drug, methods)\n    return answer"
+  },
+  {
+    "id": "4aece4e7-4ce6-49b6-8544-a01baf361f5f",
+    "question": "Is it true that Pregnant women with BMI less than 18.5, its recommended then gain 31-50 pounds ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"If before pregnancy, you were...\", \"You should gain...\"],\n              [\"Underweight BMI less than 18.5\", \"50-62 pounds*\"],\n              [\"Normal Weight BMI 18.5-24.9\", \"37-54 pounds\"],\n              [\"Overweight BMI 25.0-29.9\", \"31-50 pounds\"],\n              [\"Obese BMI greater than or equal to 30.0\", \"25-42 pounds\"]]",
+    "tool_maker_output": "def check_weight_gain_recommendation(table, bmi_category, weight_range):\n    for row in table:\n        if row[0].lower() == bmi_category.lower():\n            if weight_range.lower() in row[1].lower():\n                return True\n    return False\n\ndef solution(table_data):\n    bmi_category = \"Underweight BMI less than 18.5\"\n    weight_range = \"31-50 pounds\"\n    answer = check_weight_gain_recommendation(table_data, bmi_category, weight_range)\n    return answer"
+  },
+  {
+    "id": "3ac93843-ce62-4952-9a90-24c157adc7e9",
+    "question": "Is it true that OGTT according to american association diabetes is considered normal if <140 ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Test\", \"Normal\", \"Impaired Glucose Regulation\", \"Diabetes\"],[\"FPG (mg/dL [mmol/L])\", \"<100 (< 5.6)\", \"100a125 (5.6a6.9)\", \"a126 (a7.0)\"],[\"OGTT (mg/dL [mmol/L])\", \"< 140 (<7.8)\", \"140a199 (7.8a11.0)\", \"a200 (a 11.1)\"],[\"HbA1C (%)\", \"< 5.7\", \"5.7a6.4\", \"a 6.5\"]]",
+    "tool_maker_output": "def check_test_result(table, test_name, condition, value):\n    for row in table:\n        if row[0].lower() == test_name.lower():\n            if condition.lower() == \"normal\":\n                normal_range = row[1].split(\" \")[0]\n                if value < float(normal_range):\n                    return True\n            elif condition.lower() == \"impaired glucose regulation\":\n                range_values = row[2].split(\" \")[0].split(\"a\")\n                if value >= float(range_values[0]) and value <= float(range_values[1]):\n                    return True\n            elif condition.lower() == \"diabetes\":\n                range_value = row[3].split(\" \")[0]\n                if value >= float(range_value):\n                    return True\n    return False\n\ndef solution(table_data):\n    test_name = \"OGTT (mg/dL [mmol/L])\"\n    condition = \"normal\"\n    value = 140\n    answer = check_test_result(table_data, test_name, condition, value)\n    return answer"
+  },
+  {
+    "id": "e9a0a127-ec5e-41fe-a076-b3559a07a6c2",
+    "question": "Is it true that Foreign Policy is a domestic issue ?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"International Issues\", \"Domestic Issues\", \"Economic Issues\", \"Social Issues\"],\n              [\"Foreign Policy\", \"Gun Control\", \"Budget & Economy\", \"Education\"],\n              [\"Homeland Security\", \"Crime\", \"Government Reform\", \"Civil Rights\"],\n              [\"War & Peace\", \"Drugs\", \"Tax Reform\", \"Abortion\"],\n              [\"Free Trade\", \"Health Care\", \"Social Security\", \"Families & Children\"],\n              [\"Immigration\", \"Technology\", \"Corporations\", \"Welfare & Poverty\"],\n              [\"Energy & Oil\", \"Environment\", \"Jobs\", \"Principles & Values\"]]",
+    "tool_maker_output": "def check_issue_type(table, issue_type, category):\n    for row in table:\n        if row[0] == issue_type and category in row:\n            return \"yes\"\n    return \"no\"\n\ndef solution(table_data):\n    issue_type = \"Foreign Policy\"\n    category = \"Domestic Issues\"\n    answer = check_issue_type(table_data, issue_type, category)\n    return answer"
+  },
+  {
+    "id": "234dc4a6-670a-4395-9d49-969f8b046d1f",
+    "question": "Is it true that Methotrexate Sodiumis is taken orally?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Routes\", \"Dosage Forms\", \"Strengths\", \"Brand Names\", \"Manufacturer\"],\n              [\"Oral\", \"Tablets\", \"2.5 mg (of methotrexate)*\", \"Methotrexate Sodium Tablets (scored)\", \"\"],\n              [\"\", \"Rheumatrex Dose Pack (scored)\", \"\", \"Dava\", \"\"],\n              [\"\", \"Tablets, film-coated\", \"5 mg (of methotrexate)\", \"Trexall (scored)\", \"Duramed\"],\n              [\"\", \"\", \"7.5 mg (of methotrexate)\", \"Trexall (scored)\", \"Duramed\"],\n              [\"\", \"\", \"10 mg (of methotrexate)\", \"Trexall (scored)\", \"Duramed\"],\n              [\"\", \"\", \"15 mg (of methotrexate)\", \"Trexall (scored)\", \"Duramed\"],\n              [\"Parenteral\", \"For injection\", \"1 g (of methotrexate)*\", \"Methotrexate Sodium for Injection\", \"\"],\n              [\"\", \"Injection\", \"10 mg (of methotrexate) per mL*\", \"Methotrexate Sodium Injection Isotonic\", \"\"],\n              [\"\", \"\", \"25 mg (of methotrexate) per mL*\", \"Methotrexate Sodium Injection Isotonic\", \"\"]]",
+    "tool_maker_output": "def check_route(table, route_query):\n    for row in table:\n        route, _, _, _, _ = row\n        if route.lower() == route_query.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    route_query = \"Oral\"\n    answer = check_route(table_data, route_query)\n    if answer:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "3428e7a6-4df9-4a7b-8cd1-29ceb6e93711",
+    "question": "Is it true that Measles for 2007 Quebec was double of those found in British Columbia in 2010?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Province\", \"Year\", \"Number of cases\", \"Duration (weeks)\", \"Strain\"],\n              [\"2007\", \"94\", \"24\", \"D4\"],\n              [\"2008\", \"53\", \"11\", \"D8\"],\n              [\"2010\", \"82\", \"7\", \"D8table 1 Footnote 2 and H1\"],\n              [\"2011\", \"20\", \"11\", \"D4\"],\n              [\"2011\", \"678\", \"33\", \"D4\"]]",
+    "tool_maker_output": "def get_cases_by_province_and_year(table, province, year):\n    for row in table:\n        if row[0].lower() == province.lower() and row[1].lower() == year.lower():\n            return int(row[2])\n    return None\n\ndef solution(table_data):\n    cases_quebec_2007 = get_cases_by_province_and_year(table_data, \"Quebec\", \"2007\")\n    cases_bc_2010 = get_cases_by_province_and_year(table_data, \"British Columbia\", \"2010\")\n    \n    if cases_quebec_2007 == None or cases_bc_2010 == None:\n        return \"Data not available\"\n    \n    if cases_quebec_2007 == 2 * cases_bc_2010:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "f67f681a-6786-46b0-b633-f9496da91b39",
+    "question": "Is it true that Antigen detection can distinguished 2009 H1N1 influenza from other influenza A viruses?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Influenza Diagnostic Tests\", \"Method\", \"Availability\", \"Typical Processing Time2\", \"Sensitivity3 for 2009 H1N1 influenza\", \"Distinguishes 2009 H1N1 influenza from other influenza A viruses?\"],[\"Rapid influenza diagnostic tests (RIDT)4\", \"Antigen detection\", \"Wide\", \"0.5 hour\", \"10 a 70%\", \"No\"],[\"Direct and indirect immunofluorescence assays (DFA and IFA)5\", \"Antigen detection\", \"Wide\", \"2 a 4 hours\", \"47a93%\", \"No\"],[\"Viral isolation in tissue cell culture\", \"Virus isolation\", \"Limited\", \"2 -10 days\", \"-\", \"Yes 6\"],[\"Nucleic acid amplification tests (including rRT-PCR) 7\", \"RNA detection\", \"Limited8\", \"A 48 a 96 hours [6-8 hours to perform test]\", \"86 a 100%\", \"Yes\"]]",
+    "tool_maker_output": "def check_distinguishes(table, method):\n    for row in table:\n        if row[0].lower() == method.lower():\n            return \"yes\" in row[5].lower()\n    return False\n\ndef solution(table_data):\n    method = \"Antigen detection\"\n    answer = not check_distinguishes(table_data, method)\n    return answer"
+  },
+  {
+    "id": "14a7a7d7-6c0f-4203-a5ae-715bea287518",
+    "question": "Is it true that Fewer people rode the metro on the day of the Trump inaugural than both Obama inaugurals. ?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Day\", \"Metro ridership (whole day)\", \"Metro ridership (as of 11 a.m.)\"],\n              [\"Jan. 20, 2017 (Trump inaugural)\", 570557, 193000],\n              [\"Jan. 21, 2013* (Obama inaugural)\", 782000, 317000],\n              [\"Jan. 20, 2009 (Obama inaugural)\", 1100000, 513000],\n              [\"Jan. 20, 2005 (Bush inaugural)\", 583803, 197000]]",
+    "tool_maker_output": "def compare_metro_ridership(table_data):\n    trump_inaugural_whole_day = 570557\n    obama_2013_whole_day = 782000\n    obama_2009_whole_day = 1100000\n\n    for row in table_data:\n        if \"Trump inaugural\" in row[0]:\n            trump_inaugural_metro_whole_day = row[1]\n            break\n\n    if trump_inaugural_metro_whole_day < obama_2013_whole_day and trump_inaugural_metro_whole_day < obama_2009_whole_day:\n        return \"yes\"\n    else:\n        return \"no\"\nprint(compare_metro_ridership(table_data))"
+  },
+  {
+    "id": "b5a83b37-89d8-48f6-a510-4354696a367a",
+    "question": "Is it true that the federal poverty level for household is greater than $50000?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Persons in Household\", \"2014 Federal Poverty Level threshold 100% FPL\", \"Medicaid eligibility* threshold 138% FPL\", \"CSR* & Premium Cap eligibility threshold 150% FPL\", \"CSR eligibility threshold 250% FPL\", \"PTC* eligibility threshold 400% FPL\"],\n                [\"1\", \"$11,670\", \"$16,105\", \"$17,505\", \"$29,175\", \"$46,680\"],\n                [\"2\", \"$15,730\", \"$21,707\", \"$23,595\", \"$39,325\", \"$62,920\"],\n                [\"3\", \"$19,790\", \"$27,310\", \"$29,685\", \"$49,475\", \"$79,160\"],\n                [\"4\", \"$23,850\", \"$32,913\", \"$35,775\", \"$59,625\", \"$95,400\"],\n                [\"5\", \"$27,910\", \"$38,516\", \"$41,865\", \"$69,775\", \"$111,640\"],\n                [\"6\", \"$31,970\", \"$44,119\", \"$47,955\", \"$79,925\", \"$127,880\"],\n                [\"7\", \"$36,030\", \"$49,721\", \"$54,045\", \"$90,075\", \"$144,120\"],\n                [\"8\", \"$40,090\", \"$55,324\", \"$60,135\", \"$100,225\", \"$160,360\"]]",
+    "tool_maker_output": "def check_poverty_level(table, threshold):\n    for row in table[1:]:\n        for value in row[1:]:\n            if int(value.replace(\"$\", \"\").replace(\",\", \"\")) > threshold:\n                return False\n    return True\n\ndef solution(table_data):\n    threshold = 50000\n    answer = check_poverty_level(table_data, threshold)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "0f20e5f8-2cab-4743-bb83-7413b73eb028",
+    "question": "Is it true that Benlysta Injection, powder, for solution of dosage as 400 mg?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [\n    [\"Name\", \"Dosage\", \"Strength\", \"Route\", \"Labeller\", \"Marketing Start\", \"Marketing End\", \"Region\", \"Image\"],\n    [\"Benlysta\", \"Solution\", \"200 mg / 1 mL\", \"Subcutaneous\", \"Glaxosmithkline Inc\", \"2018-05-14\", \"Not applicable\", \"Canada\", \"\"],\n    [\"Benlysta\", \"Solution\", \"200 mg/1mL\", \"Subcutaneous\", \"GlaxoSmithKline LLC\", \"2017-07-20\", \"Not applicable\", \"US\", \"\"],\n    [\"Benlysta\", \"Injection, powder, lyophilized, for solution\", \"120 mg/1.5mL\", \"Intravenous\", \"GlaxoSmithKline Manufacturing SpA\", \"2011-03-10\", \"2018-03-12\", \"US\", \"\"],\n    [\"Benlysta\", \"Powder, for solution\", \"120 mg / vial\", \"Intravenous\", \"Glaxosmithkline Inc\", \"2011-08-24\", \"Not applicable\", \"Canada\", \"\"],\n    [\"Benlysta\", \"Injection, solution\", \"200 mg\", \"Subcutaneous\", \"Glaxo Smith Kline (Ireland) Limited\", \"2020-12-16\", \"Not applicable\", \"EU\", \"\"],\n    [\"Benlysta\", \"Injection, powder, for solution\", \"400 mg\", \"Intravenous\", \"Glaxo Smith Kline (Ireland) Limited\", \"2016-09-08\", \"Not applicable\", \"EU\", \"\"],\n    [\"Benlysta\", \"Injection, powder, lyophilized, for solution\", \"120 mg/1.5mL\", \"Intravenous\", \"GlaxoSmithKline LLC\", \"2011-03-10\", \"Not applicable\", \"US\", \"\"],\n    [\"Benlysta\", \"Solution\", \"200 mg / 1 mL\", \"Subcutaneous\", \"Glaxosmithkline Inc\", \"Not applicable\", \"Not applicable\", \"Canada\", \"\"],\n    [\"Benlysta\", \"Injection, solution\", \"200 mg\", \"Subcutaneous\", \"Glaxo Smith Kline (Ireland) Limited\", \"2020-12-16\", \"Not applicable\", \"EU\", \"\"],\n    [\"Benlysta\", \"Injection, powder, lyophilized, for solution\", \"400 mg/5mL\", \"Intravenous\", \"GlaxoSmithKline Manufacturing SpA\", \"2011-03-10\", \"2018-03-12\", \"US\", \"\"]\n]",
+    "tool_maker_output": "def check_dosage(table, drug_name, dosage):\n    for row in table:\n        if row[0] == drug_name and row[1] == dosage:\n            return True\n    return False\n\ndef solution(table_data):\n    drug_name = \"Benlysta\"\n    dosage = \"Injection, powder, for solution 400 mg\"\n    answer = check_dosage(table_data, drug_name, dosage)\n    return answer"
+  },
+  {
+    "id": "bd708939-c33d-46db-a0cc-995abc256dad",
+    "question": "Is it true that The budget funds 13% of educational services?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Federal government\", \"22%\"],[\"Educational services; state, local, and private\", \"13\"],[\"Professional, scientific, and technical services\", \"11\"],[\"State government, excluding education and hospitals\", \"11\"],[\"Local government, excluding education and hospitals\", \"11\"]]",
+    "tool_maker_output": "def check_budget_allocation(table, sector, percentage):\n    for row in table:\n        if row[0].lower() == sector.lower() and row[1] == percentage:\n            return True\n    return False\n\ndef solution(table_data):\n    sector = \"Educational services; state, local, and private\"\n    percentage = \"13\"\n    answer = check_budget_allocation(table_data, sector, percentage)\n    return answer"
+  },
+  {
+    "id": "4c084100-1d56-4326-b056-2f239fa65243",
+    "question": "Is it true that THIN Prevalence (95% CI) for Dementia (65+) is higher than that for Parkinsonism (all ages)?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Condition (ages included)\", \"THIN Prevalence (95% CI)\", \"England Prevalence (QOF) (95% CI)\"],\n              [\"Dementia (65+)\", \"4.1 (4.0 to 4.1)\", \"4.3 (4.3 to 4.3)\"],\n              [\"Asthma (all ages)\", \"9.3 (9.3 to 9.3)\", \"5.9 (5.9 to 5.9)\"],\n              [\"CHD (all ages)\", \"3.1 (3.1 to 3.2)\", \"3.2 (3.2 to 3.2)\"],\n              [\"COPD (all ages)\", \"1.9 (1.9 to 1.9)\", \"1.9 (1.9 to 1.9)\"],\n              [\"Depression (18+)\", \"11.3 (11.2 to 11.3)\", \"8.3 (8.3 to 8.3)\"],\n              [\"Diabetes (17+)\", \"6.3 (6.3 to 6.4)\", \"6.6 (6.5 to 6.)\"],\n              [\"Epilepsy (18+)\", \"1.3 (1.2 to 1.3)\", \"0.8 (0.8 to 0.8)\"],\n              [\"Hypertension (all ages)\", \"13.4 (13.4 to 13.5)\", \"13.8 (13.8 to 13.8)\"],\n              [\"Parkinsonism (all ages)\", \"2.0 (1.9 to 2.0)\", \"-\"],\n              [\"SMI (all ages)\", \"0.8 (0.8 to 0.8)\", \"0.9 (0.9 to 0.9)\"],\n              [\"Stroke/TIA (all ages)\", \"1.8 (1.8 to 1.8)\", \"1.7 (1.7 to 1.7)\"]]",
+    "tool_maker_output": "def get_prevalence(table, condition):\n    for row in table:\n        if row[0] == condition:\n            return row[1]\n    return None\n\ndef solution(table_data):\n    dementia_prevalence = get_prevalence(table_data, \"Dementia (65+)\")\n    parkinsonism_prevalence = get_prevalence(table_data, \"Parkinsonism (all ages)\")\n\n    if dementia_prevalence > parkinsonism_prevalence:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "de73ea2d-6c32-47e6-80d4-e9bb83f7e2ea",
+    "question": "Is it true that The number of suicide planes in January is more than double the amount in October?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Oct.\", \"Nov.\", \"Dec.\", \"Jan.\", \"Totals\"],\n              [\"Total planes\", 510, 282, 320, 332, 1444],\n              [\"Suicide planes\", 54, 79, 109, 110, 352],\n              [\"Non-suicide planes\", 456, 203, 211, 222, 1092],\n              [\"Suicide kills\", 36, 51, 76, 68, 231],\n              [\"Non-suicide kills\", 95, 16, 23, 22, 156],\n              [\"Suicide hits\", 18, 28, 33, 42, 121],\n              [\"Non-suicide hits\", 10, 1, 3, 9, 23]]",
+    "tool_maker_output": "def compare_values(table, month1, month2, category):\n    index1 = table[0].index(month1)\n    index2 = table[0].index(month2)\n    category_index = table[0].index(category)\n    \n    value1 = table[table[1].index(\"Suicide planes\")][index1]\n    value2 = table[table[1].index(\"Suicide planes\")][index2]\n    \n    if value2 > (2 * value1):\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = compare_values(table_data, \"Oct.\", \"Jan.\", \"Suicide planes\")\n    return answer\n\nsolution(table_data)"
+  },
+  {
+    "id": "8db75156-e817-435c-80f7-767a28d4c993",
+    "question": "Is it true that DD Machiavellianism for Expression has the same value as DD Narcissism?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Subscale\", \"DD Machiavellianism\", \"DD Narcissism\", \"DD Psychopathy\", \"SOI-R Behavior\", \"SOI-R Attitudes\", \"SOI-R Desire\"],\n               [\"Stress Reduction\", \".276**\", \".320**\", \".371***\", \".114\", \".039\", \".252**\"],\n               [\"Pleasure\", \"a.102\", \".048\", \"a.088\", \"a.108\", \".154\", \".168\"],\n               [\"Physical Desirability\", \"a.207*\", \"a.050\", \"a.203*\", \"a.092\", \"a.103\", \".115\"],\n               [\"Experience Seeking\", \".069\", \".146\", \"a.122\", \"a.125\", \"a.153\", \".063\"],\n               [\"Resources\", \".408***\", \".153\", \".393***\", \".239*\", \".025\", \".314**\"],\n               [\"Reproduction\", \".154\", \".191\", \".260**\", \"a.158\", \"a.204*\", \".048\"],\n               [\"Social Status\", \".467***\", \".360***\", \".389***\", \".194*\", \".025\", \".406***\"],\n               [\"Revenge\", \".368***\", \".199*\", \".320**\", \".267**\", \"a.006\", \".410***\"],\n               [\"Practical\", \".216*\", \".196*\", \".292**\", \".001\", \".059\", \".232*\"],\n               [\"Love & Commitment\", \"a.124\", \".065\", \"a.112\", \"a.161\", \"a.121\", \"a.016\"],\n               [\"Expression\", \".234*\", \".234*\", \".289**\", \".032\", \".003\", \".170\"],\n               [\"Self-Esteem Boost\", \".338***\", \".332**\", \".192\", \".237*\", \".076\", \".359***\"],\n               [\"Duty/Pressure\", \".287**\", \".119\", \".322**\", \".286**\", \"a.001\", \".208*\"],\n               [\"Mate Guarding\", \".333**\", \".347***\", \".308**\", \".183\", \"a.077\", \".271**\"]]",
+    "tool_maker_output": "def get_value_by_subscale(table, subscale, attribute):\n    for row in table:\n        if row[0].lower() == subscale.lower():\n            for i in range(1, len(row)):\n                if attribute.lower() in row[i].lower():\n                    return row[i]\n    return None\n\ndef solution(table_data):\n    machiavellianism_value = get_value_by_subscale(table_data, \"Expression\", \"DD Machiavellianism\")\n    narcissism_value = get_value_by_subscale(table_data, \"Expression\", \"DD Narcissism\")\n    \n    if machiavellianism_value == narcissism_value:\n        return \"yes\"\n    else:\n        return \"no\""
+  },
+  {
+    "id": "a93c6777-f23e-46a3-9ccc-43375940f26f",
+    "question": "Is it true that Methicillin is the traditional antimicrobial therapy for Gonorrhea?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [\n    [\"Type of infection\", \"Causative agent(s)\", \"Traditional antimicrobial therapy\", \"Current estimated community prevalence of resistance\"],\n    [\"Respiratory tract, conjunctivitis, otitis\", \"Streptococcus penumoniae, Haemophilus influenzae, Moraxella catarrhalis\", \"Penicillin\", \"20%a60%, a1420%, a1495%\"],\n    [\"aStrepa throat, impetigo\", \"Streptococcus pyogenes\", \"Penicillin, Erythromycin\", \"45%, 10%a30%\"],\n    [\"Tuberculosis\", \"Mycobacterium tuberculosis\", \"Isoniazid, rifampin\", \"0.7% (for both drugs combined)\"],\n    [\"Gonorrhea\", \"Neisseria gonorrhoeae\", \"Penicillin, Tetracycline\", \"20%a90% 0%a46%\"],\n    [\"Skin and soft tissue, sepsis, pneumonia\", \"Staphylococcus aureus\", \"Methicillin\", \"0.84%, but multiple outbreaks reported\"],\n    [\"Gastrointestinal, diarrhea\", \"Salmonella enteritidis, choleraesuis\", \"Non-typhi species should not be treated with antibiotics\", \"Depends on subtype: multi-drug resistant strains, 1%a25%\"],\n    [\"A\", \"Shigella spp.\", \"Ampicillin, Trimethoprim- sulfamethoxazole\", \"78%, 46%\"],\n    [\"Enteric fever\", \"Salmonella typhi\", \"Fluoroquinolones, Third-generation cephalosporins\", \"25%a40% resistant to one or more agents, 17%a20% resistant to >5 agents\"],\n    [\"Cholera\", \"Vibrio cholerae\", \"Supportive treatment, usually Tetracycline, Ampicillin, Co-trimoxazole\", \"Resistance to at least one agent now >90%\"]\n]",
+    "tool_maker_output": "def check_antimicrobial_therapy(table, infection_query, therapy_query):\n    for row in table:\n        infection, causative_agent, therapy, _ = row\n        if infection.lower() == infection_query.lower() and therapy_query.lower() in therapy.lower():\n            return True\n    return False\n\ndef solution(table_data):\n    infection = \"Gonorrhea\"\n    therapy = \"Methicillin\"\n    answer = check_antimicrobial_therapy(table_data, infection, therapy)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "716a99e8-b5a4-46ec-b23c-eb5cb2738a35",
+    "question": "Is it true that Statistics on legionnaire's shows that hospital exposure had the highest combined number of cases in 2014 & 2015?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Exposure type\", \"No. of cases (%)\", \"2014 + 2015 (n=86)\", \"2014 (n=39)\", \"2015 (n=47)\"],\n                [\"Residence served by Flint water\", \"29 (34)\", \"20 (51)\", \"9 (19)\"],\n                [\"Hospital Exposurea\", \"46 (53)\", \"19 (49)\", \"27 (57)\"],\n                [\"Hospital Aa\", \"42 (49)\", \"17 (44)\", \"25 (53)\"],\n                [\"aInpatientb\", \"37 (88)\", \"14 (82)\", \"23 (92)\"],\n                [\"aOutpatientb\", \"3 (7)\", \"1 (6)\", \"2 (8)\"],\n                [\"aVisitorb\", \"5 (12)\", \"2 (12)\", \"3 (12)\"],\n                [\"Hospital Ba\", \"5 (6)\", \"4 (10)\", \"1 (2)\"],\n                [\"aInpatient\", \"3 (60)\", \"3 (75)\", \"0 (0)\"],\n                [\"aOutpatient\", \"0 (0)\", \"0 (0)\", \"0 (0)\"],\n                [\"aVisitor\", \"2 (40)\", \"1 (25)\", \"1 (100)\"],\n                [\"Hospital C\", \"0 (0)\", \"0 (0)\", \"0 (0)\"]]",
+    "tool_maker_output": "def get_column_index(table, key):\n    headers = table[0]\n    for i, header in enumerate(headers):\n        if header.lower() == key.lower():\n            return i\n    return None\n\ndef get_cell_value(table, row_index, col_index):\n    return table[row_index][col_index]\n\ndef solution(table_data):\n    exposure_index = get_column_index(table_data, \"Exposure type\")\n    total_cases_index = get_column_index(table_data, \"2014 + 2015 (n=86)\")\n    hospital_exposure_cases = get_cell_value(table_data, 2, total_cases_index)\n    for row in table_data[2:]:\n        if \"hospital\" in row[exposure_index].lower():\n            if int(row[total_cases_index].split()[0]) > int(hospital_exposure_cases.split()[0]):\n                return False\n    return True\nprint(solution(table_data))"
+  },
+  {
+    "id": "96b2a166-2026-406d-91d8-c63f9b09c7d0",
+    "question": "Is it true that Information for Women About the Safety of Silicone Breast Implants is found in chapter 1-19?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Table of Contents\", \"skim chapter\"],[\"Front Matter\", \"i-iv\"],[\"Information for Women About the Safety of Silicone Breast Implants\", \"1-19\"],[\"Conclusions\", \"20-20\"],[\"Mammograms and Other Breast Imaging in Women with Implants\", \"21-23\"],[\"Recommendations\", \"24-25\"],[\"A History of Implants\", \"26-30\"]]",
+    "tool_maker_output": "def check_chapter(table, chapter_title, chapter_range):\n    for row in table:\n        title, pages = row\n        if title.lower() == chapter_title.lower() and pages == chapter_range:\n            return True\n    return False\n\ndef solution(table_data):\n    chapter_title = \"Information for Women About the Safety of Silicone Breast Implants\"\n    chapter_range = \"1-19\"\n    answer = check_chapter(table_data, chapter_title, chapter_range)\n    return \"yes\" if answer else \"no\""
+  },
+  {
+    "id": "ad1f29a0-0546-40dc-8752-c3fa77984a4c",
+    "question": "Is it true that More Democrats were represented in the table as of June 2021, than were Republicans in the same time frame?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Party\", \"As of June 2021\"],[\"Democratic Party\", \"41\"],[\"Republican Party\", \"18\"],[\"Vacancies\", \"0\"]]",
+    "tool_maker_output": "def compare_parties(table):\n    democrat_count = 0\n    republican_count = 0\n    for row in table:\n        if row[0] == \"Democratic Party\":\n            democrat_count = int(row[1])\n        elif row[0] == \"Republican Party\":\n            republican_count = int(row[1])\n    \n    if democrat_count > republican_count:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = compare_parties(table_data)\n    return answer"
+  },
+  {
+    "id": "f77ef62d-8286-4dc2-bc95-f90aaa43008c",
+    "question": "Is it true that The Swiss Confederation is part of the Asia Region with a population value of 111,231,274?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Official Country Name:\", \"Swiss Confederation\"],[\"Region (Map name):\", \"Europe\"],[\"Population:\", \"7,283,274\"]]",
+    "tool_maker_output": "def get_value_by_key(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    country_name = get_value_by_key(table_data, \"Official Country Name:\")\n    region = get_value_by_key(table_data, \"Region (Map name):\")\n    population = get_value_by_key(table_data, \"Population:\")\n    \n    answer = False\n    if country_name == \"Swiss Confederation\" and region == \"Europe\" and population == \"7,283,274\":\n        answer = True\n    \n    return answer"
+  },
+  {
+    "id": "ee8d3e53-b1dd-40ab-83eb-19518a2054b5",
+    "question": "Is it true that Introduction to Law Enforcement and Criminal Justice is over 700 pages in length?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Title\", \"Introduction to Law Enforcement and Criminal Justice\"],[\"Authors\", \"Karen M. Hess, Christine Hess Orthmann\"],[\"Edition\", \"10\"],[\"Publisher\", \"Cengage Learning, 2012\"],[\"ISBN\", \"1111138907, 9781111138905\"],[\"Length\", \"640 pages\"],[\"Subjects\", \"Social Science CriminologySocial Science / Criminology\"],[\"Export Citation\", \"BiBTeX EndNote RefMan\"]]",
+    "tool_maker_output": "def get_row_by_name(table, key):\n    for row in table:\n        if row[0].lower() == key.lower():\n            return row[1]\n    return None\n\ndef solution(table_data):\n    title = get_row_by_name(table_data, \"Title\")\n    length = get_row_by_name(table_data, \"Length\")\n    answer = False\n    if length.split()[0] > 700:\n        answer = True\n    return answer\n```"
+  },
+  {
+    "id": "123b976e-ab88-42fe-8280-b7d12229d1fe",
+    "question": "Is it true that Excision and lymph node management are standard treatment options for stage 0 and unresectable stage 3, 4 and recurrent melanoma?",
+    "answer": "no",
+    "table_formatter_output": "table_data = [[\"Stage (TNM Staging Criteria)\", \"Standard Treatment Optionsa\"],\n              [\"Stage 0 melanoma\", \"Excision\"],\n              [\"Stage I melanoma\", \"Excision +/ lymph node management\"],\n              [\"Stage II melanoma\", \"Excision +/ lymph node management\"],\n              [\"Resectable Stage III melanoma\", \"Excision +/ lymph node management\"],\n              [\"Unresectable Stage III, Stage IV, and Recurrent melanoma\", \"Intralesional therapy\"],\n              [\"\", \"Immunotherapy\"],\n              [\"\", \"Signal transduction inhibitors\"],\n              [\"\", \"Chemotherapy\"],\n              [\"\", \"Palliative local therapy\"]]",
+    "tool_maker_output": "def check_standard_treatment_options(table, stage1, treatment1, stage2, treatment2):\n    for row in table:\n        stage, treatment = row\n        if (stage.lower() == stage1.lower() and treatment1.lower() in treatment.lower()) or (stage.lower() == stage2.lower() and treatment2.lower() in treatment.lower()):\n            continue\n        else:\n            return False\n    return True\n\ndef solution(table_data):\n    stage1 = \"Stage 0 melanoma\"\n    treatment1 = \"Excision +/ lymph node management\"\n    stage2 = \"Unresectable Stage III, Stage IV, and Recurrent melanoma\"\n    treatment2 = \"Excision +/ lymph node management\"\n    \n    answer = check_standard_treatment_options(table_data, stage1, treatment1, stage2, treatment2)\n    return answer"
+  },
+  {
+    "id": "f7ec5e03-6a08-4cb1-8f67-259667535212",
+    "question": "Is it true that Part 2 is numbered of 1750-1805?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"Part 1: 1450-1750 Part 2: 1750-1805 Part 3: 1791-1831 Part 4: 1831-1865\"],[\"Part 1: 1450-1750\"],[\"Part 2: 1750-1805\"],[\"Part 3: 1791-1831\"],[\"Part 4: 1831-1865\"]]",
+    "tool_maker_output": "def check_part_number(table, part_number):\n    for row in table:\n        if part_number in row[0]:\n            return True\n    return False\n\ndef solution(table_data):\n    part_number = \"Part 2: 1750-1805\"\n    answer = check_part_number(table_data, part_number)\n    return answer"
+  },
+  {
+    "id": "4cdeb3fb-64da-47da-81d9-2dee2f61c0e8",
+    "question": "Is it true that The total recovered COVID-19 cases is more than 100 times the value of the deceased?",
+    "answer": "yes",
+    "table_formatter_output": "table_data = [[\"COVID-19 cases\", \"Change in last 24 hours\", \"Total\"],[\"9\", \"28\"],[\"1\", \"2684\"],[\"0\", \"26\"]]",
+    "tool_maker_output": "def calculate_outcome_ratio(table):\n    total_recovered = int(table[1][2])\n    deceased = int(table[2][0])\n    if total_recovered > 100 * deceased:\n        return \"yes\"\n    else:\n        return \"no\"\n\ndef solution(table_data):\n    answer = calculate_outcome_ratio(table_data)\n    return answer"
+  }
+]

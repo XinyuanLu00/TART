@@ -1,0 +1,72 @@
+[
+  {
+    "id": "8",
+    "question": "Hannah baked cookies each day for a bake sale. How many more cookies did Hannah bake on Saturday than on Sunday?",
+    "answer": "18",
+    "table_formatter_output": "table_data = [['Day', 'Number of cookies'], ['Friday', 163], ['Saturday', 281], ['Sunday', 263]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef find_min_index(column, with_header=True):\n    column = column[1:] if with_header else column\n    min_value = min(column)\n    return column.index(min_value) + 1 if with_header else column.index(min_value)\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef solution(table_data):\n    column_name = 'Number of cookies'\n    column_1 = get_column_by_name(table_data, column_name)\n    min_index = find_min_index(column_1)\n    column_2 = get_column_by_name(table_data, 'Day')\n    answer = get_column_cell_value(min_index, column_2)\n    return answer"
+  },
+  {
+    "id": "16",
+    "question": "Some friends discussed the sizes of their coin collections. What is the mean of the numbers?",
+    "answer": "84",
+    "table_formatter_output": "table_data = [['Name', 'Number of coins'], ['Braden', 76], ['Camilla', 94], ['Rick', 86], ['Mary', 84], ['Hector', 80], ['Devin', 83], ['Emily', 82], ['Avery', 87]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef find_min_index(column, with_header=True):\n    column = column[1:] if with_header else column\n    min_value = min(column)\n    return column.index(min_value) + 1 if with_header else column.index(min_value)\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef solution(table_data):\n    column_name = 'Number of coins'\n    column_1 = get_column_by_name(table_data, column_name)\n    min_index = find_min_index(column_1)\n    column_2 = get_column_by_name(table_data, 'Name')\n    answer = get_column_cell_value(min_index, column_2)\n    return answer"
+  },
+  {
+    "id": "22",
+    "question": "The employees at Tessa's Construction monitored the number of cracked window panes in each shipment they received. How many shipments had at least 40 cracked window panes but less than 60 cracked window panes?",
+    "answer": "9",
+    "table_formatter_output": "table_data = [['Stem', 'Leaf'], [3, [1]], [4, [0, 0, 1, 5]], [5, [0, 2, 5, 9, 9]], [6, []], [7, [0]], [8, [6]], [9, [0]]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef sum_column(column, with_header=True):\n    column = column[1:] if with_header else column\n    return sum(column)\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Number of donors'\n    column_1 = get_column_by_name(table_data, column_name)\n    total = sum_column(column_1)\n    index_1 = get_row_index_by_value(table_data, 'Bronze')\n    bronze = get_column_cell_value(index_1, column_1)\n    answer = divide(bronze, total)\n    return answer\n\ntable_data = [['Donation level', 'Number of donors'], ['Gold', 15], ['Silver', 68], ['Bronze', 58]]\nprint(solution(table_data))"
+  },
+  {
+    "id": "23",
+    "question": "Samir's class recorded how many cans of food each student collected for their canned food drive. What is the median of the numbers?",
+    "answer": "7",
+    "table_formatter_output": "table_data = [['Name', 'Number of cans of food'], ['Samir', 7], ['Kristen', 4], ['Dakota', 7], ['Jamie', 8], ['Maggie', 9]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef sum_column(column, with_header=True):\n    column = column[1:] if with_header else column\n    return sum(column)\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Number of cans of food'\n    column_1 = get_column_by_name(table_data, column_name)\n    total = sum_column(column_1)\n    index_1 = get_row_index_by_value(table_data, 'Kristen')\n    kristen_cans = get_column_cell_value(index_1, column_1)\n    index_2 = get_row_index_by_value(table_data, 'Dakota')\n    dakota_cans = get_column_cell_value(index_2, column_1)\n    answer = divide(kristen_cans + dakota_cans, total)\n    return answer"
+  },
+  {
+    "id": "25",
+    "question": "Some friends discussed the sizes of their coin collections. Who has the most coins?",
+    "answer": "Hunter",
+    "table_formatter_output": "table_data = [['Name', 'Number of coins'], ['Erica', 646], ['Hunter', 663], ['Damon', 643], ['Larry', 634]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef solution(table_data):\n    column_name = 'Number of coins'\n    column_1 = get_column_by_name(table_data, column_name)\n    index_1 = column_1.index(min(column_1[1:])) + 1\n    column_2 = get_column_by_name(table_data, 'Name')\n    answer = get_column_cell_value(index_1, column_2)\n    return answer\n\ntable_data = [['Name', 'Number of coins'], ['Erica', 646], ['Hunter', 663], ['Damon', 643], ['Larry', 634]]\nprint(solution(table_data))"
+  },
+  {
+    "id": "30",
+    "question": "Some friends played a trivia game and recorded their scores. How many more points did Hannah score than Dustin?",
+    "answer": "650",
+    "table_formatter_output": "table_data = [['Name', 'Score'], ['Hannah', 770], ['Mona', 570], ['Bryan', 886], ['Carly', 223], ['Dustin', 120]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef sum_column(column, with_header=True):\n    column = column[1:] if with_header else column\n    return sum(column)\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Score'\n    column_1 = get_column_by_name(table_data, column_name)\n    total = sum_column(column_1)\n    index_1 = get_row_index_by_value(table_data, 'Carly')\n    carly_score = get_column_cell_value(index_1, column_1)\n    answer = divide(carly_score, total)\n    return answer\n\ntable_data = [['Name', 'Score'], ['Hannah', 770], ['Mona', 570], ['Bryan', 886], ['Carly', 223], ['Dustin', 120]]\nprint(solution(table_data))"
+  },
+  {
+    "id": "31",
+    "question": "How much money does Sidney need to buy a piece of mint chocolate and 7 peanut butter cups?",
+    "answer": "1.47",
+    "table_formatter_output": "table_data = [['peanut butter cup', 0.19], ['gummy bear', 0.10], ['piece of mint chocolate', 0.14], ['piece of licorice', 0.19], ['piece of gum', 0.13]]",
+    "tool_maker_output": "Caption: Candy sales\nTable:\n|| Candy | Sales percentage ||\n|| peanut butter cup | 0.19 ||\n|| gummy bear | 0.10 ||\n|| piece of mint chocolate | 0.14 ||\n|| piece of licorice | 0.19 ||\n|| piece of gum | 0.13 ||\n\nQuestion: A candy store tracked the sales percentage of different candies. Which candy had the highest sales percentage?\n\ndef get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef find_max_index(column, with_header=True):\n    column = column[1:] if with_header else column\n    max_value = max(column)\n    return column.index(max_value) + 1 if with_header else column.index(max_value)\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef solution(table_data):\n    column_name = 'Sales percentage'\n    column_1 = get_column_by_name(table_data, column_name)\n    max_index = find_max_index(column_1)\n    column_2 = get_column_by_name(table_data, 'Candy')\n    answer = get_column_cell_value(max_index, column_2)\n    return answer"
+  },
+  {
+    "id": "46",
+    "question": "Some friends compared the sizes of their stuffed animal collections. What is the mode of the numbers?",
+    "answer": "16",
+    "table_formatter_output": "table_data = [['Name', 'Number of stuffed animals'], ['Evelyn', 16], ['Clarence', 19], ['Hazel', 16], ['Janet', 16], ['Pam', 19]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef sum_column(column, with_header=True):\n    column = column[1:] if with_header else column\n    return sum(column)\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Number of stuffed animals'\n    column_1 = get_column_by_name(table_data, column_name)\n    total = sum_column(column_1)\n    index_1 = get_row_index_by_value(table_data, 'Evelyn')\n    evelyn = get_column_cell_value(index_1, column_1)\n    answer = divide(evelyn, total)\n    return answer"
+  },
+  {
+    "id": "53",
+    "question": "Paula's family went on a road trip and counted the number of cars they saw each day. How many cars in total did they see on Friday and Saturday?",
+    "answer": "323",
+    "table_formatter_output": "table_data = [['Day', 'Number of cars'], ['Thursday', 158], ['Friday', 159], ['Saturday', 164]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef find_min_index(column, with_header=True):\n    column = column[1:] if with_header else column\n    min_value = min(column)\n    return column.index(min_value) + 1 if with_header else column.index(min_value)\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef solution(table_data):\n    column_name = 'Number of cars'\n    column_1 = get_column_by_name(table_data, column_name)\n    min_index = find_min_index(column_1)\n    column_2 = get_column_by_name(table_data, 'Day')\n    answer = get_column_cell_value(min_index, column_2)\n    return answer\n\ntable_data = [['Day', 'Number of cars'], ['Thursday', 158], ['Friday', 159], ['Saturday', 164]]\nprint(solution(table_data))"
+  },
+  {
+    "id": "54",
+    "question": "Look at the table. Then answer the question. At a price of $155, is there a shortage or a surplus?",
+    "answer": "shortage",
+    "table_formatter_output": "table_data = [['Price', 'Quantity demanded', 'Quantity supplied'], ['$155', 22600, 5800], ['$275', 20500, 9400], ['$395', 18400, 13000], ['$515', 16300, 16600], ['$635', 14200, 20200]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Quantity demanded'\n    column_1 = get_column_by_name(table_data, column_name)\n    total_demand = sum(column_1[1:])\n    column_name = 'Quantity supplied'\n    column_2 = get_column_by_name(table_data, column_name)\n    total_supply = sum(column_2[1:])\n    excess_demand = max(total_demand - total_supply, 0)\n    return excess_demand\n\ntable_data = [['Price', 'Quantity demanded', 'Quantity supplied'], ['$155', 22600, 5800], ['$275', 20500, 9400], ['$395', 18400, 13000], ['$515', 16300, 16600], ['$635', 14200, 20200]]\n\nprint(solution(table_data))"
+  }
+]

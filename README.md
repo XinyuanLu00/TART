@@ -16,6 +16,7 @@ The project includes several key components each responsible for a stage in the 
 - `table_formatter/`: Prepares and formats table data for processing.
 - `tool_maker/`: Develops specific computational tools for table manipulation.
 - `explanation_generator/`: Provides clear and understandable explanations of the reasoning outputs.
+- `baselines/`: The baseline methods include CoT, DirectQA and the GPT-3.5-turbo/GPT-4
 - Other directories include scripts for training LLMs (`llama_training`), executing reasoning (`reasoning_executor`), and utility functions (`table_utils.py`).
 
 ### 1. table_formatter

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ETR-2016-page-23-pdf-2",
+    "question": "what is the net change in net revenue during 2015 for entergy corporation?",
+    "gold": "94.0",
+    "table_formatter_output": "table_data = [[\"\", \"amount ( in millions )\"],[\"2014 net revenue\", \"$ 5735\"],[\"retail electric price\", \"187\"],[\"volume/weather\", \"95\"],[\"waterford 3 replacement steam generator provision\", \"-32 ( 32 )\"],[\"miso deferral\", \"-35 ( 35 )\"],[\"louisiana business combination customer credits\", \"-107 ( 107 )\"],[\"other\", \"-14 ( 14 )\"],[\"2015 net revenue\", \"$ 5829\"]]",
+    "tool_maker_output": "def extract_value_from_table(table, row_name):\n    for row in table:\n        if row[0] == row_name:\n            return float(row[1].replace(\"$\", \"\").replace(\",\", \"\"))\n    return None\n\ndef solution(table):\n    answer = extract_value_from_table(table, \"2015 net revenue\")\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "INTC-2015-page-41-pdf-4",
+    "question": "what percentage of total facilities as measured in square feet are leased?",
+    "gold": "0.14464",
+    "table_formatter_output": "table_data = [[\"( square feet in millions )\", \"unitedstates\", \"othercountries\", \"total\"],[\"owned facilities1\", \"30.7\", \"17.2\", \"47.9\"],[\"leased facilities2\", \"2.1\", \"6.0\", \"8.1\"],[\"total facilities\", \"32.8\", \"23.2\", \"56.0\"]]",
+    "tool_maker_output": "def extract_value_from_table(table, row_name, column_name):\n    row_index = [row[0] for row in table].index(row_name)\n    column_index = table[0].index(column_name)\n    return float(table[row_index][column_index])\n\ndef solution(table):\n    answer = extract_value_from_table(table, \"owned facilities1\", \"total\")\n    return answer\n\nprint(solution(table))"
+  },
+  {
+    "id": "ADI-2011-page-61-pdf-2",
+    "question": "what is the percentage change in cash flow hedges in 2011 compare to the 2010?",
+    "gold": "0.09864",
+    "table_formatter_output": "table_data = [[\"statement of income classification\", \"statement of income loss on swaps\", \"statement of income gain on note\", \"statement of income net income effect\", \"statement of income gain on swaps\", \"loss on note\", \"net income effect\"],[\"other income\", \"$ -4614 ( 4614 )\", \"$ 4614\", \"$ 2014\", \"$ 20692\", \"$ -20692 ( 20692 )\", \"$ 2014\"]]",
+    "tool_maker_output": "def get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n        \ndef extract_price(price_string):\n    return float(price_string.replace('$', '').replace(',', '')) \n\ndef get_column_by_index(table, column_index):\n    column = []\n    for row in table:\n        if len(row) > column_index:\n            column.append(row[column_index])\n        else:\n            column.append(None)\n    return column\n\ndef solution(table_data):\n    column_index = get_column_by_index(table_data, 0).index(\"statement of income gain on note\")\n    net_income_effect_row_index = get_row_index_by_value(table_data, \"net income effect\")\n    answer = extract_price(table_data[net_income_effect_row_index][column_index])\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "FIS-2010-page-70-pdf-2",
+    "question": "what portion of total purchase price is related to stock awards?",
+    "gold": "0.02899",
+    "table_formatter_output": "table_data = [[\"value of metavante common stock\", \"$ 4066.4\"],[\"value of metavante stock awards\", \"121.4\"],[\"total purchase price\", \"$ 4187.8\"]]",
+    "tool_maker_output": "def extract_price(price_string):\n    return float(price_string.replace('$', '').replace(',', '')) \n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef solution(table_data):\n    total_purchase_price_row_index = get_row_index_by_value(table_data, \"total purchase price\")\n    total_purchase_price = extract_price(table_data[total_purchase_price_row_index][1])\n    return total_purchase_price\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "MAS-2017-page-27-pdf-2",
+    "question": "what was the difference in percentage cumulative total shareholder return on masco common stock versus the s&p 500 index for the five year period ended 2017?",
+    "gold": "1.1197",
+    "table_formatter_output": "table_data = [[\"\", \"2013\", \"2014\", \"2015\", \"2016\", \"2017\"],[\"masco\", \"$138.48\", \"$155.26\", \"$200.79\", \"$227.08\", \"$318.46\"],[\"s&p 500 index\", \"$132.04\", \"$149.89\", \"$151.94\", \"$169.82\", \"$206.49\"],[\"s&p industrials index\", \"$140.18\", \"$153.73\", \"$149.83\", \"$177.65\", \"$214.55\"],[\"s&p consumer durables & apparel index\", \"$135.84\", \"$148.31\", \"$147.23\", \"$138.82\", \"$164.39\"]]",
+    "tool_maker_output": "def get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0].lower() == row_value.lower():\n            return i\n        \ndef extract_price(price_string):\n    return float(price_string.replace('$', '').replace(',', '')) \n\ndef get_column_by_index(table, column_index):\n    column = []\n    for row in table:\n        if len(row) > column_index:\n            column.append(row[column_index])\n        else:\n            column.append(None)\n    return column\n\ndef subtract(minuend, subtrahend):\n    return minuend - subtrahend\n\ndef calculate_change_rate(start_value, end_value):\n    return ((end_value - start_value) / start_value) \n\ndef solution(table_data):\n    entity_column = get_column_by_index(table_data, 0)\n    masco_row_index = get_row_index_by_value(table_data, \"masco\")\n    sp_500_index_row_index = get_row_index_by_value(table_data, \"s&p 500 index\")\n    masco_final_value = extract_price(table_data[masco_row_index][-1])\n    sp_500_index_final_value = extract_price(table_data[sp_500_index_row_index][-1])\n    masco_growth = calculate_change_rate(extract_price(table_data[masco_row_index][1]), masco_final_value)\n    sp_500_index_growth = calculate_change_rate(extract_price(table_data[sp_500_index_row_index][1]), sp_500_index_final_value)\n    answer = subtract(masco_growth, sp_500_index_growth)\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "SYY-2006-page-71-pdf-1",
+    "question": "what was the percentage change in total rental expense under operating leases from july 2 , 2005 to july 1 , 2006?",
+    "gold": "0.06757",
+    "table_formatter_output": "table_data = [[\"\", \"amount\"],[\"2007\", \"$ 56499000\"],[\"2008\", \"46899000\"],[\"2009\", \"39904000\"],[\"2010\", \"33329000\"],[\"2011\", \"25666000\"],[\"later years\", \"128981000\"]]",
+    "tool_maker_output": "def extract_amount(amount_string):\n    return int(amount_string.replace('$', '').replace(',', '')) \n\ndef get_column_by_index(table, column_index):\n    column = []\n    for row in table:\n        if len(row) > column_index:\n            column.append(row[column_index])\n        else:\n            column.append(None)\n    return column\n\ndef sum_column_values(column):\n    return sum(column)\n\ndef solution(table_data):\n    amount_column = get_column_by_index(table_data, 1)\n    amount_column = [extract_amount(amount) for amount in amount_column[1:]]\n    total_amount = sum_column_values(amount_column)\n    return total_amount\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "AES-2010-page-227-pdf-3",
+    "question": "what percent of total recourse debt is current?",
+    "gold": "0.10039",
+    "table_formatter_output": "table_data = [[\"december 31\", \"annual maturities ( in millions )\"],[\"2011\", \"$ 463\"],[\"2012\", \"2014\"],[\"2013\", \"2014\"],[\"2014\", \"497\"],[\"2015\", \"500\"],[\"thereafter\", \"3152\"],[\"total recourse debt\", \"$ 4612\"]]",
+    "tool_maker_output": "def extract_value_from_table(table, row_name):\n    for row in table:\n        if row[0].lower() == row_name.lower():\n            return float(row[1].replace(\"$\", \"\").replace(\",\", \"\"))\n    return None\n\ndef solution(table):\n    answer = extract_value_from_table(table, \"total recourse debt\")\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "GS-2015-page-188-pdf-2",
+    "question": "what percentage of future minimum rental payments are due in 2018?",
+    "gold": "0.11689",
+    "table_formatter_output": "table_data = [[\"$ in millions\", \"as of december 2015\"],[\"2016\", \"$ 317\"],[\"2017\", \"313\"],[\"2018\", \"301\"],[\"2019\", \"258\"],[\"2020\", \"226\"],[\"2021 - thereafter\", \"1160\"],[\"total\", \"$ 2575\"]]",
+    "tool_maker_output": "def get_row_by_value(table, row_value):\n    for row in table:\n        if row[0] == row_value:\n            return row\n\ndef extract_value(value_string):\n    return float(value_string.replace('$ ', '').replace(',', '')) \n\ndef solution(table_data):\n    total_row = get_row_by_value(table_data, \"total\")\n    total_value = extract_value(total_row[1])\n    return total_value\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "MO-2016-page-19-pdf-1",
+    "question": "did altria outperform the s&p 500?",
+    "gold": "yes",
+    "table_formatter_output": "table_data = [[\"date\", \"altria group inc .\", \"altria group inc . peer group\", \"s&p 500\"],[\"december 2011\", \"$ 100.00\", \"$ 100.00\", \"$ 100.00\"],[\"december 2012\", \"$ 111.77\", \"$ 108.78\", \"$ 115.99\"],[\"december 2013\", \"$ 143.69\", \"$ 135.61\", \"$ 153.55\"],[\"december 2014\", \"$ 193.28\", \"$ 151.74\", \"$ 174.55\"],[\"december 2015\", \"$ 237.92\", \"$ 177.04\", \"$ 176.94\"],[\"december 2016\", \"$ 286.61\", \"$ 192.56\", \"$ 198.09\"]]",
+    "tool_maker_output": "def get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n        \ndef extract_price(price_string):\n    return float(price_string.replace('$', '').replace(',', '')) \n\ndef get_column_by_index(table, column_index):\n    column = []\n    for row in table:\n        if len(row) > column_index:\n            column.append(row[column_index])\n        else:\n            column.append(None)\n    return column\n\ndef subtract(minuend, subtrahend):\n    return minuend - subtrahend\n\ndef calculate_change_rate(start_value, end_value):\n    return ((end_value - start_value) / start_value) \n\ndef solution(table_data):\n    entity_column = get_column_by_index(table_data, 0)\n    altria_row_index = entity_column.index(\"altria group inc .\")\n    peer_group_row_index = entity_column.index(\"altria group inc . peer group\")\n    sp500_row_index = entity_column.index(\"s&p 500\")\n    altria_final_value = extract_price(table_data[altria_row_index][6])\n    peer_group_final_value = extract_price(table_data[peer_group_row_index][6])\n    sp500_final_value = extract_price(table_data[sp500_row_index][6])\n    altria_growth = calculate_change_rate(extract_price(table_data[altria_row_index][1]), altria_final_value)\n    peer_group_growth = calculate_change_rate(extract_price(table_data[peer_group_row_index][1]), peer_group_final_value)\n    sp500_growth = calculate_change_rate(extract_price(table_data[sp500_row_index][1]), sp500_final_value)\n    answer = subtract(altria_growth, max(peer_group_growth, sp500_growth))\n    return answer\n\nprint(solution(table_data))"
+  },
+  {
+    "id": "CMCSA-2015-page-112-pdf-2",
+    "question": "what was the change in unrecognized tax benefits from the end of 2014 to the end of 2015?",
+    "gold": "-35.0",
+    "table_formatter_output": "table_data = [[\"( in millions )\", \"2015\", \"2014\", \"2013\"],[\"balance january 1\", \"$ 1171\", \"$ 1701\", \"$ 1573\"],[\"additions based on tax positions related to the current year\", \"67\", \"63\", \"90\"],[\"additions based on tax positions related to prior years\", \"98\", \"111\", \"201\"],[\"additions from acquired subsidiaries\", \"2014\", \"2014\", \"268\"],[\"reductions for tax positions of prior years\", \"-84 ( 84 )\", \"-220 ( 220 )\", \"-141 ( 141 )\"],[\"reductions due to expiration of statutes of limitations\", \"-41 ( 41 )\", \"-448 ( 448 )\", \"-3 ( 3 )\"],[\"settlements with tax authorities\", \"-75 ( 75 )\", \"-36 ( 36 )\", \"-287 ( 287 )\"],[\"balance december 31\", \"$ 1136\", \"$ 1171\", \"$ 1701\"]]",
+    "tool_maker_output": "def extract_value(value_string):\n    return float(value_string.replace('$', '').replace(',', '').replace(' ', ''))\n\ndef get_column_by_index(table, column_index):\n    column = []\n    for row in table:\n        if len(row) > column_index:\n            column.append(row[column_index])\n        else:\n            column.append(None)\n    return column\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef solution(table_data):\n    year_column = get_column_by_index(table_data, 1)\n    balance_january_1_row_index = get_row_index_by_value(table_data, \"balance january 1\")\n    balance_december_31_row_index = get_row_index_by_value(table_data, \"balance december 31\")\n    balance_january_1_value = extract_value(table_data[balance_january_1_row_index][1])\n    balance_december_31_value = extract_value(table_data[balance_december_31_row_index][1])\n    answer = balance_december_31_value - balance_january_1_value\n    return answer\n\nprint(solution(table_data))"
+  }
+]

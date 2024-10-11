@@ -1,0 +1,86 @@
+Task Description: Given the following table and question, the table_data, generate the python code to solve it.
+------
+'''
+Caption: Train tickets sold
+Table:
+|| Day | Number of tickets ||
+|| Friday | 71 ||
+|| Saturday | 74 ||
+|| Sunday | 75 ||
+|| Monday | 72 ||
+
+Question: The transportation company tracked the number of train tickets sold in the past 4 days. On which day were the fewest train tickets sold?
+'''
+
+table_data = [['Day', 'Number of tickets'], ['Friday', 71], ['Saturday', 74], ['Sunday', 75], ['Monday', 72]]
+
+def get_column_by_name(table, column_name):
+    column_index = table[0].index(column_name)
+    column = []
+    for row in table:
+        column.append(row[column_index])
+    return column
+
+def find_min_index(column, with_header=True):
+    column = column[1:] if with_header else column
+    min_value = min(column)
+    return column.index(min_value) + 1 if with_header else column.index(min_value)
+
+def get_column_cell_value(row_index, column):
+    return column[row_index]
+
+def solution(table_data):
+    column_name = 'Number of tickets'
+    column_1 = get_column_by_name(table_data, column_name)
+    min_index = find_min_index(column_1)
+    column_2 = get_column_by_name(table_data, 'Day')
+    answer = get_column_cell_value(min_index, column_2)
+    return answer
+------
+'''
+Caption: Donor levels
+Table:
+|| Donation level | Number of donors ||
+|| Gold | 15 ||
+|| Silver | 68 ||
+|| Bronze | 58 ||
+
+Question: The Burlington Symphony categorizes its donors as gold, silver, or bronze depending on the amount donated. What fraction of donors are at the bronze level? Simplify your answer.
+'''
+
+table_data = [['Donation level', 'Number of donors'], ['Gold', 15], ['Silver', 68], ['Bronze', 58]]
+
+def get_column_by_name(table, column_name):
+    column_index = table[0].index(column_name)
+    column = []
+    for row in table:
+        column.append(row[column_index])
+    return column
+
+def get_column_cell_value(row_index, column):
+    return column[row_index]
+
+def get_row_index_by_value(table, row_value):
+    for i in range(len(table)):
+        if table[i][0] == row_value:
+            return i
+
+def sum_column(column, with_header=True):
+    column = column[1:] if with_header else column
+    return sum(column)
+
+def divide(numerator, denominator):
+    return numerator / denominator
+
+def solution(table_data):
+    column_name = 'Number of donors'
+    column_1 = get_column_by_name(table_data, column_name)
+    total = sum_column(column_1)
+    index_1 = get_row_index_by_value(table_data, 'Bronze')
+    bronze = get_column_cell_value(index_1, column_1)
+    answer = divide(bronze, total)
+    return answer
+------
+'''
+[[LINEARIZED_TABLE]]
+'''

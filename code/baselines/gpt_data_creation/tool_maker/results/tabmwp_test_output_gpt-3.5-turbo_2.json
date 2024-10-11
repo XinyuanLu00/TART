@@ -1,0 +1,16 @@
+[
+  {
+    "id": "8",
+    "question": "Hannah baked cookies each day for a bake sale. How many more cookies did Hannah bake on Saturday than on Sunday?",
+    "answer": "18",
+    "table_formatter_output": "table_data = [['Day', 'Number of cookies'], ['Friday', 163], ['Saturday', 281], ['Sunday', 263]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef get_column_cell_value(row_index, column):\n    return column[row_index]\n\ndef get_row_index_by_value(table, row_value):\n    for i in range(len(table)):\n        if table[i][0] == row_value:\n            return i\n\ndef solution(table_data):\n    column_name = 'Number of cookies'\n    column_1 = get_column_by_name(table_data, column_name)\n    index_saturday = get_row_index_by_value(table_data, 'Saturday')\n    index_sunday = get_row_index_by_value(table_data, 'Sunday')\n    cookies_saturday = get_column_cell_value(index_saturday, column_1)\n    cookies_sunday = get_column_cell_value(index_sunday, column_1)\n    difference = cookies_saturday - cookies_sunday\n    return difference"
+  },
+  {
+    "id": "16",
+    "question": "Some friends discussed the sizes of their coin collections. What is the mean of the numbers?",
+    "answer": "84",
+    "table_formatter_output": "table_data = [['Name', 'Number of coins'], ['Braden', 76], ['Camilla', 94], ['Rick', 86], ['Mary', 84], ['Hector', 80], ['Devin', 83], ['Emily', 82], ['Avery', 87]]",
+    "tool_maker_output": "def get_column_by_name(table, column_name):\n    column_index = table[0].index(column_name)\n    column = []\n    for row in table:\n        column.append(row[column_index])\n    return column\n\ndef sum_column(column, with_header=True):\n    column = column[1:] if with_header else column\n    return sum(column)\n\ndef divide(numerator, denominator):\n    return numerator / denominator\n\ndef solution(table_data):\n    column_name = 'Number of coins'\n    column_1 = get_column_by_name(table_data, column_name)\n    total = sum_column(column_1)\n    mean = divide(total, len(column_1)-1)\n    return mean"
+  }
+]
